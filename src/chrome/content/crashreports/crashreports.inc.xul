@@ -1,0 +1,6 @@
+        <menuseparator id="nightly-crashreports-separator"/>
+        <menu id="nightly-crashreports-recent" label="&nightly.crashreports.recentlist;" oncommand="crashreports.viewIncident(event);" onclick="checkForMiddleClick(this, event);">
+          <menupopup id="nightly-crashreports-incidents">
+            <menuitem disabled="true" label="&nightly.leaks.loading.label;"/>
+          </menupopup>
+        </menu>
