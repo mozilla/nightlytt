@@ -1,0 +1,25 @@
+<!ENTITY nightly.openprofile.label            "Open Profile Folder">
+
+<!ENTITY nightly.id.copy.label                "Copy Build ID to Clipboard">
+<!ENTITY nightly.id.insert.label              "Insert Build ID into Textbox">
+<!ENTITY nightly.id.insert.tooltip            "Inserts the build identifier into the current text box.">
+
+<!ENTITY nightly.extensions.copy.label        "Copy List of Extensions to Clipboard">
+<!ENTITY nightly.extensions.insert.label      "Insert List of Extensions into Textbox">
+<!ENTITY nightly.appenable.label              "Override compatibility">
+<!ENTITY nightly.enableall.label              "Override all compatibility">
+<!ENTITY nightly.enableall.tooltip            "Overrides compatibility for all listed incompatible add-ons">
+
+<!ENTITY nightly.leakreporter.label           "Analyse Leak Log">
+
+<!ENTITY nightly.options.label                "Options">
+
+<!ENTITY nightly.screenshot.full.label        "Take Screenshot">
+
+<!ENTITY nightly.crashreports.sidebar.title   "Crash Reports Sidebar">
+<!ENTITY nightly.crashreports.copyid          "Copy">
+<!ENTITY nightly.crashreports.id              "ID">
+<!ENTITY nightly.crashreports.date            "Date">
+<!ENTITY nightly.crashreports.recentlist      "Recent Incidents">
+
+<!ENTITY nightly.session.restore              "Restore from last session...">

@@ -1,7 +1,7 @@
-content      nightly                                                  ${extension.chromebase}/content/
-skin         nightly          classic/1.0                             ${extension.chromebase}/skin/
+content      nightly                                                  chrome/content/
+skin         nightly          classic/1.0                             chrome/skin/
 
-locale       nightly          en-US                                   ${extension.chromebase}/locale/en-US/
+locale       nightly          en-US                                   chrome/locale/en-US/
 
 resource     nightly          modules/
 
