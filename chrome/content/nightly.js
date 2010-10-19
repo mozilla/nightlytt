@@ -277,38 +277,20 @@ insensitiveSort: function(a, b) {
   return 0
 },
 
-getExtensionList: function() {
-  var em = Components.classes["@mozilla.org/extensions/manager;1"]
-                     .getService(Components.interfaces.nsIExtensionManager);
-                     
-  var items = em.getItemList(Components.interfaces.nsIUpdateItem.TYPE_EXTENSION, {});
+getExtensionList: function(callback) {
+  Components.utils.import("resource://gre/modules/AddonManager.jsm");  
 
-  if (items.length == 0) {
-    nightly.showAlert("nightly.noextensions.message", []);
-    return null;
-  }
+  AddonManager.getAllAddons(function(addons) {
+    if (!addons.length)
+      nightly.showAlert("nightly.noextensions.message", []);
 
-  var rdfS = Components.classes["@mozilla.org/rdf/rdf-service;1"]
-                       .getService(Components.interfaces.nsIRDFService);
-  var ds = em.datasource;
-  var disabledResource = rdfS.GetResource("http://www.mozilla.org/2004/em-rdf#disabled");
-  var isDisabledResource = rdfS.GetResource("http://www.mozilla.org/2004/em-rdf#isDisabled");
-  var text = [];
-  for (var i = 0; i < items.length; i++) {
-    text[i] = items[i].name + " " + items[i].version;
-    var source = rdfS.GetResource("urn:mozilla:item:" + items[i].id);
-    var disabled = ds.GetTarget(source, disabledResource, true);
-    if (!disabled)
-      disabled = ds.GetTarget(source, isDisabledResource, true);
-    try {
-      disabled=disabled.QueryInterface(Components.interfaces.nsIRDFLiteral);
-      if (disabled.Value=="true")
-        text[i]+=" [DISABLED]";
-    }
-    catch (e) { }
-  }
-  text.sort(nightly.insensitiveSort);
-  return text.join("\n");
+    var strings = addons.map(function(addon) {
+      return addon.name + " " + addon.version
+        + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
+    });
+    strings.sort(nightly.insensitiveSort);
+    callback(strings.join("\n"));
+  });
 },
 
 insertExtensions: function() {
@@ -316,13 +298,14 @@ insertExtensions: function() {
   if (element) {
     var type = element.localName.toLowerCase();
     if ((type == "input") || (type == "textarea")) {
-      var text = nightly.getExtensionList();
-      var newpos = element.selectionStart + text.length;
-      var value = element.value;
-      element.value = value.substring(0, element.selectionStart) + text +
-                      value.substring(element.selectionEnd);
-      element.selectionStart = newpos;
-      element.selectionEnd = newpos;
+      nightly.getExtensionList(function(text) {
+        var newpos = element.selectionStart + text.length;
+        var value = element.value;
+        element.value = value.substring(0, element.selectionStart) + text +
+                        value.substring(element.selectionEnd);
+        element.selectionStart = newpos;
+        element.selectionEnd = newpos;
+      });
       return;
     }
   }
@@ -330,9 +313,10 @@ insertExtensions: function() {
 },
 
 copyExtensions: function() {
-  var text = nightly.getExtensionList();
-  if (text)
-    nightly.copyText(text);
+  nightly.getExtensionList(function(text) {
+    if (text)
+      nightly.copyText(text);
+  });
 },
 
 openProfileDir: function() {
