@@ -44,19 +44,21 @@ function Startup() {
   gItems = window.arguments;
   var list = document.getElementById("addonlist");
   for (var i = 0; i < gItems.length; i++) {
-    gItems[i].QueryInterface(Ci.nsIUpdateItem)
-             .QueryInterface(Ci.nttIAddon);
+    gItems[i].QueryInterface(Ci.nsIUpdateItem);
+    var addon = gItems[i].wrappedJSObject;
     var ri = document.createElement("richlistitem");
-    ri.setAttribute("name", gItems[i].name);
-    ri.setAttribute("version", gItems[i].version);
-    ri.setAttribute("icon", gItems[i].iconURL);
-    ri.setAttribute("secure", gItems[i].isUpdateSecure(false) ? "true" : "false");
-    ri.setAttribute("compatible", gItems[i].isCompatible(false) ? "true" : "false");
+    ri.setAttribute("name", addon.name);
+    ri.setAttribute("version", addon.version);
+    ri.setAttribute("icon", addon.iconURL);
+    ri.setAttribute("secure", addon.isUpdateSecure(false) ? "true" : "false");
+    ri.setAttribute("compatible", addon.isCompatible(false) ? "true" : "false");
+    
     list.appendChild(ri);
   }
 }
 
 function Accept() {
-  for (var i = 0; i < gItems.length; i++)
-    gItems[i].overrideCompatibility(false);
+  for (var i = 0; i < gItems.length; i++) {
+    gItems[i].wrappedJSObject.overrideCompatibility(false);
+  }
 }

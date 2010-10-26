@@ -45,7 +45,7 @@ init: function(event)
   if (Components.interfaces.nsICrashReporter)
   {
     var service = Components.classes["@blueprintit.co.uk/breakpad;1"]
-                            .getService(Components.interfaces.nttIBreakpadService);
+                            .getService().wrappedJSObject;
     
     if (nightly.preferences.getBoolPref("crashreports.recentlist.display"))
     {
@@ -81,7 +81,7 @@ copy: function(event)
 onDatabaseLoaded: function()
 {
   var service = Components.classes["@blueprintit.co.uk/breakpad;1"]
-                          .getService(Components.interfaces.nttIBreakpadService);
+                          .getService().wrappedJSObject;
   
   var incidents = null;
   
@@ -96,7 +96,7 @@ onDatabaseLoaded: function()
     var en = incidents.enumerate();
     while (en.hasMoreElements())
     {
-      var incident = en.getNext().QueryInterface(Components.interfaces.nttIBreakpadIncident);
+      var incident = en.getNext().wrappedJSObject;
       
       var item = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "menuitem");
       item.setAttribute("id", "breakpad-id-"+incident.id);
@@ -119,7 +119,7 @@ popupTooltip: function(event)
   {
     var id = node.id.substring(12);
     var service = Components.classes["@blueprintit.co.uk/breakpad;1"]
-                            .getService(Components.interfaces.nttIBreakpadService);
+                            .getService().wrappedJSObject;
     var incident = service.getIncident(id);
     var label = document.getElementById("nightly-crashreport-tooltip").firstChild;
     label.value=(new Date(incident.date)).toLocaleString();

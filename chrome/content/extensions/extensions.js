@@ -44,7 +44,7 @@ init: function() {
   var pos = gAddonContextMenus.indexOf("menuitem_enable");
   gAddonContextMenus.splice(pos, 0, "menuitem_appenable");
   this.cs = Components.classes["@oxymoronical.com/nightly/addoncompatibility;1"]
-                      .createInstance(Components.interfaces.nttIAddonCompatibilityService);
+                      .createInstance().wrappedJSObject;
 },
 
 initView: function() {
