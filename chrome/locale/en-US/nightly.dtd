@@ -11,10 +11,4 @@
 
 <!ENTITY nightly.screenshot.full.label        "Take Screenshot">
 
-<!ENTITY nightly.crashreports.sidebar.title   "Crash Reports Sidebar">
-<!ENTITY nightly.crashreports.copyid          "Copy">
-<!ENTITY nightly.crashreports.id              "ID">
-<!ENTITY nightly.crashreports.date            "Date">
-<!ENTITY nightly.crashreports.recentlist      "Recent Incidents">
-
 <!ENTITY nightly.session.restore              "Restore from last session...">

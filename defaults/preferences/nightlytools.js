@@ -39,7 +39,4 @@ pref("nightly.idtitle", true);
 
 pref("nightly.showEnableAll", true);
 
-pref("nightly.crashreports.recentlist.display", true);
-pref("nightly.breakpad.searchurl", "http://crash-stats.mozilla.com/report/index/");
-
 pref("extensions.{8620c15f-30dc-4dba-a131-7c5d20cf4a29}.description", "chrome://nightly/locale/nightly.properties");
