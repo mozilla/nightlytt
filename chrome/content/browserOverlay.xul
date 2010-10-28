@@ -39,8 +39,6 @@
 <!DOCTYPE window [
 <!ENTITY % nightlyDTD SYSTEM "chrome://nightly/locale/nightly.dtd">
 %nightlyDTD;
-<!ENTITY % leaksDTD SYSTEM "chrome://nightly/locale/leaks.dtd">
-%leaksDTD;
 ]>
 
 <overlay id="NightlyBrowserOverlay"
@@ -100,8 +98,6 @@
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
 #include "crashreports/crashreports.inc.xul"
         <menuitem id="nightly-crashreports-sidebar" observes="viewCrashReportsSidebar"/>
-        <menuseparator/>
-        <menuitem label="&nightly.leakreporter.label;" oncommand="nightlyApp.detectLeaks(event);" onclick="checkForMiddleClick(this, event);"/>
         <menuseparator/>
         <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
       </menupopup>
