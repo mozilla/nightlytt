@@ -1,8 +1,0 @@
-<!ENTITY dialog.title  "Nightly Tester Tools">
-<!ENTITY dialog.style  "width: 45em">
-
-<!ENTITY title         "Nightly Tester Tools is ignoring add-on compatibility">
-<!ENTITY subtitle      "Nightly Tester Tools can manage add-on compatibility
-                        using a safer method that works on an individual basis.">
-<!ENTITY question      "Do you want to switch to use Nightly Tester Tools to
-                        control compatibility?">

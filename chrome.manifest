@@ -6,7 +6,6 @@ locale       nightly          en-US                                   chrome/loc
 resource     nightly          modules/
 
 # Shared chrome
-overlay      chrome://mozapps/content/extensions/extensions.xul       chrome://nightly/content/extensions/addons.xul
 override     chrome://nightly/content/platform.js                     chrome://nightly/content/winPlatform.js                  os=winnt
 
 style       chrome://browser/content/browser.xul                      chrome://nightly/skin/browser.css
