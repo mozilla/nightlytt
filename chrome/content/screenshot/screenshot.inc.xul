@@ -1,2 +1,0 @@
-        <menuseparator/>
-        <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>

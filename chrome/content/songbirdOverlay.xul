@@ -69,10 +69,10 @@
         <menuitem id="build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
         <menuitem id="list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
-#include "screenshot/screenshot.inc.xul"
+        <menuseparator/>
+        <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
         <menuseparator/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-#include "crashreports/crashreports.inc.xul"
         <menuseparator/>
         <menuitem label="&nightly.leakreporter.label;" oncommand="nightlyApp.detectLeaks(event);" onclick="checkForMiddleClick(this, event);"/>
         <menuseparator/>
