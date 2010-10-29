@@ -39,8 +39,6 @@
 <!DOCTYPE window [
 <!ENTITY % nightlyDTD SYSTEM "chrome://nightly/locale/nightly.dtd">
 %nightlyDTD;
-<!ENTITY % leaksDTD SYSTEM "chrome://nightly/locale/leaks.dtd">
-%leaksDTD;
 ]>
 
 <overlay id="NightlySongbirdOverlay"

@@ -123,7 +123,7 @@ function submitScreenshot()
   data = data.substring(npos+1);
   
   var fd = Cc["@blueprintit.co.uk/multipartformdata;1"]
-             .createInstance(Ci.nttIMultipartFormData);
+             .createInstance().wrappedJSObject;
   fileService.addFormFields(fd);
   fd.addFileData(fileService.getFileFormField(), "screenshot.png", contenttype, encoding, data);
   
