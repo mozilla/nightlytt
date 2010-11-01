@@ -34,26 +34,43 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 var prefs = {
+  nightly: null,
 
-nightly: null,
-
-init: function()
-{
-  var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
-              .getService(Components.interfaces.nsIWindowMediator);
+  init: function() {
+    var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
+                .getService(Components.interfaces.nsIWindowMediator);
               
-  var window = mediator.getMostRecentWindow("navigator:browser");
-  if (!window)
-    window=mediator.getMostRecentWindow("mail:3pane");
-  if (!window)
-    window=mediator.getMostRecentWindow("calendarMainWindow");
-  if (!window)
-    window=mediator.getMostRecentWindow("Songbird:Main");
-  if (window)
-    prefs.nightly=window.nightly;
-}
+    var window = mediator.getMostRecentWindow("navigator:browser");
+    if (!window)
+      window=mediator.getMostRecentWindow("mail:3pane");
+    if (!window)
+      window=mediator.getMostRecentWindow("calendarMainWindow");
+    if (!window)
+      window=mediator.getMostRecentWindow("Songbird:Main");
+    if (window)
+      prefs.nightly=window.nightly;
+  },
+  
+  compatPrefFlipped : function() {
+    document.getElementById("restart-box").hidden = false;
+  },
+
+  restart: function() {
+    var cancelQuit = Components.classes["@mozilla.org/supports-PRBool;1"].
+                     createInstance(Components.interfaces.nsISupportsPRBool);
+    Services.obs.notifyObservers(cancelQuit, "quit-application-requested",
+                                 "restart");
+    if (cancelQuit.data)
+      return; // somebody canceled our quit request
+
+    var appStartup = Components.classes["@mozilla.org/toolkit/app-startup;1"].
+                     getService(Components.interfaces.nsIAppStartup);
+    appStartup.quit(Components.interfaces.nsIAppStartup.eAttemptQuit
+                    | Components.interfaces.nsIAppStartup.eRestart);
+  }
 }
 
 window.addEventListener("load",prefs.init,false);

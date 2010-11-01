@@ -39,6 +39,27 @@
   -moz-box-flex: 1;
 }
 
+.prefgroup {
+  padding-top: 8px;
+}
+
+.button-link {
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  color: -moz-nativehyperlinktext; 
+  cursor: pointer;
+  min-width: 0;
+}
+
+#restart-box {
+  margin-top: 6px;
+  padding: 7px;
+  border: 1px solid limegreen;
+  -moz-border-radius: 4px; 
+}
+
 subpane {
   -moz-binding: url('chrome://nightly/content/options/subpane.xml#subpane');
   padding-left: 2em;

@@ -52,36 +52,50 @@
     <preferences>
       <preference id="idtitle" type="bool" name="nightly.idtitle" onchange="paneTitle.toggled();"/>
       <preference id="title" type="string" name="nightly.templates.title"/>
+      <preference id="extension-compat" type="bool" name="nightly.disableCheckCompatibility"/>
     </preferences>
 
     <script type="application/x-javascript" src="title.js"/>
 
     <stringbundle id="variablesBundle" src="chrome://nightly/locale/variables.properties"/>
+    
+    <groupbox>
+      <caption label="&nightly.paneTitlebar.description;" />
 
-    <description style="padding-bottom: 5px">&nightly.paneTitlebar.description;</description>
+      <checkbox preference="idtitle" style="padding-bottom: 5px" id="enableTitleBar" label="&nightly.customtitle.label;"/>
 
-    <checkbox preference="idtitle" style="padding-bottom: 5px" id="enableTitleBar" label="&nightly.customtitle.label;"/>
+      <hbox style="padding-bottom: 5px" align="center">
+        <label value="&nightly.customtemplate.label;" control="customTitle"/>
+        <textbox preference="title" id="customTitle" flex="1"/>
+      </hbox>
 
-    <hbox style="padding-bottom: 5px" align="center">
-      <label value="&nightly.customtemplate.label;" control="customTitle"/>
-      <textbox preference="title" id="customTitle" flex="1"/>
-    </hbox>
+      <description style="padding-bottom: 5px">&nightly.variables.description;</description>
 
-    <description style="padding-bottom: 5px">&nightly.variables.description;</description>
-
-    <listbox id="varList" flex="1">
-      <listhead>
-        <listheader label="&nightly.variable.label;"/>
-        <listheader label="&nightly.variabledesc.label;"/>
-        <listheader label="&nightly.variablevalue.label;"/>
-      </listhead>
-      <listcols>
-        <listcol style="width: 9em"/>
-        <listcol flex="1"/>
-        <listcol style="width: 15em"/>
-      </listcols>
-    </listbox>
-
+      <listbox id="varList" flex="1">
+        <listhead>
+          <listheader label="&nightly.variable.label;"/>
+          <listheader label="&nightly.variabledesc.label;"/>
+          <listheader label="&nightly.variablevalue.label;"/>
+        </listhead>
+        <listcols>
+          <listcol style="width: 9em"/>
+          <listcol flex="1"/>
+          <listcol style="width: 15em"/>
+        </listcols>
+      </listbox>
+    </groupbox>
+   
+    <vbox class="prefgroup">
+      <checkbox preference="extension-compat" id="check-compat"
+                label="&nightly.compat.label;"
+                oncommand="prefs.compatPrefFlipped();"/>
+      <hbox id="restart-box" hidden="true" align="center">
+        <label value="&nightly.restart.description;"/>
+        <button id="nightly-restart-button" class="button-link"
+                label="&nightly.restart.label;"
+                oncommand="prefs.restart();"/>
+      </hbox>
+    </vbox>
   </prefpane>
 
 </prefwindow>
