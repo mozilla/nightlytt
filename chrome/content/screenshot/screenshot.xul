@@ -49,6 +49,7 @@
 
   <script src="screenshot.js" type="application/x-javascript"/>
   <script src="providers.js" type="application/x-javascript"/>
+  <script src="multipartFormData.js" type="application/x-javascript"/>
   
   <stringbundleset>
     <stringbundle id="bundle" src="chrome://nightly/locale/screenshot.properties"/>

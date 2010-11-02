@@ -35,11 +35,10 @@
  *
  * ***** END LICENSE BLOCK ***** */
  
-const Ci = Components.interfaces;
-const Cc = Components.classes;
-const Cr = Components.results;
+var Ci = Components.interfaces;
+var Cc = Components.classes;
+var Cr = Components.results;
 
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 function NTT_MakeStream(data)
 {
@@ -217,12 +216,4 @@ addFileData: function(name, filename, contenttype, encoding, data)
   this.postdata = null;
   this.length = null;
 },
-
-classDescription: "Nightly Tester Multipart Form Data",
-contractID: "@blueprintit.co.uk/multipartformdata;1",
-classID: Components.ID("{46c8b0c6-216c-41e8-ace2-03d61783e278}"),
-QueryInterface: XPCOMUtils.generateQI([Ci.nsISupports])
 }
-
-function NSGetModule(compMgr, fileSpec)
-  XPCOMUtils.generateModule([MultipartFormData]);
