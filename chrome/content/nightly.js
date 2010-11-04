@@ -338,16 +338,6 @@ openProfileDir: function() {
   }
 },
 
-launch: function(file, args) {
-  var process = Components.classes["@mozilla.org/process/util;1"]
-                    .createInstance(Components.interfaces.nsIProcess);
-  process.init(file);
-  if (args)
-    process.run(false, args, args.length);
-  else
-    process.run(false, null, 0);
-},
-
 alertType: function(type) {
   var directoryService = Components.classes["@mozilla.org/file/directory_service;1"]
                            .getService(Components.interfaces.nsIProperties);
