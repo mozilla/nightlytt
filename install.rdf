@@ -25,7 +25,7 @@
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>4.0a1pre</em:minVersion>
+        <em:minVersion>4.0b1</em:minVersion>
         <em:maxVersion>4.0b8pre</em:maxVersion>
       </Description>
     </em:targetApplication>
@@ -34,7 +34,7 @@
     <em:targetApplication>
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>3.1a1p</em:minVersion>
+        <em:minVersion>3.1a1pre</em:minVersion>
         <em:maxVersion>3.3a1pre</em:maxVersion>
       </Description>
     </em:targetApplication>
