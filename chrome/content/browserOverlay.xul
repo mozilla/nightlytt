@@ -60,10 +60,7 @@
             tooltiptext="&nightly.id.insert.tooltip;"
             oncommand="nightly.insertTemplate('buildid');"/>
   </toolbarpalette>
-  
-  <menupopup id="goPopup">
-    <menuitem id="nightly-session-restore" label="&nightly.session.restore;" insertbefore="endUndoSeparator" oncommand="session.restore()"/>
-  </menupopup>
+
   
   <menupopup id="menu_ToolsPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
