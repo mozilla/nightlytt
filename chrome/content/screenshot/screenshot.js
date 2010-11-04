@@ -132,6 +132,7 @@ function submitScreenshot()
   var referer = ioService.newURI(fileService.getReferer(), "UTF8", null);
   
   var win = getTopWin();
+  win.gBrowser.selectedTab = win.gBrowser.addTab("about:blank");
   var webnav = win.content.QueryInterface(Ci.nsIInterfaceRequestor)
                           .getInterface(Ci.nsIWebNavigation);
   webnav.loadURI(fileService.getSubmissionURL(), Ci.nsIWebNavigation.LOAD_FLAGS_NONE
