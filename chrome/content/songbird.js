@@ -55,17 +55,6 @@ init: function()
   nightly.variables.defaulttitle=nightlyApp.storedTitle;
 },
 
-detectLeaks: function(event)
-{
-  var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                     .getService(Components.interfaces.nsIWindowMediator);
-  var win = wm.getMostRecentWindow("Nightly:LeakReporter");
-  if (win)
-    win.focus();
-  else
-    window.openDialog("chrome://nightly/content/leaks/leaks.xul", "_blank", "chrome,all,dialog=no");
-},
-
 openURL: function(url, event)
 {
   openUILink(url, event, false, true);
@@ -90,3 +79,9 @@ setStandardTitle: function()
 }
 
 }
+
+// songbird doesn't appear to initialize XPCOM components at startup
+try {
+  Components.classes["@mozilla.com/nightly/addoncompatibility;1"].createInstance();
+} catch(e) {}
+

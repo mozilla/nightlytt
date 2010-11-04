@@ -34,7 +34,6 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-Components.utils.import("resource://gre/modules/Services.jsm");
 
 var prefs = {
   nightly: null,
@@ -61,6 +60,8 @@ var prefs = {
   restart: function() {
     var cancelQuit = Components.classes["@mozilla.org/supports-PRBool;1"].
                      createInstance(Components.interfaces.nsISupportsPRBool);
+
+    Components.utils.import("resource://gre/modules/Services.jsm");
     Services.obs.notifyObservers(cancelQuit, "quit-application-requested",
                                  "restart");
     if (cancelQuit.data)

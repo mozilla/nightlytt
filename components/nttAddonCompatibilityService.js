@@ -82,13 +82,35 @@ nttAddonCompatibilityService.prototype = {
                "extensions.checkCompatibility.3.1pre",
                "extensions.checkCompatibility.3.1a",
                "extensions.checkCompatibility.3.1b",
-               "extensions.checkCompatibility.3.1"];
-    }
+               "extensions.checkCompatibility.3.1",
+               "extensions.checkCompatibility.3.2a",
+               "extensions.checkCompatibility.3.3a",
+               "extensions.checkCompatibility.3.3b"];
+   }
+   else if (appInfo.name == "SeaMonkey") {
+     prefs = ["extensions.checkCompatibility",
+              "extensions.checkCompatibility.2.0",
+              "extensions.checkCompatibility.2.1p",
+              "extensions.checkCompatibility.2.1pre",
+              "extensions.checkCompatibility.2.1a",
+              "extensions.checkCompatibility.2.1b",
+              "extensions.checkCompatibility.2.1"];
+   }
+   else if (appInfo.name == "Songbird") {
+     prefs = ["extensions.checkCompatibility",
+              "extensions.checkCompatibility.1.8",
+              "extensions.checkCompatibility.1.9",
+              "extensions.checkCompatibility.1.10"];
+   }
   
     for(var i = 0; i < prefs.length; i++)
       this.prefService.setBoolPref(prefs[i], enable);
   }
 };
 
+var components = [nttAddonCompatibilityService];
+
 if (XPCOMUtils.generateNSGetFactory)
-  var NSGetFactory = XPCOMUtils.generateNSGetFactory([nttAddonCompatibilityService]);
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
+else
+    var NSGetModule = XPCOMUtils.generateNSGetModule(components);

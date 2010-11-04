@@ -48,11 +48,6 @@ init: function()
   nightly.variables.defaulttitle=nightlyApp.storedTitle;
 },
 
-detectLeaks: function(event)
-{
-  this.openURL('chrome://nightly/content/leaks/leaks.xul', event);
-},
-
 openURL: function(url, event)
 {
   openTopWin(url);

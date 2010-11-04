@@ -46,32 +46,12 @@
        
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="suite.js" />
-  <script type="application/x-javascript" src="breakpad/breakpad.js" />
   <script type="application/x-javascript" src="chrome://nightly/content/platform.js" />
-
-  <!-- Sidebar -->
-  <broadcasterset id="mainBroadcasterSet">
-    <broadcaster id="viewCrashReportsSidebar"
-          autoCheck="false" 
-          label="&nightly.crashreports.sidebar.title;"
-          type="checkbox"
-          group="sidebar"
-          sidebarurl="chrome://nightly/content/breakpad/sidebar.xul"
-          oncommand="toggleSidebar('viewCrashReportsSidebar');"/>
-  </broadcasterset>
 
   <keyset id="navKeys">
     <key key="s" modifiers="accel,shift" oncommand="nightly.getScreenshot();"/>
   </keyset>
 
-  <popupset id="mainPopupSet">
-    <tooltip orient="vertical" id="nightly-crashreport-tooltip" onpopupshowing="return crashreports.popupTooltip(event)">
-      <label/>
-    </tooltip>
-    <popup id="nightly-crashreport-context">
-      <menuitem oncommand="crashreports.copy(event)" label="&nightly.crashreports.copyid;"/>
-    </popup>
-  </popupset>
   
   <menupopup id="taskPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertbefore="sep_switchprofile">
@@ -82,10 +62,6 @@
         <menuitem id="list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
         <menuseparator/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-#include "crashreports/crashreports.inc.xul"
-        <menuitem id="nightly-breakpad-sidebar" observes="viewBreakpadSidebar"/>
-        <menuseparator/>
-        <menuitem label="&nightly.leakreporter.label;" oncommand="nightlyApp.detectLeaks(event);"/>
         <menuseparator/>
         <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
       </menupopup>

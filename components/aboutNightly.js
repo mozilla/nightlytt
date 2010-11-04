@@ -3,7 +3,7 @@ const Ci = Components.interfaces;
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
-function AboutNightly() { }
+function AboutNightly() {}
 AboutNightly.prototype = {
     classDescription: "about:nightly",
     contractID: "@mozilla.org/network/protocol/about;1?what=nightly",
@@ -23,4 +23,10 @@ AboutNightly.prototype = {
     }
 };
 
-const NSGetFactory = XPCOMUtils.generateNSGetFactory([AboutNightly]);
+
+var components = [AboutNightly];
+
+if (XPCOMUtils.generateNSGetFactory)
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
+else
+    var NSGetModule = XPCOMUtils.generateNSGetModule(components);
