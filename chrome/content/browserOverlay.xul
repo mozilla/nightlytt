@@ -79,4 +79,21 @@
     </menu>
   </menupopup>
   
+  <vbox id="appmenuPrimaryPane">
+    <menu id="nightly-appmenu" label="Nightly Tester Tools" insertafter="appmenu_webDeveloper">
+      <menupopup onpopupshowing="nightly.menuPopup(event,this);">
+        <menuitem id="build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
+        <menuitem id="build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
+        <menuitem id="list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
+        <menuitem id="list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
+      </menupopup>
+    </menu>
+  </vbox>
+  
 </overlay>
