@@ -7,7 +7,7 @@
 <!ENTITY nightly.paneTitlebar.description     "Titlebar Customization">
 
 <!ENTITY nightly.customtitle.label            "Use custom title">
-<!ENTITY nightly.compat.label                 "Disable addon compatibility checking">
+<!ENTITY nightly.compat.label                 "Force addon compatibility">
 <!ENTITY nightly.restart.description          "Restart for changes to take effect.">
 <!ENTITY nightly.restart.label                "Restart">
 <!ENTITY nightly.customtemplate.label         "Custom title template:">
