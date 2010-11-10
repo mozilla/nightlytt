@@ -54,7 +54,7 @@ var prefs = {
   },
   
   compatPrefFlipped : function() {
-    document.getElementById("restart-box").hidden = false;
+    document.getElementById("restart-box").style.visibility = "visible";
   },
 
   restart: function() {

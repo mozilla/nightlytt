@@ -86,14 +86,16 @@
     </groupbox>
    
     <vbox class="prefgroup">
-      <checkbox preference="extension-compat" id="check-compat"
-                label="&nightly.compat.label;"
-                oncommand="prefs.compatPrefFlipped();"/>
-      <hbox id="restart-box" hidden="true" align="center">
-        <label value="&nightly.restart.description;"/>
-        <button id="nightly-restart-button" class="button-link"
-                label="&nightly.restart.label;"
-                oncommand="prefs.restart();"/>
+      <hbox>
+        <checkbox preference="extension-compat" id="check-compat"
+                  label="&nightly.compat.label;"
+                  oncommand="prefs.compatPrefFlipped();"/>
+        <hbox id="restart-box" style="visibility:hidden;" align="center">
+          <label value="&nightly.restart.description;"/>
+          <button id="nightly-restart-button" class="button-link"
+                  label="&nightly.restart.label;"
+                  oncommand="prefs.restart();"/>
+        </hbox>
       </hbox>
     </vbox>
   </prefpane>
