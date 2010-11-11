@@ -54,12 +54,12 @@
 
   
   <menupopup id="taskPopup">
-    <menu id="nightly-menu" label="Nightly Tester Tools" insertbefore="sep_switchprofile">
+    <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
       <menupopup onpopupshowing="nightly.menuPopup(event,this);">
-        <menuitem id="build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
-        <menuitem id="build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
-        <menuitem id="list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
-        <menuitem id="list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
+        <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
+        <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
+        <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
         <menuseparator/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
         <menuseparator/>

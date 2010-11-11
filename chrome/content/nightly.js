@@ -238,9 +238,9 @@ menuPopup: function(event, menupopup) {
       
     var node=menupopup.firstChild;
     while (node && node.localName!='menuseparator') {
-      if (node.id.substring(node.id.length - 7) == "-insert")
+      if (node.id.indexOf("-insert") != -1)
         node.hidden = !attext;
-      if (node.id.substring(node.id.length - 5) == "-copy")
+      if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
       node=node.nextSibling;
     }
