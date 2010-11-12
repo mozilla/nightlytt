@@ -20,6 +20,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ * Erik Vold <erikvvold@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,12 +36,10 @@
  *
  * ***** END LICENSE BLOCK ***** */
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 function nttAddonCompatibilityService() {
-  this.prefService = Components.classes['@mozilla.org/preferences-service;1']
-                    .getService(Components.interfaces.nsIPrefBranch2);
-                 
-  this.prefService.addObserver("", this, false);
+  Services.prefs.addObserver("", this, false);
 }
 
 nttAddonCompatibilityService.prototype = {
@@ -53,7 +52,7 @@ nttAddonCompatibilityService.prototype = {
     if (topic == "nsPref:changed") {
       switch(data) {
         case "nightly.disableCheckCompatibility":
-          var disable = this.prefService.getBoolPref("nightly.disableCheckCompatibility");
+          var disable = Services.prefs.getBoolPref("nightly.disableCheckCompatibility");
           this.setCompatPrefs(!disable);
           break;
         default:
@@ -73,8 +72,7 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.4.0pre",
                  "extensions.checkCompatibility.4.0p"];
 
-    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-               .getService(Components.interfaces.nsIXULAppInfo);
+    var appInfo = Services.appinfo;
     if (appInfo.name == "Thunderbird") {
       prefs = ["extensions.checkCompatibility",
                "extensions.checkCompatibility.3.0",
@@ -102,9 +100,9 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.1.9",
               "extensions.checkCompatibility.1.10"];
    }
-  
+
     for(var i = 0; i < prefs.length; i++)
-      this.prefService.setBoolPref(prefs[i], enable);
+      Services.prefs.setBoolPref(prefs[i], enable);
   }
 };
 
