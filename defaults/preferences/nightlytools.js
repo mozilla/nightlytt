@@ -39,4 +39,7 @@ pref("nightly.idtitle", true);
 
 pref("nightly.disableCheckCompatibility", false);
 
+pref("nightly.currChangeset", "");
+pref("nightly.prevChangeset", "");
+
 pref("extensions.{8620c15f-30dc-4dba-a131-7c5d20cf4a29}.description", "chrome://nightly/locale/nightly.properties");

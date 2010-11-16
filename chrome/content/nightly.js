@@ -34,6 +34,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 var nightly = {
 
 variables: {
@@ -77,6 +78,10 @@ templates: {
 
 preferences: null,
 
+isTrunk: function() { 
+  return nightly.getRepo().indexOf(nightlyApp.repository) != -1
+},
+
 showAlert: function(id, args) {
    var sbs = Components.classes["@mozilla.org/intl/stringbundle;1"]
                       .getService(Components.interfaces.nsIStringBundleService);
@@ -114,34 +119,14 @@ init: function() {
 
   nightlyApp.init();
   nightly.prefChange("idtitle");
-
-  var lastVersion = 0;
-  try {
-    lastVersion = nightly.preferences.getCharPref("lastVersion");
-    if (lastVersion != "${extension.fullversion}") {
-    }
+  
+  var changeset = nightly.getChangeset();  
+  var currChangeset = nightly.preferences.getCharPref("currChangeset");
+  if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
+    // keep track of previous nightly's changeset for pushlog
+    nightly.preferences.setCharPref("prevChangeset", currChangeset);
+    nightly.preferences.setCharPref("currChangeset", changeset);
   }
-  catch (e) {
-    var checkCompatibility = true;
-    var checkUpdateSecurity = true;
-    if (prefs.prefHasUserValue("extensions.checkCompatibility"))
-      checkCompatibility = prefs.getBoolPref("extensions.checkCompatibility");
-    if (prefs.prefHasUserValue("extensions.checkUpdateSecurity"))
-      checkUpdateSecurity = prefs.getBoolPref("extensions.checkUpdateSecurity");
-    if (!checkCompatibility || !checkUpdateSecurity) {
-      var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                         .getService(Components.interfaces.nsIWindowMediator);
-      var win = wm.getMostRecentWindow("NightlyTester:ConfigWarning");
-      if (win) {
-        win.focus();
-        return;
-      }
-    
-      window.openDialog("chrome://nightly/content/configwarning.xul", "",
-                        "dialog=no,titlebar,centerscreen,resizable=no");
-    }
-  }
-  nightly.preferences.setCharPref("lastVersion", "${extension.fullversion}");
 },
 
 unload: function(pref) {
@@ -195,7 +180,7 @@ generateText: function(template) {
       if (endpos >= 0) {
         var varname = template.substring(pos+2,endpos);
         var varvalue = nightly.getVariable(varname);
-        if (varvalue !== null) {
+        if (varvalue !== null && varvalue !== undefined) {
           template = template.substring(0, pos) + varvalue +
                      template.substring(endpos + 1, template.length);
           start = pos + varvalue.length;
@@ -242,6 +227,10 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
+      if (node.id == 'nightly-pushlog') {
+        node.hidden = !nightly.isTrunk();
+        node.disabled = !nightly.preferences.getCharPref("prevChangeset");
+      }
       node=node.nextSibling;
     }
   }
@@ -371,6 +360,34 @@ launchOptions: function() {
     features = "chrome,titlebar,toolbar,centerscreen,modal";
   }
   openDialog("chrome://nightly/content/options/options.xul", "", features);
+},
+
+getAppIniString : function(section, key) {
+  var directoryService = Components.classes["@mozilla.org/file/directory_service;1"].
+                           getService(Components.interfaces.nsIProperties);
+  var inifile = directoryService.get("CurProcD", Components.interfaces.nsIFile);
+  inifile.append("application.ini");
+  
+  var iniParser = Components.manager.getClassObjectByContractID(
+                    "@mozilla.org/xpcom/ini-parser-factory;1",
+                     Components.interfaces.nsIINIParserFactory)
+                  .createINIParser(inifile);
+  return iniParser.getString(section, key);
+},
+
+getRepo: function() {
+  return nightly.getAppIniString("App", "SourceRepository");
+},
+
+getChangeset: function() {
+  return nightly.getAppIniString("App", "SourceStamp");
+},
+
+openPushlog: function() {
+  var prevChangeset = nightly.preferences.getCharPref("prevChangeset");
+  var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
+    + "&tochange=" + nightly.getChangeset();
+  nightlyApp.openURL(pushlogUrl);
 }
 
 }

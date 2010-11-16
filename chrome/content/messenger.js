@@ -37,6 +37,8 @@
 
 var nightlyApp = {
 
+repository: 'comm-central',
+
 savedSetTitleFromFolder: window.setTitleFromFolder,
 customTitle: '',
 

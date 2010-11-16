@@ -7,6 +7,8 @@
 <!ENTITY nightly.extensions.copy.label        "Copy List of Extensions to Clipboard">
 <!ENTITY nightly.extensions.insert.label      "Insert List of Extensions into Textbox">
 
+<!ENTITY nightly.pushlog.label      "Open Pushlog">
+
 <!ENTITY nightly.options.label                "Options">
 
 <!ENTITY nightly.screenshot.full.label        "Take Screenshot">

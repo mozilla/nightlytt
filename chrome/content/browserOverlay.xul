@@ -70,11 +70,10 @@
         <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
         <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
         <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
-        <menuseparator/>
-        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-        <menuseparator/>
         <menu id="nightly-crashme" label="&nightly.crashme.label;">
           <menupopup id="nightly-crashme-popup">
           <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
@@ -106,11 +105,10 @@
         <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
         <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
         <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
-        <menuseparator/>
-        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-        <menuseparator/>
         <menu id="nightly-crashme" label="&nightly.crashme.label;">
           <menupopup id="nightly-crashme-popup">
           <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"

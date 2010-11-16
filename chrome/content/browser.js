@@ -37,6 +37,8 @@
 
 var nightlyApp = {
 
+repository: 'mozilla-central',
+
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
 init: function()
@@ -51,9 +53,9 @@ init: function()
   document.getElementById("content").addEventListener("DOMTitleChanged",nightlyApp.titleUpdated,false);
 },
 
-openURL: function(url, event)
+openURL: function(url)
 {
-  openUILink(url, event, false, true);
+  gBrowser.selectedTab = gBrowser.addTab(url);
 },
 
 titleUpdated: function()
