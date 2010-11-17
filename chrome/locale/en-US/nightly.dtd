@@ -9,7 +9,9 @@
 
 <!ENTITY nightly.pushlog.label      "Open Pushlog">
 
-<!ENTITY nightly.options.label                "Options">
+<!ENTITY nightly.customize.label              "Customize Titlebar">
+
+<!ENTITY nightly.compatibility.label          "Force Addon Compatibility">
 
 <!ENTITY nightly.screenshot.full.label        "Take Screenshot">
 

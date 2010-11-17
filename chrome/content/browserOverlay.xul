@@ -43,7 +43,11 @@
 
 <overlay id="NightlyBrowserOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-       
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
+  </stringbundleset>
+  
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="browser.js" />
   <script type="application/x-javascript" src="crashme.js" />
@@ -74,6 +78,7 @@
         <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
         <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+        <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
         <menu id="nightly-crashme" label="&nightly.crashme.label;">
           <menupopup id="nightly-crashme-popup">
           <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
@@ -93,7 +98,8 @@
           </menupopup>
         </menu>
         <menuseparator/>
-        <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
+        <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
+                  type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
       </menupopup>
     </menu>
   </menupopup>
@@ -106,6 +112,7 @@
         <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
         <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
         <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
@@ -128,7 +135,8 @@
           </menupopup>
         </menu>
         <menuseparator/>
-        <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
+        <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
+                  type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
       </menupopup>
     </menu>
   </vbox>

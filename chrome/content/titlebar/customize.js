@@ -41,6 +41,18 @@ bundle: null,
 
 init: function()
 {
+  var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
+              .getService(Components.interfaces.nsIWindowMediator);      
+  var window = mediator.getMostRecentWindow("navigator:browser");
+  if (!window)
+    window=mediator.getMostRecentWindow("mail:3pane");
+  if (!window)
+    window=mediator.getMostRecentWindow("calendarMainWindow");
+  if (!window)
+    window=mediator.getMostRecentWindow("Songbird:Main");
+  if (window)
+    paneTitle.nightly=window.nightly;
+
   paneTitle.toggled();
 
   paneTitle.bundle=document.getElementById("variablesBundle");
@@ -79,7 +91,7 @@ addVariable: function(name)
     text="";
   }
   item.appendChild(document.createElement("listcell")).setAttribute('label',text);
-  var value = prefs.nightly.getVariable(name);
+  var value = paneTitle.nightly.getVariable(name);
   if (value==null)
   {
     value="Undefined";

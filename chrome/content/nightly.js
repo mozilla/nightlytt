@@ -76,6 +76,10 @@ variables: {
 templates: {
 },
 
+getString: function(name) {
+  return document.getElementById("nightlyBundle").getString(name);
+},
+
 preferences: null,
 
 isTrunk: function() { 
@@ -222,7 +226,7 @@ menuPopup: function(event, menupopup) {
     }
       
     var node=menupopup.firstChild;
-    while (node && node.localName!='menuseparator') {
+    while (node) {
       if (node.id.indexOf("-insert") != -1)
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
@@ -231,6 +235,8 @@ menuPopup: function(event, menupopup) {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       }
+      if (node.id == 'nightly-compatibility')
+        node.setAttribute("checked", nightly.preferences.getBoolPref("disableCheckCompatibility"));
       node=node.nextSibling;
     }
   }
@@ -339,11 +345,11 @@ getScreenshot: function() {
   window.openDialog("chrome://nightly/content/screenshot/screenshot.xul", "_blank", "chrome,all,dialog=no");
 },
 
-launchOptions: function() {
+openCustomize: function() {
   var wm = Components.classes['@mozilla.org/appshell/window-mediator;1']
                      .getService(Components.interfaces.nsIWindowMediator);
 
-  var win = wm.getMostRecentWindow("NightlyTester:Options");
+  var win = wm.getMostRecentWindow("NightlyTester:Customize");
   if (win) {
     win.focus();
     return;
@@ -359,7 +365,7 @@ launchOptions: function() {
   catch (e) {
     features = "chrome,titlebar,toolbar,centerscreen,modal";
   }
-  openDialog("chrome://nightly/content/options/options.xul", "", features);
+  openDialog("chrome://nightly/content/titlebar/customize.xul", "", features);
 },
 
 getAppIniString : function(section, key) {
@@ -388,7 +394,19 @@ openPushlog: function() {
   var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
     + "&tochange=" + nightly.getChangeset();
   nightlyApp.openURL(pushlogUrl);
-}
+},
+
+toggleCompatibility: function() {
+  var forceCompat = nightly.preferences.getBoolPref("disableCheckCompatibility");
+  nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
+  if (nightlyApp.openNotification) {
+    nightlyApp.openNotification("nightly-compatibility-restart",
+      nightly.getString("nightly.restart.message"),
+      nightly.getString("nightly.restart.label"),
+      nightly.getString("nightly.restart.accesskey"),
+      function() { Application.restart(); });
+  }
+},
 
 }
 

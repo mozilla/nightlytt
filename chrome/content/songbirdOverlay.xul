@@ -63,7 +63,8 @@
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
       <menuseparator/>
-      <menuitem label="&nightly.options.label;" oncommand="nightly.launchOptions();"/>
+      <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
+                type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
     </menupopup>
     </menu>
   </menupopup>

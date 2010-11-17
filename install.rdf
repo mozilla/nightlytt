@@ -18,7 +18,6 @@
     <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
-    <em:optionsURL>chrome://nightly/content/options/options.xul</em:optionsURL>
     <em:homepageURL>http://www.oxymoronical.com/web/firefox/nightly</em:homepageURL>
     
     <!-- Firefox version --> 
