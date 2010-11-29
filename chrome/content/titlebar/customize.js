@@ -97,6 +97,13 @@ addVariable: function(name)
     value="Undefined";
   }
   item.appendChild(document.createElement("listcell")).setAttribute('label',value);
+  item.addEventListener("click", function() {
+    var titlebox = document.getElementById("customTitle");
+    var template = titlebox.value + " ${" + name + "}";
+    titlebox.value = template;
+    // manually set pref, pref change isn't triggered if we just set the value
+    paneTitle.nightly.preferences.setCharPref("templates.title", template);
+  }, true);
   list.appendChild(item);
 },
 

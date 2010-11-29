@@ -41,6 +41,11 @@ repository: 'mozilla-central',
 
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
+get defaultTitle() {
+  var tabbrowser = document.getElementById("content");
+  return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
+},
+
 init: function()
 {
   var brandbundle = document.getElementById("bundle_brand");
@@ -50,7 +55,12 @@ init: function()
   }
   nightly.variables.brandname=brandbundle.getString("brandFullName");
   nightly.variables.defaulttitle=nightlyApp.storedTitle;
-  document.getElementById("content").addEventListener("DOMTitleChanged",nightlyApp.titleUpdated,false);
+
+  var tabbrowser = document.getElementById("content");
+  nightlyApp.oldUpdateTitlebar = tabbrowser.updateTitlebar;
+
+  tabbrowser.updateTitlebar = nightly.updateTitlebar;
+  tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
 },
 
 openURL: function(url)
@@ -72,38 +82,15 @@ openNotification: function(id, message, label, accessKey, callback) {
     message, "urlbar", action, null, options);
 },
 
-titleUpdated: function()
-{
-  if (!gBrowser.mTabbedMode)
-  {
-    gBrowser.updateTitlebar();
-  }
-},
-
-updateTitlebar: function()
-{
-  window.setTimeout("gBrowser.updateTitlebar();", 50);
-},
-
 setCustomTitle: function(title)
 {
-  document.documentElement.setAttribute("titlemodifier",title);
-  document.documentElement.setAttribute("titlemenuseparator"," - ");
-  nightlyApp.updateTitlebar();
-},
-
-setBlankTitle: function()
-{
-  document.documentElement.setAttribute("titlemodifier","");
-  document.documentElement.setAttribute("titlemenuseparator","");
-  nightlyApp.updateTitlebar();
+  document.getElementById("content").ownerDocument.title = title;
 },
 
 setStandardTitle: function()
 {
-  document.documentElement.setAttribute("titlemodifier",nightlyApp.storedTitle);
-  document.documentElement.setAttribute("titlemenuseparator"," - ");
-  nightlyApp.updateTitlebar();
+  var tabbrowser = document.getElementById("content");
+  nightlyApp.oldUpdateTitlebar.call(tabbrowser);
 }
 
 }

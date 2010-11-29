@@ -67,7 +67,7 @@ variables: {
   get os() this.appInfo.OS,
   get processor() this.appInfo.XPCOMABI.split("-")[0],
   get compiler() this.appInfo.XPCOMABI.split("-")[1],
-  defaulttitle: null,
+  get defaulttitle() { return nightlyApp.defaultTitle; },
   profile: null,
   toolkit: "cairo",
   flags: ""
@@ -139,17 +139,18 @@ unload: function(pref) {
 },
 
 prefChange: function(pref) {
-  if ((pref == "idtitle") || (pref == "templates.title")) {
-    if (nightly.preferences.getBoolPref("idtitle")) {
-      var title = nightly.getTemplate("title");
-      if (title && title.length>0)
-        nightlyApp.setCustomTitle(nightly.generateText(title));
-      else
-        nightlyApp.setBlankTitle();
-    }
-    else {
-      nightlyApp.setStandardTitle();
-    }
+  if ((pref == "idtitle") || (pref == "templates.title"))
+    nightly.updateTitlebar();
+},
+
+updateTitlebar: function()
+{
+  if (nightly.preferences.getBoolPref("idtitle")) {
+    var title = nightly.getTemplate("title");
+    nightlyApp.setCustomTitle(nightly.generateText(title));
+  }
+  else {
+    nightlyApp.setStandardTitle();
   }
 },
 
