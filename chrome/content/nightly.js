@@ -216,6 +216,53 @@ copyTemplate: function(template) {
   nightly.copyText(nightly.generateText(nightly.getTemplate(template)));
 },
 
+pastebin: function (content) {
+  var postdata = "paste_code=" + encodeURIComponent(content);
+  var request = new XMLHttpRequest();
+  request.open("POST","http://pastebin.com/api_public.php", true);
+  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.setRequestHeader("Content-length", postdata.length);
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4 ) {
+      if (request.status==200)
+        nightlyApp.openURL(request.responseText);
+    }
+  };
+  request.send(postdata);
+},
+
+parseHTML: function(url, callback) {
+  var frame = document.getElementById("sample-frame");
+  if (!frame)
+    frame = document.createElement("iframe");
+  
+  frame.setAttribute("id", "sample-frame");
+  frame.setAttribute("name", "sample-frame");
+  frame.setAttribute("type", "content");
+  frame.setAttribute("collapsed", "true");
+  document.getElementById("main-window").appendChild(frame);
+
+  frame.addEventListener("load", function (event) {
+    var doc = event.originalTarget;
+    if (doc.location.href == "about:blank" || doc.defaultView.frameElement)
+      return;
+
+    setTimeout(function () {  // give enough time for js to populate page
+      callback(doc);
+    }, 800);
+  }, true);
+  frame.contentDocument.location.href = url;
+},
+
+pastebinAboutSupport: function() {
+  nightly.parseHTML("about:support", function(doc) {
+    var contents = doc.getElementById("contents");
+    var text = nightlyPPrint.createTextForElement(contents);
+    nightly.pastebin(text);
+  });
+},
+
 menuPopup: function(event, menupopup) {
   if (menupopup == event.target) {
     var attext = false;

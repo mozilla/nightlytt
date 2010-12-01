@@ -48,11 +48,11 @@
     <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
   </stringbundleset>
   
-  <script type="application/x-javascript" src="nightly.js" />
-  <script type="application/x-javascript" src="browser.js" />
-  <script type="application/x-javascript" src="crashme.js" />
-  <script type="application/x-javascript" src="session/session.js" />
-  <script type="application/x-javascript" src="chrome://nightly/content/platform.js" />
+  <script type="text/javascript" src="nightly.js" />
+  <script type="text/javascript" src="browser.js" />
+  <script type="text/javascript" src="crashme.js" />
+  <script type="text/javascript" src="pprint.js" />
+  <script type="text/javascript" src="chrome://nightly/content/platform.js" />
 
   <keyset id="mainKeyset">
     <key key="s" modifiers="accel,shift" oncommand="nightly.getScreenshot();"/>
@@ -74,6 +74,9 @@
         <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
         <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem id="nightly-aboutsupport" label="&nightly.extensions.aboutsup.label;"
+                  oncommand="nightly.pastebinAboutSupport();"/>
+        <menuseparator/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
         <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
@@ -111,6 +114,9 @@
         <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
         <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
         <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem id="nightly-aboutsupport" label="&nightly.extensions.aboutsup.label;"
+                  oncommand="nightly.pastebinAboutSupport();"/>
+        <menuseparator/>
         <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
         <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
         <menuseparator/>
