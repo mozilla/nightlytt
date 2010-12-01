@@ -7,6 +7,9 @@
     <em:version>2.5.1</em:version>
     <em:type>2</em:type>
     
+    <!-- Need unpacking for crashme binary components -->
+    <em:unpack>true</em:unpack>
+
     <!-- Front End MetaData -->
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
