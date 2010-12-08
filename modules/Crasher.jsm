@@ -43,7 +43,6 @@ XPCOMUtils.defineLazyGetter(Crasher, "crash", function () {
                .getService(Components.interfaces.nsIXULRuntime);
     file.append(xr.OS + "_" + xr.XPCOMABI);
     file.append(ctypes.libraryName("crashme"));
-    dump(file.path);
   }
   var lib = ctypes.open(file.path);
   return lib.declare("Crash", ctypes.default_abi, ctypes.bool, ctypes.int32_t);
