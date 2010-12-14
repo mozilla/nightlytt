@@ -34,6 +34,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 function nttAddonCompatibilityService() {
@@ -41,6 +42,11 @@ function nttAddonCompatibilityService() {
                     .getService(Components.interfaces.nsIPrefBranch2);
                  
   this.prefService.addObserver("", this, false);
+
+  // reset prefs in case new app version is added
+  var disable = this.prefService.getBoolPref("nightly.disableCheckCompatibility");
+  if(disable)
+    this.setCompatPrefs(!disable);
 }
 
 nttAddonCompatibilityService.prototype = {
