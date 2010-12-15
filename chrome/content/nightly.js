@@ -84,6 +84,7 @@ preferences: null,
 
 isTrunk: function() { 
   return nightly.getRepo().indexOf(nightlyApp.repository) != -1
+    && nightly.variables.version.indexOf("pre") != -1;
 },
 
 showAlert: function(id, args) {
