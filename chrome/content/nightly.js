@@ -501,5 +501,13 @@ try { // import ctypes for determining wether to show crashme menu item
 }
 catch(e) {}
 
+
+// register addon pref listeners
+try {
+  Components.classes["@mozilla.com/nightly/addoncompatibility;1"].createInstance();
+}
+catch(e) {}
+
+
 window.addEventListener("load", nightly.init, false);
 window.addEventListener("unload", nightly.unload, false);
