@@ -284,6 +284,8 @@ menuPopup: function(event, menupopup) {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       }
+      if (node.id == 'nightly-crashme')
+        node.hidden = !ctypes.libraryName;
       if (node.id == 'nightly-compatibility')
         node.setAttribute("checked", nightly.preferences.getBoolPref("disableCheckCompatibility"));
       node=node.nextSibling;
@@ -493,6 +495,11 @@ toggleCompatibility: function() {
 },
 
 }
+
+try { // import ctypes for determining wether to show crashme menu item
+  Components.utils.import("resource://gre/modules/ctypes.jsm"); 
+}
+catch(e) {}
 
 window.addEventListener("load", nightly.init, false);
 window.addEventListener("unload", nightly.unload, false);
