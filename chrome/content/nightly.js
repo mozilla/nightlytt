@@ -321,19 +321,54 @@ insensitiveSort: function(a, b) {
 },
 
 getExtensionList: function(callback) {
-  Components.utils.import("resource://gre/modules/AddonManager.jsm");  
+  try {
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");  
 
-  AddonManager.getAllAddons(function(addons) {
-    if (!addons.length)
-      nightly.showAlert("nightly.noextensions.message", []);
+    AddonManager.getAllAddons(function(addons) {
+      if (!addons.length)
+        nightly.showAlert("nightly.noextensions.message", []);
 
-    var strings = addons.map(function(addon) {
-      return addon.name + " " + addon.version
-        + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
+      var strings = addons.map(function(addon) {
+        return addon.name + " " + addon.version
+          + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
+      });
+      strings.sort(nightly.insensitiveSort);
+      callback(strings.join("\n"));
     });
-    strings.sort(nightly.insensitiveSort);
-    callback(strings.join("\n"));
-  });
+  } catch(e) {
+    // old extension manager API - take out after Firefox 3.6 support dropped
+    var em = Components.classes["@mozilla.org/extensions/manager;1"]
+                       .getService(Components.interfaces.nsIExtensionManager);
+
+    var items = em.getItemList(Components.interfaces.nsIUpdateItem.TYPE_EXTENSION, {});
+
+    if (items.length == 0) {
+      nightly.showAlert("nightly.noextensions.message", []);
+      return null;
+    }
+
+    var rdfS = Components.classes["@mozilla.org/rdf/rdf-service;1"]
+                         .getService(Components.interfaces.nsIRDFService);
+    var ds = em.datasource;
+    var disabledResource = rdfS.GetResource("http://www.mozilla.org/2004/em-rdf#disabled");
+    var isDisabledResource = rdfS.GetResource("http://www.mozilla.org/2004/em-rdf#isDisabled");
+    var text = [];
+    for (var i = 0; i < items.length; i++) {
+      text[i] = items[i].name + " " + items[i].version;
+      var source = rdfS.GetResource("urn:mozilla:item:" + items[i].id);
+      var disabled = ds.GetTarget(source, disabledResource, true);
+      if (!disabled)
+        disabled = ds.GetTarget(source, isDisabledResource, true);
+      try {
+        disabled=disabled.QueryInterface(Components.interfaces.nsIRDFLiteral);
+        if (disabled.Value=="true")
+          text[i]+=" [DISABLED]";
+      }
+      catch (e) { }
+      text.sort(nightly.insensitiveSort);
+      callback(text.join("\n"));
+    }
+  }
 },
 
 insertExtensions: function() {
