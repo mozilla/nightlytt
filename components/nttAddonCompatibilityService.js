@@ -43,10 +43,7 @@ function nttAddonCompatibilityService() {
                  
   this.prefService.addObserver("", this, false);
 
-  // reset prefs in case new app version is added
-  var disable = this.prefService.getBoolPref("nightly.disableCheckCompatibility");
-  if(disable)
-    this.setCompatPrefs(!disable);
+  this.setCompatPrefs();
 }
 
 nttAddonCompatibilityService.prototype = {
@@ -59,8 +56,7 @@ nttAddonCompatibilityService.prototype = {
     if (topic == "nsPref:changed") {
       switch(data) {
         case "nightly.disableCheckCompatibility":
-          var disable = this.prefService.getBoolPref("nightly.disableCheckCompatibility");
-          this.setCompatPrefs(!disable);
+          this.setCompatPrefs();
           break;
         default:
           break;
@@ -68,7 +64,7 @@ nttAddonCompatibilityService.prototype = {
     }
   },
 
-  setCompatPrefs : function(enable) {
+  setCompatPrefs : function() {
     var prefs = ["extensions.checkCompatibility",
                  "extensions.checkCompatibility.3.6b",
                  "extensions.checkCompatibility.3.6",
@@ -77,7 +73,8 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.3.7a",
                  "extensions.checkCompatibility.4.0b",
                  "extensions.checkCompatibility.4.0pre",
-                 "extensions.checkCompatibility.4.0p"];
+                 "extensions.checkCompatibility.4.0p",
+                 "extensions.checkCompatibility.4.0"];
 
     var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
                .getService(Components.interfaces.nsIXULAppInfo);
@@ -92,8 +89,8 @@ nttAddonCompatibilityService.prototype = {
                "extensions.checkCompatibility.3.2a",
                "extensions.checkCompatibility.3.3a",
                "extensions.checkCompatibility.3.3b"];
-   }
-   else if (appInfo.name == "SeaMonkey") {
+    }
+    else if (appInfo.name == "SeaMonkey") {
      prefs = ["extensions.checkCompatibility",
               "extensions.checkCompatibility.2.0",
               "extensions.checkCompatibility.2.1p",
@@ -101,14 +98,15 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.2.1a",
               "extensions.checkCompatibility.2.1b",
               "extensions.checkCompatibility.2.1"];
-   }
-   else if (appInfo.name == "Songbird") {
+    }
+    else if (appInfo.name == "Songbird") {
      prefs = ["extensions.checkCompatibility",
               "extensions.checkCompatibility.1.8",
               "extensions.checkCompatibility.1.9",
               "extensions.checkCompatibility.1.10"];
-   }
-  
+    }
+
+    var enable = !this.prefService.getBoolPref("nightly.disableCheckCompatibility");
     for(var i = 0; i < prefs.length; i++)
       this.prefService.setBoolPref(prefs[i], enable);
   }
