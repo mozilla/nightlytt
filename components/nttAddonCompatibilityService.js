@@ -43,7 +43,8 @@ function nttAddonCompatibilityService() {
                  
   this.prefService.addObserver("", this, false);
 
-  this.setCompatPrefs();
+  if(this.prefService.getBoolPref("nightly.disableCheckCompatibility"))
+    this.setCompatPrefs();
 }
 
 nttAddonCompatibilityService.prototype = {
