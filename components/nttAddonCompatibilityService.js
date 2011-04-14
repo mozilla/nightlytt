@@ -75,7 +75,14 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.4.0b",
                  "extensions.checkCompatibility.4.0pre",
                  "extensions.checkCompatibility.4.0p",
-                 "extensions.checkCompatibility.4.0"];
+                 "extensions.checkCompatibility.4.2a",
+                 "extensions.checkCompatibility.4.2a1",
+                 "extensions.checkCompatibility.4.2a1pre",
+                 "extensions.checkCompatibility.4.2",
+                 "extensions.checkCompatibility.4.2b",
+                 "extensions.checkCompatibility.5.0",
+                 "extensions.checkCompatibility.6.0",
+                 "extensions.checkCompatibility.7.0"];
 
     var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
                .getService(Components.interfaces.nsIXULAppInfo);
@@ -98,7 +105,9 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.2.1pre",
               "extensions.checkCompatibility.2.1a",
               "extensions.checkCompatibility.2.1b",
-              "extensions.checkCompatibility.2.1"];
+              "extensions.checkCompatibility.2.1",
+              "extensions.checkCompatibility.2.2a",
+              "extensions.checkCompatibility.2.2b"];
     }
     else if (appInfo.name == "Songbird") {
      prefs = ["extensions.checkCompatibility",
