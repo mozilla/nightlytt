@@ -81,8 +81,14 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.4.2",
                  "extensions.checkCompatibility.4.2b",
                  "extensions.checkCompatibility.5.0",
+                 "extensions.checkCompatibility.5.0a",
+                 "extensions.checkCompatibility.5.0b",
                  "extensions.checkCompatibility.6.0",
-                 "extensions.checkCompatibility.7.0"];
+                 "extensions.checkCompatibility.6.0a",
+                 "extensions.checkCompatibility.6.0b",
+                 "extensions.checkCompatibility.7.0",
+                 "extensions.checkCompatibility.7.0a",
+                 "extensions.checkCompatibility.7.0b"];
 
     var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
                .getService(Components.interfaces.nsIXULAppInfo);
