@@ -88,7 +88,8 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.6.0b",
                  "extensions.checkCompatibility.7.0",
                  "extensions.checkCompatibility.7.0a",
-                 "extensions.checkCompatibility.7.0b"];
+                 "extensions.checkCompatibility.7.0b",
+                 "extensions.checkCompatibility.nightly"];
 
     var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
                .getService(Components.interfaces.nsIXULAppInfo);
@@ -102,7 +103,9 @@ nttAddonCompatibilityService.prototype = {
                "extensions.checkCompatibility.3.1",
                "extensions.checkCompatibility.3.2a",
                "extensions.checkCompatibility.3.3a",
-               "extensions.checkCompatibility.3.3b"];
+               "extensions.checkCompatibility.7.0a",
+               "extensions.checkCompatibility.7.0b",
+               "extensions.checkCompatibility.nightly"];
     }
     else if (appInfo.name == "SeaMonkey") {
      prefs = ["extensions.checkCompatibility",
@@ -113,7 +116,10 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.2.1b",
               "extensions.checkCompatibility.2.1",
               "extensions.checkCompatibility.2.2a",
-              "extensions.checkCompatibility.2.2b"];
+              "extensions.checkCompatibility.2.2b",
+              "extensions.checkCompatibility.2.4a",
+              "extensions.checkCompatibility.2.4b",
+              "extensions.checkCompatibility.nightly"];
     }
     else if (appInfo.name == "Songbird") {
      prefs = ["extensions.checkCompatibility",
