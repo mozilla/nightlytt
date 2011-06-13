@@ -4,9 +4,12 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{8620c15f-30dc-4dba-a131-7c5d20cf4a29}</em:id>
-    <em:version>2.5.1</em:version>
+    <em:version>3.1.7.1</em:version>
     <em:type>2</em:type>
     
+    <!-- Need unpacking for crashme binary components -->
+    <em:unpack>true</em:unpack>
+
     <!-- Front End MetaData -->
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
@@ -18,15 +21,14 @@
     <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
-    <em:optionsURL>chrome://nightly/content/options/options.xul</em:optionsURL>
     <em:homepageURL>http://www.oxymoronical.com/web/firefox/nightly</em:homepageURL>
     
     <!-- Firefox version --> 
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>4.0b1</em:minVersion>
-        <em:maxVersion>4.0b8pre</em:maxVersion>
+        <em:minVersion>3.6</em:minVersion>
+        <em:maxVersion>7.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     
@@ -34,8 +36,8 @@
     <em:targetApplication>
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>3.1a1pre</em:minVersion>
-        <em:maxVersion>3.3a1pre</em:maxVersion>
+        <em:minVersion>3.1</em:minVersion>
+        <em:maxVersion>7.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -44,7 +46,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1a1pre</em:minVersion>
-        <em:maxVersion>2.1b2pre</em:maxVersion>
+        <em:maxVersion>2.4a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 	
@@ -54,6 +56,17 @@
         <em:id>songbird@songbirdnest.com</em:id>
         <em:minVersion>1.6</em:minVersion>
         <em:maxVersion>1.10.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    
+    <!-- Toolkit version -->
+    <!-- this section would in theory be enough, except that AMO
+	 (as opposed to about:addons) ignores it completely. -->
+    <em:targetApplication>
+      <Description>
+        <em:id>toolkit@mozilla.org</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>7.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
     

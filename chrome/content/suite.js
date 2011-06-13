@@ -36,6 +36,8 @@
  * ***** END LICENSE BLOCK ***** */
 
 var nightlyApp = {
+  
+repository: 'comm-central',
 
 init: function()
 {

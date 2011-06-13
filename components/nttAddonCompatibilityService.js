@@ -35,11 +35,15 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 function nttAddonCompatibilityService() {
   Services.prefs.addObserver("", this, false);
+
+  if(Services.prefs.getBoolPref("nightly.disableCheckCompatibility"))
+    this.setCompatPrefs();
 }
 
 nttAddonCompatibilityService.prototype = {
@@ -52,8 +56,7 @@ nttAddonCompatibilityService.prototype = {
     if (topic == "nsPref:changed") {
       switch(data) {
         case "nightly.disableCheckCompatibility":
-          var disable = Services.prefs.getBoolPref("nightly.disableCheckCompatibility");
-          this.setCompatPrefs(!disable);
+          this.setCompatPrefs();
           break;
         default:
           break;
@@ -61,7 +64,7 @@ nttAddonCompatibilityService.prototype = {
     }
   },
 
-  setCompatPrefs : function(enable) {
+  setCompatPrefs : function() {
     var prefs = ["extensions.checkCompatibility",
                  "extensions.checkCompatibility.3.6b",
                  "extensions.checkCompatibility.3.6",
@@ -70,7 +73,22 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.3.7a",
                  "extensions.checkCompatibility.4.0b",
                  "extensions.checkCompatibility.4.0pre",
-                 "extensions.checkCompatibility.4.0p"];
+                 "extensions.checkCompatibility.4.0p",
+                 "extensions.checkCompatibility.4.2a",
+                 "extensions.checkCompatibility.4.2a1",
+                 "extensions.checkCompatibility.4.2a1pre",
+                 "extensions.checkCompatibility.4.2",
+                 "extensions.checkCompatibility.4.2b",
+                 "extensions.checkCompatibility.5.0",
+                 "extensions.checkCompatibility.5.0a",
+                 "extensions.checkCompatibility.5.0b",
+                 "extensions.checkCompatibility.6.0",
+                 "extensions.checkCompatibility.6.0a",
+                 "extensions.checkCompatibility.6.0b",
+                 "extensions.checkCompatibility.7.0",
+                 "extensions.checkCompatibility.7.0a",
+                 "extensions.checkCompatibility.7.0b",
+                 "extensions.checkCompatibility.nightly"];
 
     var appInfo = Services.appinfo;
     if (appInfo.name == "Thunderbird") {
@@ -83,24 +101,32 @@ nttAddonCompatibilityService.prototype = {
                "extensions.checkCompatibility.3.1",
                "extensions.checkCompatibility.3.2a",
                "extensions.checkCompatibility.3.3a",
-               "extensions.checkCompatibility.3.3b"];
-   }
-   else if (appInfo.name == "SeaMonkey") {
+               "extensions.checkCompatibility.7.0a",
+               "extensions.checkCompatibility.7.0b",
+               "extensions.checkCompatibility.nightly"];
+    }
+    else if (appInfo.name == "SeaMonkey") {
      prefs = ["extensions.checkCompatibility",
               "extensions.checkCompatibility.2.0",
               "extensions.checkCompatibility.2.1p",
               "extensions.checkCompatibility.2.1pre",
               "extensions.checkCompatibility.2.1a",
               "extensions.checkCompatibility.2.1b",
-              "extensions.checkCompatibility.2.1"];
-   }
-   else if (appInfo.name == "Songbird") {
+              "extensions.checkCompatibility.2.1",
+              "extensions.checkCompatibility.2.2a",
+              "extensions.checkCompatibility.2.2b",
+              "extensions.checkCompatibility.2.4a",
+              "extensions.checkCompatibility.2.4b",
+              "extensions.checkCompatibility.nightly"];
+    }
+    else if (appInfo.name == "Songbird") {
      prefs = ["extensions.checkCompatibility",
               "extensions.checkCompatibility.1.8",
               "extensions.checkCompatibility.1.9",
               "extensions.checkCompatibility.1.10"];
-   }
+    }
 
+    var enable = !Services.prefs.getBoolPref("nightly.disableCheckCompatibility");
     for(var i = 0; i < prefs.length; i++)
       Services.prefs.setBoolPref(prefs[i], enable);
   }

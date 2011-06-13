@@ -37,7 +37,14 @@
 
 var nightlyApp = {
 
+repository: 'mozilla-central',
+
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
+
+get defaultTitle() {
+  var tabbrowser = document.getElementById("content");
+  return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
+},
 
 init: function()
 {
@@ -48,46 +55,42 @@ init: function()
   }
   nightly.variables.brandname=brandbundle.getString("brandFullName");
   nightly.variables.defaulttitle=nightlyApp.storedTitle;
-  document.getElementById("content").addEventListener("DOMTitleChanged",nightlyApp.titleUpdated,false);
+
+  var tabbrowser = document.getElementById("content");
+  nightlyApp.oldUpdateTitlebar = tabbrowser.updateTitlebar;
+
+  tabbrowser.updateTitlebar = nightly.updateTitlebar;
+  tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
 },
 
-openURL: function(url, event)
+openURL: function(url)
 {
-  openUILink(url, event, false, true);
+  gBrowser.selectedTab = gBrowser.addTab(url);
 },
 
-titleUpdated: function()
-{
-  if (!gBrowser.mTabbedMode)
-  {
-    gBrowser.updateTitlebar();
-  }
-},
+openNotification: function(id, message, label, accessKey, callback) {
+  var action = {
+    label: label,
+    callback: callback,
+    accessKey: accessKey
+  };
+  var options = {
+    timeout: Date.now() + 10000
+  };
 
-updateTitlebar: function()
-{
-  window.setTimeout("gBrowser.updateTitlebar();", 50);
+  PopupNotifications.show(gBrowser.selectedBrowser, id,
+    message, "urlbar", action, null, options);
 },
 
 setCustomTitle: function(title)
 {
-  document.documentElement.setAttribute("titlemodifier",title);
-  document.documentElement.setAttribute("titlemenuseparator"," - ");
-  nightlyApp.updateTitlebar();
-},
-
-setBlankTitle: function()
-{
-  document.documentElement.setAttribute("titlemodifier","");
-  document.documentElement.setAttribute("titlemenuseparator","");
-  nightlyApp.updateTitlebar();
+  document.getElementById("content").ownerDocument.title = title;
 },
 
 setStandardTitle: function()
 {
-  document.documentElement.setAttribute("titlemodifier",nightlyApp.storedTitle);
-  document.documentElement.setAttribute("titlemenuseparator"," - ");
-  nightlyApp.updateTitlebar();
+  var tabbrowser = document.getElementById("content");
+  nightlyApp.oldUpdateTitlebar.call(tabbrowser);
 }
 
 }
