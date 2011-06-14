@@ -10,9 +10,11 @@ Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla
 
 # Install
 You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/6543/). To install for development, clone the repo:
+
 	git clone git://github.com/mozautomation/nightlytt.git
 
 then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a29}' to the "extensions" directory in your [profile folder](http://kb.mozillazine.org/Profile_folder) with the text:
+
 	~/nightlytt/
 
 or whatever the path to your nightlytt folder is. In order for the Crash Me functionality to work, download and unzip the [crashmenow](http://code.google.com/p/crashme/) extension and place the folders of binary components (that start with "WINNT", "Darwin", and "Linux") in a folder called "platform" in nightlytt.
