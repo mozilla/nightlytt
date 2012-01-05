@@ -294,7 +294,7 @@ menuPopup: function(event, menupopup) {
         node.hidden = attext;
       if (node.id == 'nightly-pushlog') {
         node.hidden = !nightly.isTrunk();
-        node.disabled = !nightly.preferences.getCharPref("prevChangeset");
+        node.disabled = !nightly.preferences.getCharPref("prevChangeset"+"."+nightly.getRepoSuffix());
       }
       if (node.id == 'nightly-crashme')
         node.hidden = !ctypes.libraryName;
@@ -492,7 +492,7 @@ getChangeset: function() {
 },
 
 openPushlog: function() {
-  var prevChangeset = nightly.preferences.getCharPref("prevChangeset");
+  var prevChangeset = nightly.preferences.getCharPref("prevChangeset"+"."+nightly.getRepoSuffix());
   var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
     + "&tochange=" + nightly.getChangeset();
   nightlyApp.openURL(pushlogUrl);
