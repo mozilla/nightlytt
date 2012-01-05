@@ -46,6 +46,29 @@ get defaultTitle() {
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
 },
 
+get defaultTitlePrefix() {
+  var tabbrowser = document.getElementById("content");
+
+  var newTitle = "";
+  var docElement = document.documentElement;
+  var sep = docElement.getAttribute("titlemenuseparator");
+  
+  var docTitle = tabbrowser.contentTitle;
+  
+  if (!docTitle)
+    docTitle = docElement.getAttribute("titledefault");
+  
+  if (docTitle) {
+    newTitle += docElement.getAttribute("titlepreface");
+    newTitle += docTitle;
+    newTitle += sep;
+  }
+  
+  
+  
+  return newTitle;
+},
+
 init: function()
 {
   var brandbundle = document.getElementById("bundle_brand");

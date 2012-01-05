@@ -53,6 +53,11 @@ get defaultTitle() {
   return tabmail.currentTabInfo.title + nightlyApp.storedTitleMenuSeparator + nightlyApp.storedTitleModifier;
 },
 
+get defaultTitlePrefix() {
+  var tabmail = document.getElementById("tabmail");
+  return tabmail.currentTabInfo.title + nightlyApp.storedTitleMenuSeparator;
+},
+
 init: function()
 {
   var brandbundle = document.getElementById("bundle_brand");
