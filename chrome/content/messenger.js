@@ -39,8 +39,19 @@ var nightlyApp = {
 
 repository: 'comm-central',
 
-savedSetTitleFromFolder: window.setTitleFromFolder,
+storedTitleModifier: document.documentElement.getAttribute("titlemodifier"),
+storedTitleMenuSeparator: document.documentElement.getAttribute("titlemenuseparator"),
+
+savedTabmailSetDocumentTitle: document.getElementById("tabmail") && typeof(document.getElementById("tabmail").setDocumentTitle) === "undefined" ? null : window.document.getElementById("tabmail").setDocumentTitle,
+tabmailSetDocumentTitle: null,
+
+customTitleModifier: '',
 customTitle: '',
+
+get defaultTitle() {
+  var tabmail = document.getElementById("tabmail");
+  return tabmail.currentTabInfo.title + nightlyApp.storedTitleMenuSeparator + nightlyApp.storedTitleModifier;
+},
 
 init: function()
 {
@@ -75,62 +86,44 @@ detectLeaks: function(event)
     window.openDialog("chrome://nightly/content/leaks/leaks.xul", "_blank", "chrome,all,dialog=no");
 },
 
-customSetTitleFromFolder: function(msgfolder, subject)
+customTabmailSetDocumentTitle: function(aTab)
 {
-  var brandbundle = document.getElementById("bundle_brand");
-  var end = " - "+brandbundle.getString("brandShortName");
-  nightlyApp.savedSetTitleFromFolder(msgfolder,subject);
-
-  var title;
-  if ((document.title)&&(document.title.length>0))
-  {
-    title = document.title;
-  }
-  else
-  {
-    title = window.title;
-  }
-
-  if (title.substring(title.length-end.length)==end)
-  {
-    title=title.substring(0,title.length-end.length);
-    if (nightlyApp.customTitle && nightlyApp.customTitle.length>0)
-      title=title+' - '+nightlyApp.customTitle;
-  }
-
-  if ((document.title)&&(document.title.length>0))
-  {
-    document.title=title;
-  }
-  else
-  {
-    window.title=title;
-  }
+  
+  nightlyApp.customTitleModifier = nightlyApp.customTitle.substring(nightlyApp.customTitle.indexOf(nightlyApp.storedTitleMenuSeparator)+nightlyApp.storedTitleMenuSeparator.length);
+  document.documentElement.setAttribute("titlemodifier", nightlyApp.customTitleModifier);
+  
+  // to implement Bug 624394 - Version 3.1 loses ability to customize titlebar with just window title 
+  // 1. remove this passthrough
+  // 2. override once tabmail's setDocumentTitle with nightly's tabmailSetDocumentTitle
+  // 3. and set the document.title here
+  nightlyApp.savedTabmailSetDocumentTitle(aTab);
 },
 
 updateTitle: function()
 {
-  if (gDBView)
-    window.setTitleFromFolder(gDBView.msgFolder,null);
+  if (nightlyApp.savedTabmailSetDocumentTitle) {
+    nightlyApp.tabmailSetDocumentTitle(window.document.getElementById("tabmail").currentTabInfo);
+  }
 },
 
 setCustomTitle: function(title)
 {
   nightlyApp.customTitle=title;
-  window.setTitleFromFolder=nightlyApp.customSetTitleFromFolder;
+  nightlyApp.tabmailSetDocumentTitle=nightlyApp.customTabmailSetDocumentTitle;
   nightlyApp.updateTitle();
 },
 
 setBlankTitle: function()
 {
   nightlyApp.customTitle='';
-  window.setTitleFromFolder=nightlyApp.customSetTitleFromFolder;
+  nightlyApp.tabmailSetDocumentTitle=nightlyApp.customTabmailSetDocumentTitle;
   nightlyApp.updateTitle();
 },
 
 setStandardTitle: function()
 {
-  window.setTitleFromFolder=nightlyApp.savedSetTitleFromFolder;
+  nightlyApp.tabmailSetDocumentTitle=nightlyApp.savedTabmailSetDocumentTitle;
+  document.documentElement.setAttribute("titlemodifier", nightlyApp.storedTitleModifier);
   nightlyApp.updateTitle();
 }
 
