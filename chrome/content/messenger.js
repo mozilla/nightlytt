@@ -37,7 +37,7 @@
 
 var nightlyApp = {
 
-repository: 'comm-central',
+repository: ['comm-central','comm-aurora'],
 
 storedTitleModifier: document.documentElement.getAttribute("titlemodifier"),
 storedTitleMenuSeparator: document.documentElement.getAttribute("titlemenuseparator"),

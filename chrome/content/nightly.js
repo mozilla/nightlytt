@@ -83,7 +83,13 @@ getString: function(name) {
 preferences: null,
 
 isTrunk: function() { 
-  return nightly.getRepo().indexOf(nightlyApp.repository) != -1
+  let isNightlyRepo = false;
+  
+  for each (repo in nightlyApp.repository) {
+    isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
+  }
+  
+  return isNightlyRepo
     && (nightly.variables.version.indexOf("pre") != -1 || 
         nightly.variables.version.indexOf(".0a") != -1);
 },
@@ -127,11 +133,16 @@ init: function() {
   nightly.prefChange("idtitle");
   
   var changeset = nightly.getChangeset();  
-  var currChangeset = nightly.preferences.getCharPref("currChangeset");
+  var currChangeset;
+  try {
+    currChangeset = nightly.preferences.getCharPref("currChangeset"+"."+nightly.getRepoSuffix());
+  } catch (e) {
+    currChangeset = "";
+  }
   if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
     // keep track of previous nightly's changeset for pushlog
-    nightly.preferences.setCharPref("prevChangeset", currChangeset);
-    nightly.preferences.setCharPref("currChangeset", changeset);
+    nightly.preferences.setCharPref("prevChangeset"+"."+nightly.getRepoSuffix(), currChangeset);
+    nightly.preferences.setCharPref("currChangeset"+"."+nightly.getRepoSuffix(), changeset);
   }
 },
 
@@ -466,6 +477,10 @@ getAppIniString : function(section, key) {
                      Components.interfaces.nsIINIParserFactory)
                   .createINIParser(inifile);
   return iniParser.getString(section, key);
+},
+
+getRepoSuffix: function() {
+  return nightly.getAppIniString("App", "SourceRepository").substring(nightly.getAppIniString("App", "SourceRepository").lastIndexOf("/") + 1);
 },
 
 getRepo: function() {
