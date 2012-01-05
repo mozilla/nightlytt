@@ -447,10 +447,10 @@ openCustomize: function() {
     var prefservice = Components.classes["@mozilla.org/preferences-service;1"]
                                 .getService(Components.interfaces.nsIPrefBranch);
     var instantApply = prefservice.getBoolPref("browser.preferences.instantApply");
-    features = "chrome,titlebar,toolbar,centerscreen" + (instantApply ? ",dialog=no" : ",modal");
+    features = "chrome,titlebar,toolbar,centerscreen,resizable" + (instantApply ? ",dialog=no" : ",modal");
   }
   catch (e) {
-    features = "chrome,titlebar,toolbar,centerscreen,modal";
+    features = "chrome,titlebar,toolbar,centerscreen,resizable,modal";
   }
   openDialog("chrome://nightly/content/titlebar/customize.xul", "", features);
 },
