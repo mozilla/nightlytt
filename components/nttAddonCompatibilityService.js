@@ -51,6 +51,7 @@ nttAddonCompatibilityService.prototype = {
   classDescription: "Nightly Tester Tools Addon Compatibility",
   classID: Components.ID("{126c18c5-386c-4c13-b59f-dc909e78aea0}"),
   contractID: "@mozilla.com/nightly/addoncompatibility;1",
+  QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsIObserver]),
 
   // nsIObserver
   observe : function(subject, topic, data) {
