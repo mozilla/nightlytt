@@ -1,0 +1,8 @@
+*.svn*
+*.DS_Store*
+*.xpi*
+*~
+*test*
+*.txt*
+zipexclude.lst
+*.hg*
