@@ -6,3 +6,5 @@
 *.txt*
 zipexclude.lst
 *.hg*
+*.diff*
+*.git*
