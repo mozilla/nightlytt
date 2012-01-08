@@ -83,7 +83,13 @@ getString: function(name) {
 preferences: null,
 
 isTrunk: function() { 
-  return nightly.getRepo().indexOf(nightlyApp.repository) != -1
+  let isNightlyRepo = false;
+  
+  for each (var repo in nightlyApp.repository) {
+    isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
+  }
+  
+  return isNightlyRepo
     && (nightly.variables.platformversion.indexOf("pre") != -1 || 
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
