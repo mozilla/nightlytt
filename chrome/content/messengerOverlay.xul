@@ -69,6 +69,7 @@
       <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+      <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
       <menu id="nightly-crashme" label="&nightly.crashme.label;">
         <menupopup id="nightly-crashme-popup">
         <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
