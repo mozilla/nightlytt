@@ -39,18 +39,14 @@ var nightlyApp = {
 
 repository: ['comm-central','comm-aurora'],
 
-storedTitleModifier: document.documentElement.getAttribute("titlemodifier"),
-storedTitleMenuSeparator: document.documentElement.getAttribute("titlemenuseparator"),
-
 savedTabmailSetDocumentTitle: null,
 tabmailSetDocumentTitle: null,
 
-customTitleModifier: '',
 customTitle: '',
 
 get defaultTitle() {
   var tabmail = document.getElementById("tabmail");
-  return tabmail.currentTabInfo.title + nightlyApp.storedTitleMenuSeparator + nightlyApp.storedTitleModifier;
+  return nightlyApp.getWindowTitleForMessenger(tabmail.currentTabInfo);
 },
 
 init: function()
@@ -94,23 +90,16 @@ detectLeaks: function(event)
 
 customTabmailSetDocumentTitle: function(aTab)
 {
-  
-  nightlyApp.customTitleModifier = nightlyApp.customTitle.substring(
-    nightlyApp.customTitle.indexOf(nightlyApp.storedTitleMenuSeparator)
-    + nightlyApp.storedTitleMenuSeparator.length
-  );
-  document.documentElement.setAttribute("titlemodifier", nightlyApp.customTitleModifier);
-  
-  // to implement Bug 624394 - Version 3.1 loses ability to customize titlebar with just window title 
-  // 1. remove this passthrough
-  // 2. override once tabmail's setDocumentTitle with nightly's tabmailSetDocumentTitle
-  // 3. and set the document.title here
-  nightlyApp.savedTabmailSetDocumentTitle(aTab);
+  document.title = nightly.generateText(nightly.getTemplate("title"));
 },
 
 updateTitle: function()
 {
   if (nightlyApp.savedTabmailSetDocumentTitle) {
+    var tabmail = document.getElementById("tabmail");
+    if (tabmail.setDocumentTitle != nightlyApp.tabmailSetDocumentTitle)
+      tabmail.setDocumentTitle = nightlyApp.tabmailSetDocumentTitle;
+
     nightlyApp.tabmailSetDocumentTitle(window.document.getElementById("tabmail").currentTabInfo);
   }
 },
@@ -132,8 +121,31 @@ setBlankTitle: function()
 setStandardTitle: function()
 {
   nightlyApp.tabmailSetDocumentTitle=nightlyApp.savedTabmailSetDocumentTitle;
-  document.documentElement.setAttribute("titlemodifier", nightlyApp.storedTitleModifier);
   nightlyApp.updateTitle();
-}
+},
+
+getWindowTitleForMessenger: function(aTab)
+{
+  // naming is from tabbrowser's getWindowTitleForBrowser()
+  // http://mxr.mozilla.org/mozilla-central/search?string=getWindowTitleForBrowser&find=tabbrowser.xml
+  //
+  // functionality was ported from tabmail's setDocumentTitle() 
+  // based on: Bug 502389 
+  //   "Thunderbird should make use of titlemodifier 
+  //   and titlemenuseparator attributes on the main and message windows"
+  //
+  
+  let docTitle = aTab.title;
+
+  if (docTitle && !Application.platformIsMac)
+    docTitle += document.documentElement
+                        .getAttribute("titlemenuseparator");
+
+  if (!docTitle || !Application.platformIsMac)
+    docTitle += document.documentElement
+                        .getAttribute("titlemodifier");
+
+  return docTitle;
+},
 
 }
