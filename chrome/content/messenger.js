@@ -42,8 +42,6 @@ repository: ['comm-central','comm-aurora'],
 savedTabmailSetDocumentTitle: null,
 tabmailSetDocumentTitle: null,
 
-customTitle: '',
-
 get defaultTitle() {
   var tabmail = document.getElementById("tabmail");
   return nightlyApp.getWindowTitleForMessenger(tabmail.currentTabInfo);
@@ -106,14 +104,6 @@ updateTitle: function()
 
 setCustomTitle: function(title)
 {
-  nightlyApp.customTitle=title;
-  nightlyApp.tabmailSetDocumentTitle=nightlyApp.customTabmailSetDocumentTitle;
-  nightlyApp.updateTitle();
-},
-
-setBlankTitle: function()
-{
-  nightlyApp.customTitle='';
   nightlyApp.tabmailSetDocumentTitle=nightlyApp.customTabmailSetDocumentTitle;
   nightlyApp.updateTitle();
 },
