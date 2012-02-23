@@ -81,17 +81,6 @@ openURL: function(url, event)
   protocolSvc.loadUrl(uri);
 },
 
-detectLeaks: function(event)
-{
-  var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                     .getService(Components.interfaces.nsIWindowMediator);
-  var win = wm.getMostRecentWindow("Nightly:LeakReporter");
-  if (win)
-    win.focus();
-  else
-    window.openDialog("chrome://nightly/content/leaks/leaks.xul", "_blank", "chrome,all,dialog=no");
-},
-
 customTabmailSetDocumentTitle: function(aTab)
 {
   
