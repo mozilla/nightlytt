@@ -46,7 +46,7 @@ get defaultTitle() {
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
 },
 
-get currentTabTitle() {
+get tabTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.mCurrentBrowser.contentTitle;
 },
