@@ -46,6 +46,11 @@ get defaultTitle() {
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
 },
 
+get currentTabTitle() {
+  var tabbrowser = document.getElementById("content");
+  return tabbrowser.mCurrentBrowser.contentTitle;
+},
+
 init: function()
 {
   var brandbundle = document.getElementById("bundle_brand");
