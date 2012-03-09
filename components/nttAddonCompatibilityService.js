@@ -20,6 +20,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ * Erik Vold <erikvvold@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -36,14 +37,12 @@
  * ***** END LICENSE BLOCK ***** */
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 function nttAddonCompatibilityService() {
-  this.prefService = Components.classes['@mozilla.org/preferences-service;1']
-                    .getService(Components.interfaces.nsIPrefBranch2);
-                 
-  this.prefService.addObserver("", this, false);
+  Services.prefs.addObserver("", this, false);
 
-  if(this.prefService.getBoolPref("nightly.disableCheckCompatibility"))
+  if(Services.prefs.getBoolPref("nightly.disableCheckCompatibility"))
     this.setCompatPrefs();
 }
 
@@ -92,8 +91,7 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.7.0b",
                  "extensions.checkCompatibility.nightly"];
 
-    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-               .getService(Components.interfaces.nsIXULAppInfo);
+    var appInfo = Services.appinfo;
     if (appInfo.name == "Thunderbird") {
       prefs = ["extensions.checkCompatibility",
                "extensions.checkCompatibility.3.0",
@@ -129,9 +127,9 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.1.10"];
     }
 
-    var enable = !this.prefService.getBoolPref("nightly.disableCheckCompatibility");
+    var enable = !Services.prefs.getBoolPref("nightly.disableCheckCompatibility");
     for(var i = 0; i < prefs.length; i++)
-      this.prefService.setBoolPref(prefs[i], enable);
+      Services.prefs.setBoolPref(prefs[i], enable);
   }
 };
 

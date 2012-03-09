@@ -1,7 +1,7 @@
-const Cc = Components.classes;
 const Ci = Components.interfaces;
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 function AboutNightly() {}
 AboutNightly.prototype = {
@@ -15,9 +15,8 @@ AboutNightly.prototype = {
     },
   
     newChannel: function(aURI) {
-        let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-        let channel = ios.newChannel("chrome://nightly/content/aboutNightly.xhtml",
-                                     null, null);
+        let channel = Services.io.newChannel(
+            "chrome://nightly/content/aboutNightly.xhtml", null, null);
         channel.originalURI = aURI;
         return channel;
     }
