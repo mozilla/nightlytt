@@ -68,6 +68,7 @@ variables: {
   get processor() this.appInfo.XPCOMABI.split("-")[0],
   get compiler() this.appInfo.XPCOMABI.split("-")[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
+  get tabtitle() { return nightlyApp.tabTitle; },
   profile: null,
   toolkit: "cairo",
   flags: ""
