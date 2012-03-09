@@ -41,6 +41,9 @@ repository: ['mozilla-central','mozilla-aurora'],
 
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
+LAST_SESSION_GROUP_NAME_IDENTIFIER: "nightlytt-last-session-group-name",
+_lastSessionGroupName: "",
+
 get defaultTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
@@ -49,6 +52,32 @@ get defaultTitle() {
 get tabTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.mCurrentBrowser.contentTitle;
+},
+
+get activeTabGroupName() {
+  // TabView isn't implemented or initialized
+  if (!TabView || !TabView._window)
+    return nightlyApp._lastSessionGroupName;
+
+
+  // We get the active group this way, instead of querying
+  // GroupItems.getActiveGroupItem() because the tabSelect event
+  // will not have happened by the time the browser tries to
+  // update the title.
+  let groupItem = null;
+  let activeTab = window.gBrowser.selectedTab;
+  let activeTabItem = activeTab._tabViewTabItem;
+
+  if (activeTab.pinned) {
+    // It's an app tab, so it won't have a .tabItem. However, its .parent
+    // will already be set as the active group. 
+    groupItem = TabView._window.GroupItems.getActiveGroupItem();
+  } else if (activeTabItem) {
+    groupItem = activeTabItem.parent;
+  }
+
+  // groupItem may still be null, if the active tab is an orphan.
+  return groupItem ? groupItem.getTitle() : "";
 },
 
 init: function()
@@ -66,6 +95,24 @@ init: function()
 
   tabbrowser.updateTitlebar = nightly.updateTitlebar;
   tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
+  
+  // Listening to Bug 659591 (landed in FF7) - instead "domwindowclosed" (see Bug 655269), 
+  // to store active group's name for showing at next startup
+  window.addEventListener("SSWindowClosing", function NightlyTT_onWindowClosing() {
+    window.removeEventListener("SSWindowClosing", NightlyTT_onWindowClosing, false);
+    nightlyApp.saveActiveGroupName(window);
+  }, false);
+  
+  // grab the last used group title
+  // use TabView's property if we are before Bug 682996 (landed in FF10)
+  nightlyApp._lastSessionGroupName = (TabView && TabView._lastSessionGroupName) 
+    ? TabView._lastSessionGroupName
+    : Cc["@mozilla.org/browser/sessionstore;1"]
+        .getService(Ci.nsISessionStore)
+        .getWindowValue(
+          window,
+          nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
+        );
 },
 
 openURL: function(url)
@@ -85,6 +132,19 @@ openNotification: function(id, message, label, accessKey, callback) {
 
   PopupNotifications.show(gBrowser.selectedBrowser, id,
     message, "urlbar", action, null, options);
+},
+
+// Function: saveActiveGroupName
+// Saves the active group's name for the given window.
+saveActiveGroupName: function NightlyTT_saveActiveGroupName(win) {
+  let groupName = nightlyApp.activeTabGroupName;
+  Cc["@mozilla.org/browser/sessionstore;1"]
+    .getService(Ci.nsISessionStore)
+    .setWindowValue(
+      win, 
+      nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER, 
+      groupName
+    );
 },
 
 setCustomTitle: function(title)

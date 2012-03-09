@@ -69,6 +69,7 @@ variables: {
   get compiler() this.appInfo.XPCOMABI.split("-")[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
   get tabtitle() { return nightlyApp.tabTitle; },
+  get activetabgroupname() { return nightlyApp.activeTabGroupName || null; },
   profile: null,
   toolkit: "cairo",
   flags: ""
@@ -107,6 +108,10 @@ showAlert: function(id, args) {
 
 init: function() {
   window.removeEventListener("load", nightly.init, false);
+  setTimeout(nightly.initLazy,800);
+},
+
+initLazy: function() {
   var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefService);
   nightly.preferences = prefs.getBranch("nightly.")

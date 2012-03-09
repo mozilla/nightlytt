@@ -59,6 +59,7 @@ init: function()
   
   paneTitle.addVariable("DefaultTitle");
   paneTitle.addVariable("TabTitle");
+  paneTitle.addVariable("ActiveTabGroupName");
   paneTitle.addVariable("AppID");
   paneTitle.addVariable("Vendor");
   paneTitle.addVariable("Name");
