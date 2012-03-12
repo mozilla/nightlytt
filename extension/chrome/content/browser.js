@@ -54,7 +54,7 @@ get tabTitle() {
   return tabbrowser.mCurrentBrowser.contentTitle;
 },
 
-get activeTabGroupName() {
+get tabGroupTitle() {
   // TabView isn't implemented or initialized
   if (!TabView || !TabView._window)
     return nightlyApp._lastSessionGroupName;
@@ -137,7 +137,7 @@ openNotification: function(id, message, label, accessKey, callback) {
 // Function: saveActiveGroupName
 // Saves the active group's name for the given window.
 saveActiveGroupName: function NightlyTT_saveActiveGroupName(win) {
-  let groupName = nightlyApp.activeTabGroupName;
+  let groupName = nightlyApp.tabGroupTitle;
   Cc["@mozilla.org/browser/sessionstore;1"]
     .getService(Ci.nsISessionStore)
     .setWindowValue(
