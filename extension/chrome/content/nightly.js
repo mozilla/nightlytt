@@ -69,7 +69,7 @@ variables: {
   get compiler() this.appInfo.XPCOMABI.split("-")[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
   get tabtitle() { return nightlyApp.tabTitle; },
-  get tabgroup() { return nightlyApp.tabGroupTitle || null; },
+  get tabgroup() { return nightlyApp.tabGroupTitle; },
   profile: null,
   toolkit: "cairo",
   flags: ""
