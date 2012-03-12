@@ -19,8 +19,6 @@ then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a29}' to the "extensio
 
 or whatever the path to your nightlytt folder is.
 
-[Download the binary components](https://github.com/downloads/mozilla/nightlytt/platform.zip) and unzip, there should be a `'platform'` directory at the top level of the extension after unzipping. These binaries are necessary for the crash-forcing feature to work.
-
 To bundle the extension into an xpi for distribution, run this command to get a `nightlytt.xpi` file:
 
 ```
