@@ -105,14 +105,27 @@ init: function()
   
   // grab the last used group title
   // use TabView's property if we are before Bug 682996 (landed in FF10)
-  nightlyApp._lastSessionGroupName = (TabView && TabView._lastSessionGroupName) 
-    ? TabView._lastSessionGroupName
-    : Cc["@mozilla.org/browser/sessionstore;1"]
-        .getService(Ci.nsISessionStore)
-        .getWindowValue(
-          window,
-          nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
+  if (TabView && TabView._lastSessionGroupName)
+  {
+    nightlyApp._lastSessionGroupName = TabView._lastSessionGroupName;
+  }
+  else
+  {
+    Cc["@mozilla.org/observer-service;1"]
+    .getService(Ci.nsIObserverService).addObserver({
+      observe: function NightlyTT_Restore() {
+        Cc["@mozilla.org/observer-service;1"]
+        .getService(Ci.nsIObserverService).removeObserver(this, "sessionstore-windows-restored");
+        
+        nightlyApp._lastSessionGroupName = Cc["@mozilla.org/browser/sessionstore;1"]
+          .getService(Ci.nsISessionStore)
+          .getWindowValue(
+            window,
+            nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
         );
+      }
+    }, "sessionstore-windows-restored", false);
+  }
 },
 
 openURL: function(url)
