@@ -147,8 +147,10 @@ openNotification: function(id, message, label, accessKey, callback) {
     message, "urlbar", action, null, options);
 },
 
-// Function: saveActiveGroupName
-// Saves the active group's name for the given window.
+/** 
+ * Saves the active group's name for the given window.
+ * @param {nsIDOMWindow} win A window where to save the value.
+ */
 saveActiveGroupName: function NightlyTT_saveActiveGroupName(win) {
   let groupName = nightlyApp.tabGroupTitle;
   Cc["@mozilla.org/browser/sessionstore;1"]
