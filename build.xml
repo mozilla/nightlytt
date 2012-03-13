@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<project name="nightlytt" default="package">
+  <tstamp>
+    <format property="build.number" pattern="yyyyMMddHHmm"/>
+  </tstamp>
+
+  <target name="getversion" unless="build.version">
+    <xmlproperty file="extension/install.rdf" collapseAttributes="true"/>
+    <property name="build.version" value="${RDF.Description.em:version}"/>
+    <echo>build.version: ${build.version}</echo>
+  </target>
+  
+  <target name="package" depends="getversion">
+    <condition property="package.filename" value="${ant.project.name}-${build.version}.xpi">
+      <isset property="release"/>
+    </condition>
+    <property name="package.filename" value="${ant.project.name}-${build.version}-${build.number}.xpi"/>
+    <delete file="${package.filename}"/>
+    <zip destfile="${package.filename}" basedir="extension" excludesfile=".gitignore"/>
+    <echo>package.filename: ${package.filename}</echo>
+  </target>
+
+</project>
