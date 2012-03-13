@@ -19,11 +19,17 @@ then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a29}' to the "extensio
 
 or whatever the path to your nightlytt folder is.
 
-To bundle the extension into an xpi for distribution, run this command to get a `nightlytt.xpi` file:
+To package the extension into an xpi for distribution simply `ant` and the default build script/target will be invoked:
 
-```
-cd extension; zip -r ../nightlytt.xpi * -x@../zipexclude.lst; cd ..
-```
+    ant
+
+You can override the build number used in the filename:
+
+    ant -Dbuild.number=1
+
+To build for release (no build version in filename):
+
+    ant -Drelease=true
 
 # Development
 All bugs are reported to the Nightly Tester Tools component at bugzilla.mozilla.org. [bug list](https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&component=Nightly%20Tester%20Tools&product=Other%20Applications), [file a bug](https://bugzilla.mozilla.org/enter_bug.cgi?product=Other%20Applications&component=Nightly%20Tester%20Tools). Check out [the wiki](https://wiki.mozilla.org/Auto-tools/Projects/NightlyTesterTools) for a list of current and proposed features and feel free to file bugs and submit patches.
