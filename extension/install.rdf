@@ -14,11 +14,18 @@
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
     <em:creator>Mossop</em:creator>
-    <em:contributor>Peter van der Woude (original idea)</em:contributor>
+    <em:contributor>Dave Hunt</em:contributor>
+    <em:contributor>Ed Morley</em:contributor>
+    <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
+    <em:contributor>Heather Arthur</em:contributor>
+    <em:contributor>Henrik Skupin</em:contributor>
+    <em:contributor>Jeff Hammel</em:contributor>
     <em:contributor>Jesse Ruderman (Mac fixes)</em:contributor>
+    <em:contributor>Peter van der Woude (original idea)</em:contributor>
     <em:contributor>Steve England (QA)</em:contributor>
     <em:contributor>Stephen Lau (Songbird port)</em:contributor>
-    <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
+    <em:contributor>Szabolcs Hubai</em:contributor>
+    <em:contributor>Tony Mechelynck</em:contributor>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
     <em:homepageURL>http://www.oxymoronical.com/web/firefox/nightly</em:homepageURL>
