@@ -1,24 +1,41 @@
 <?xml version="1.0"?>
 
-<project name="nightlytt" default="package">
+<project name="nightlytt" default="dev">
+  <!-- Directories -->
+  <property name="xpi.dir" value="./xpi"/>
+
   <tstamp>
     <format property="build.number" pattern="yyyyMMddHHmm"/>
   </tstamp>
 
-  <target name="getversion" unless="build.version">
+  <target name="release" depends="version"
+          description="Builds a release version">
+    <property name="xpi.filename" value="${ant.project.name}-${build.version}.xpi" />
+
+    <antcall target="dev" />
+  </target>
+
+  <target name="dev" depends="clean, version"
+          description="Builds a development version">
+    <property name="xpi.filename" value="${ant.project.name}-${build.version}-${build.number}.xpi" />
+
+    <mkdir dir="${xpi.dir}" />
+    <zip destfile="${xpi.dir}/${xpi.filename}"
+         basedir="extension"
+         excludesfile=".gitignore"/>
+  </target>
+
+  <target name="clean"
+          description="Clean-up XPI directory">
+    <delete dir="${xpi.dir}"/>
+  </target>
+
+  <target name="version" unless="build.version"
+          description="Shows the current version">
     <xmlproperty file="extension/install.rdf" collapseAttributes="true"/>
     <property name="build.version" value="${RDF.Description.em:version}"/>
+
     <echo>build.version: ${build.version}</echo>
-  </target>
-  
-  <target name="package" depends="getversion">
-    <condition property="package.filename" value="${ant.project.name}-${build.version}.xpi">
-      <isset property="release"/>
-    </condition>
-    <property name="package.filename" value="${ant.project.name}-${build.version}-${build.number}.xpi"/>
-    <delete file="${package.filename}"/>
-    <zip destfile="${package.filename}" basedir="extension" excludesfile=".gitignore"/>
-    <echo>package.filename: ${package.filename}</echo>
   </target>
 
 </project>
