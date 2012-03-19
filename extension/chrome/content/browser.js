@@ -55,29 +55,9 @@ get tabTitle() {
 },
 
 get tabGroupTitle() {
-  // TabView isn't implemented or initialized
-  if (!TabView || !TabView._window)
-    return nightlyApp._lastSessionGroupName;
-
-
-  // We get the active group this way, instead of querying
-  // GroupItems.getActiveGroupItem() because the tabSelect event
-  // will not have happened by the time the browser tries to
-  // update the title.
-  let groupItem = null;
-  let activeTab = window.gBrowser.selectedTab;
-  let activeTabItem = activeTab._tabViewTabItem;
-
-  if (activeTab.pinned) {
-    // It's an app tab, so it won't have a .tabItem. However, its .parent
-    // will already be set as the active group. 
-    groupItem = TabView._window.GroupItems.getActiveGroupItem();
-  } else if (activeTabItem) {
-    groupItem = activeTabItem.parent;
-  }
-
-  // groupItem may still be null, if the active tab is an orphan.
-  return groupItem ? groupItem.getTitle() : "";
+  if (typeof(nightlyApp.getTabGroupTitle) === "function")
+    return nightlyApp.getTabGroupTitle(window);
+  return "";
 },
 
 init: function()
@@ -95,37 +75,12 @@ init: function()
 
   tabbrowser.updateTitlebar = nightly.updateTitlebar;
   tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
-  
-  // Listening to Bug 659591 (landed in FF7) - instead "domwindowclosed" (see Bug 655269), 
-  // to store active group's name for showing at next startup
-  window.addEventListener("SSWindowClosing", function NightlyTT_onWindowClosing() {
-    window.removeEventListener("SSWindowClosing", NightlyTT_onWindowClosing, false);
-    nightlyApp.saveActiveGroupName(window);
-  }, false);
-  
-  // grab the last used group title
-  // use TabView's property if we are before Bug 682996 (landed in FF10)
-  if (TabView && TabView._lastSessionGroupName)
-  {
-    nightlyApp._lastSessionGroupName = TabView._lastSessionGroupName;
+
+  try { // import tabGroupTitle functionality for titlebar customization
+    Components.utils.import("resource://nightly/tabGroupTitle.jsm", nightlyApp);
+    nightlyApp.initTabGroup(window);
   }
-  else
-  {
-    Cc["@mozilla.org/observer-service;1"]
-    .getService(Ci.nsIObserverService).addObserver({
-      observe: function NightlyTT_Restore() {
-        Cc["@mozilla.org/observer-service;1"]
-        .getService(Ci.nsIObserverService).removeObserver(this, "sessionstore-windows-restored");
-        
-        nightlyApp._lastSessionGroupName = Cc["@mozilla.org/browser/sessionstore;1"]
-          .getService(Ci.nsISessionStore)
-          .getWindowValue(
-            window,
-            nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
-        );
-      }
-    }, "sessionstore-windows-restored", false);
-  }
+  catch(e) { Components.utils.reportError(e); }
 },
 
 openURL: function(url)
@@ -145,21 +100,6 @@ openNotification: function(id, message, label, accessKey, callback) {
 
   PopupNotifications.show(gBrowser.selectedBrowser, id,
     message, "urlbar", action, null, options);
-},
-
-/** 
- * Saves the active group's name for the given window.
- * @param {nsIDOMWindow} win A window where to save the value.
- */
-saveActiveGroupName: function NightlyTT_saveActiveGroupName(win) {
-  let groupName = nightlyApp.tabGroupTitle;
-  Cc["@mozilla.org/browser/sessionstore;1"]
-    .getService(Ci.nsISessionStore)
-    .setWindowValue(
-      win, 
-      nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER, 
-      groupName
-    );
 },
 
 setCustomTitle: function(title)
