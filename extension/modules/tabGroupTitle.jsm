@@ -73,8 +73,6 @@ function runOnWindows(callback, winType) {
 function wrObserver(aSubject, aTopic, aData) {
   if (aTopic == "sessionstore-windows-restored")
     obs.removeObserver(wrObserver, "sessionstore-windows-restored");
-  else if (aTopic == "sessionstore-browser-state-restored")
-    obs.removeObserver(wrObserver, "sessionstore-browser-state-restored");
   else 
     return;
 
@@ -107,8 +105,6 @@ function pbObserver(aSubject, aTopic, aData) {
     else if (_privateBrowsing.transitionMode == "exit") {
       log("loadstart: pb-exit-complete");
       runOnWindows(loadAndUpdateGroupName, "navigator:browser");
-      obs.addObserver(wrObserver, "sessionstore-browser-state-restored", false);
-
     }
     _privateBrowsing.transitionMode = "";
   } else if (aTopic == "quit-application") {
@@ -116,7 +112,6 @@ function pbObserver(aSubject, aTopic, aData) {
     obs.removeObserver(pbObserver, "private-browsing");
     obs.removeObserver(pbObserver, "private-browsing-change-granted");
     obs.removeObserver(pbObserver, "private-browsing-transition-complete");
-    obs.removeObserver(wrObserver, "sessionstore-windows-restored");
     log("unregistered");
   } else {
     log("aTopic=" + aTopic + ", aData=" + aData);
@@ -133,6 +128,13 @@ function loadAndUpdateGroupName(win) {
   if (win.nightly.preferences) {
     win.nightly.updateTitlebar();
     log("updated: "+win.document.title);
+  } else {
+    log("update rerun: "+win.document.title);
+    win.addEventListener("nightlytt-tabgrouptitle-initialized", function() {
+      win.removeEventListener("nightlytt-tabgrouptitle-initialized", arguments.callee, false);
+      log("update rerun catched!");
+      loadAndUpdateGroupName(win);
+    }, false);
   }
 }
 
@@ -199,8 +201,13 @@ function initTabGroup(win) {
       obs.addObserver(pbObserver, "private-browsing", false);
       obs.addObserver(pbObserver, "private-browsing-change-granted", false);
       obs.addObserver(pbObserver, "private-browsing-transition-complete", false);
+      
       initialized = true;
     }
+    
+    win.addEventListener("nightlytt-tabgrouptitle-initialized", function() {
+      log("catched!");
+    }, false);    
 
     /** 
      * Starting from FF7 we could easily save it to SessionStore
@@ -214,6 +221,13 @@ function initTabGroup(win) {
       log("SSWindowClosing");
       saveActiveGroupName(win);
     }, false);
+    
+    
+    // Notifying ourselves 
+    let event = win.document.createEvent("Events");
+    event.initEvent("nightlytt-tabgrouptitle-initialized", true, true);
+    win.document.dispatchEvent(event);
+    log("fired "+"nightlytt-tabgrouptitle-initialized");
   }
 }
 
