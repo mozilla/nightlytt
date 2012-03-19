@@ -13,9 +13,19 @@ _privateBrowsing.transitionMode = "";
 
 let initialized = false;
 
+try { 
+  log("don't forget to enable: nightly.logging" );
+  Components.utils.import("resource://nightly/Logging.jsm");
+}
+catch(e) {log(e);}
+  
 function log(m){
-  dump(m + '\n');
-  Components.utils.reportError(m);
+  if (typeof(LOG) === "function") {
+    LOG(m);
+  } else {
+    dump(m + '\n');
+    Components.utils.reportError(m);
+  }
 }
 
 /**
