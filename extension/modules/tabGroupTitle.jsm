@@ -71,11 +71,14 @@ function runOnWindows(callback, winType) {
  * Fires only once (due to unregistering)
  */
 function wrObserver(aSubject, aTopic, aData) {
-  if (aTopic != "sessionstore-windows-restored")
+  if (aTopic == "sessionstore-windows-restored")
+    obs.removeObserver(wrObserver, "sessionstore-windows-restored");
+  else if (aTopic == "sessionstore-browser-state-restored")
+    obs.removeObserver(wrObserver, "sessionstore-browser-state-restored");
+  else 
     return;
 
-  log("sessionstore-windows-restored");
-  //obs.removeObserver(wrObserver, "sessionstore-windows-restored");
+  log(aTopic);
   runOnWindows(loadAndUpdateGroupName, "navigator:browser");
 }
 
@@ -104,6 +107,8 @@ function pbObserver(aSubject, aTopic, aData) {
     else if (_privateBrowsing.transitionMode == "exit") {
       log("loadstart: pb-exit-complete");
       runOnWindows(loadAndUpdateGroupName, "navigator:browser");
+      obs.addObserver(wrObserver, "sessionstore-browser-state-restored", false);
+
     }
     _privateBrowsing.transitionMode = "";
   } else if (aTopic == "quit-application") {
