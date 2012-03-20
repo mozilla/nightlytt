@@ -110,11 +110,11 @@ function pbObserver(aSubject, aTopic, aData) {
     // We use .transitionMode here, as aData is empty.
     if (_privateBrowsing.transitionMode == "enter") {
       log("savestart: pb-enter-complete");
-      runOnWindows(onPBEnter, "navigator:browser");
+      //onPBEnter(wm.getMostRecentWindow("navigator:browser"));
     }
     else if (_privateBrowsing.transitionMode == "exit") {
       log("loadstart: pb-exit-complete");
-      runOnWindows(loadAndUpdateGroupName, "navigator:browser");
+      //onPBExit(wm.getMostRecentWindow("navigator:browser"));
     }
     _privateBrowsing.transitionMode = "";
   } else if (aTopic == "quit-application") {
@@ -149,17 +149,30 @@ function loadAndUpdateGroupName(win) {
 }
 
 /**
- * Saves and removes title
- * when entering Private Browsing mode
+ * Loads title on Private Browsing mode exit
+ * if TabView isn't initialized
+ * @param {nsIDOMWindow} win A window which contains nightly.
+ */
+function onPBExit(win) {
+  let TabView = win.TabView;
+  if (!TabView._window)
+    loadAndUpdateGroupName(win);
+}
+
+/**
+ * Saves and removes title on Private Browsing mode enter
+ * if TabView isn't initialized
  * @param {nsIDOMWindow} win A window which contains nightly.
  */
 function onPBEnter(win) {
   let nightlyApp = win.nightlyApp;
   let nightly = win.nightly;
-  saveActiveGroupName(win);
-  nightlyApp._lastSessionGroupName = "";
-  if (nightly.preferences)
+  let TabView = win.TabView;
+  if (!TabView._window) {
+    saveActiveGroupName(win);
+    nightlyApp._lastSessionGroupName = "";
     nightly.updateTitlebar();
+  }
 }
 
 /**
@@ -168,11 +181,25 @@ function onPBEnter(win) {
  */
 function loadActiveGroupName(win) {
   let nightlyApp = win.nightlyApp;
-  nightlyApp._lastSessionGroupName = sstore.getWindowValue(
-    win,
-    nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
-  );
-  log("loaded: "+nightlyApp._lastSessionGroupName+" for "+win.document.title);
+  nightlyApp._lastSessionGroupName = getActiveGroupName(win);
+}
+
+function getActiveGroupName(win) {
+  let data = "", groupTitle = "";
+  try {
+    data = sstore.getWindowValue(win, win.TabView.GROUPS_IDENTIFIER);
+    if (data) {
+      let parsedData = {};
+      parsedData = JSON.parse(data);
+      let activeGroupId = parsedData.activeGroupId;
+      data = sstore.getWindowValue(win, "tabview-group");
+      parsedData = JSON.parse(data);
+      groupTitle = parsedData[activeGroupId].title;
+      log("loaded title: " + groupTitle);
+    }
+  } catch (e) { log(e); }
+  
+  return groupTitle;
 }
 
 /** 
@@ -182,13 +209,19 @@ function loadActiveGroupName(win) {
 function saveActiveGroupName(win) {
   let nightlyApp = win.nightlyApp;
   let groupName = nightlyApp.tabGroupTitle;
+  let verify = "";
   sstore.setWindowValue(
     win, 
     nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER, 
     groupName
   );
   
-  log("saved: " + groupName);
+  verify = sstore.getWindowValue(
+    win,
+    nightlyApp.LAST_SESSION_GROUP_NAME_IDENTIFIER
+  );
+  
+  log("saved: " + groupName + ", verify: "+ verify);
 }
 
 /**
@@ -205,12 +238,12 @@ function initTabGroup(win) {
     win.nightlyApp._lastSessionGroupName = null;
   } else if (win.TabView && typeof(win.TabView.getActiveGroupName) === "undefined") {
     if (!initialized) {
-      obs.addObserver(wrObserver, "sessionstore-windows-restored", false);
+      //obs.addObserver(wrObserver, "sessionstore-windows-restored", false);
 
-      obs.addObserver(pbObserver, "quit-application", false);
-      obs.addObserver(pbObserver, "private-browsing", false);
-      obs.addObserver(pbObserver, "private-browsing-change-granted", false);
-      obs.addObserver(pbObserver, "private-browsing-transition-complete", false);
+      //obs.addObserver(pbObserver, "quit-application", false);
+      //obs.addObserver(pbObserver, "private-browsing", false);
+      //obs.addObserver(pbObserver, "private-browsing-change-granted", false);
+      //obs.addObserver(pbObserver, "private-browsing-transition-complete", false);
       
       initialized = true;
     }
@@ -229,7 +262,7 @@ function initTabGroup(win) {
     win.addEventListener("SSWindowClosing", function() {
       win.removeEventListener("SSWindowClosing", arguments.calle, false);
       log("SSWindowClosing");
-      saveActiveGroupName(win);
+      //saveActiveGroupName(win);
     }, false);
     
     
@@ -251,7 +284,7 @@ function getTabGroupTitle(win) {
   
   // TabView isn't implemented
   if (typeof(TabView) === "undefined")
-    return nightlyApp._lastSessionGroupName;
+    return "";
 
   // If we are before Bug 682996, 
   // use TabView's own implementation except it is null
@@ -259,8 +292,9 @@ function getTabGroupTitle(win) {
     return TabView.getActiveGroupName() || "";
 
   // TabView isn't initialized
-  if (!TabView._window)
-    return nightlyApp._lastSessionGroupName;
+  if (!TabView._window) {
+    return getActiveGroupName(win);
+  }
 
   // We get the active group this way, instead of querying
   // GroupItems.getActiveGroupItem() because the tabSelect event
