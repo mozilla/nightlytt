@@ -52,9 +52,11 @@ get tabTitle() {
 },
 
 get tabGroupTitle() {
-  if (typeof(nightlyApp.getTabGroupTitle) === "function")
+  try 
+  {
     return nightlyApp.getTabGroupTitle(window);
-  return "";
+  } 
+  catch (e) { }
 },
 
 init: function()

@@ -9,7 +9,7 @@ let sstore = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionS
 
 
 /**
- * Simply retrieves the active tabgroup's title from sessionStore
+ * Simply retrieves the active tabgroup's title from SessionStore
  */
 function getActiveGroupName(win) {
   let data = "", groupTitle = "";
@@ -34,7 +34,7 @@ function getActiveGroupName(win) {
  *
  * In Gecko 1.x title is set to "Undefined" as in other Apps
  * Before FF10 title is managed by TabView
- * After that we manages the title: SessionStore to load and save, borrowed code to generate
+ * After that we manages the title: using SessionStore and other borrowed code to generate
  */
 function getTabGroupTitle(win) {
   let nightlyApp = win.nightlyApp;
@@ -42,7 +42,7 @@ function getTabGroupTitle(win) {
   
   // TabView isn't implemented
   if (!("TabView" in win))
-    return "";
+    return;
 
   // If we are before Bug 682996, 
   // use TabView's own implementation except it is null
