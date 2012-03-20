@@ -15,20 +15,6 @@ component {126c18c5-386c-4c13-b59f-dc909e78aea0} components/nttAddonCompatibilit
 contract @mozilla.com/nightly/addoncompatibility;1 {126c18c5-386c-4c13-b59f-dc909e78aea0}
 category profile-after-change nttAddonCompatibilityService @mozilla.com/nightly/addoncompatibility;1
 
-# binary crashme component
-binary-component platform/WINNT_x86-msvc/crashme.dll ABI=WINNT_x86-msvc
-binary-component platform/WINNT_x86-msvc/accessory.dll ABI=WINNT_x86-msvc
-binary-component platform/WINNT_x86_64-msvc/accessory.dll ABI=WINNT_x86_64-msvc
-binary-component platform/WINNT_x86_64-msvc/crashme.dll ABI=WINNT_x86_64-msvc
-
-binary-component platform/Darwin_x86-gcc3/libcrashme.dylib ABI=Darwin_x86-gcc3
-binary-component platform/Darwin_x86_64-gcc3/libcrashme.dylib ABI=Darwin_x86_64-gcc3
-binary-component platform/Darwin_ppc-gcc3/libcrashme.dylib ABI=Darwin_ppc-gcc3
-
-binary-component platform/Linux_x86-gcc3/libcrashme.so ABI=Linux_x86-gcc3
-binary-component platform/Linux_x86_64-gcc3/libcrashme.so ABI=Linux_x86_64-gcc3
-binary-component platform/Linux_arm-eabi-gcc3/libcrashme.so ABI=Linux_arm-eabi-gcc3
-
 # Shared chrome
 override     chrome://nightly/content/platform.js                     chrome://nightly/content/winPlatform.js                  os=winnt
 
