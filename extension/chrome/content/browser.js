@@ -78,7 +78,6 @@ init: function()
 
   try { // import tabGroupTitle functionality for titlebar customization
     Components.utils.import("resource://nightly/tabGroupTitle.jsm", nightlyApp);
-    nightlyApp.initTabGroup(window);
   }
   catch(e) { Components.utils.reportError(e); }
 },
