@@ -47,7 +47,7 @@ get defaultTitle() {
   return nightlyApp.getWindowTitleForMessenger(tabmail.currentTabInfo);
 },
 
-get currentTabTitle() {
+get tabTitle() {
   var tabmail = document.getElementById("tabmail");
   return tabmail.currentTabInfo.title;
 },
