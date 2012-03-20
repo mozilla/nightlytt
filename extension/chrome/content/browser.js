@@ -41,9 +41,6 @@ repository: ['mozilla-central','mozilla-aurora'],
 
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
-LAST_SESSION_GROUP_NAME_IDENTIFIER: "nightlytt-last-session-group-name",
-_lastSessionGroupName: "",
-
 get defaultTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
