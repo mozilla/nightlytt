@@ -73,6 +73,7 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.3.6p",
                  "extensions.checkCompatibility.3.6pre",
                  "extensions.checkCompatibility.3.7a",
+                 "extensions.checkCompatibility.4.0",
                  "extensions.checkCompatibility.4.0b",
                  "extensions.checkCompatibility.4.0pre",
                  "extensions.checkCompatibility.4.0p",
@@ -172,7 +173,9 @@ nttAddonCompatibilityService.prototype = {
      prefs = ["extensions.checkCompatibility",
               "extensions.checkCompatibility.1.8",
               "extensions.checkCompatibility.1.9",
-              "extensions.checkCompatibility.1.10"];
+              "extensions.checkCompatibility.1.10",
+              "extensions.checkCompatibility.1.11",
+              "extensions.checkCompatibility.1.12"];
     }
 
     var enable = !this.prefService.getBoolPref("nightly.disableCheckCompatibility");
