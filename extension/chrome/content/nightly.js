@@ -57,6 +57,7 @@ variables: {
   get platformversion() this.appInfo.platformVersion,
   get geckobuildid() this.appInfo.platformBuildID,
   get geckoversion() this.appInfo.platformVersion,
+  get changeset() { return nightly.getChangeset(); },
   brandname: null,
   get useragent() navigator.userAgent,
   get locale() {
