@@ -66,9 +66,11 @@
 
     <tree id="variablesTree" flex="1" style="height: 17em" hidecolumnpicker="true">
       <treecols>
-        <treecol id="variable" label="&nightly.variable.label;" style="width: 9em"/>
-        <treecol id="description" label="&nightly.variabledesc.label;" flex="1"/>
-        <treecol id="value" label="&nightly.variablevalue.label;" style="width: 15em"/>
+        <treecol id="variable" label="&nightly.variable.label;" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="description" label="&nightly.variabledesc.label;" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="value" label="&nightly.variablevalue.label;" flex="2" persist="width"/>
       </treecols>
       <treechildren/>
     </tree>
