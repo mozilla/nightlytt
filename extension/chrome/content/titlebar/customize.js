@@ -35,9 +35,76 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+function arrayBasedTreeView (treeViewData) {
+  this.data = treeViewData;
+}
+
+arrayBasedTreeView.prototype = {
+
+data: [],
+
+get rowCount()
+{ 
+  return this.data.length 
+},
+
+getCellText: function(row,column)
+{
+  return this.data[row][column.id];
+},
+
+setTree: function(treebox)
+{
+  this.treebox = treebox;
+},
+
+isContainer: function(row)
+{
+  return false; 
+},
+
+isSeparator: function(row)
+{
+  return false;
+},
+
+isSorted: function(){
+  return false;
+},
+
+getLevel: function(row)
+{
+  return 0; 
+},
+
+getImageSrc: function(row,col)
+{
+  return null;
+},
+
+getRowProperties: function(row,props)
+{
+},
+
+getCellProperties: function(row,col,props)
+{
+},
+
+getColumnProperties: function(colid,col,props)
+{
+},
+
+cycleHeader: function(col)
+{
+},
+
+};
+
+
 var paneTitle = {
 
 bundle: null,
+variables: [],
 
 init: function()
 {
@@ -76,13 +143,12 @@ init: function()
   paneTitle.addVariable("Compiler");
   paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
+
+  paneTitle.setupTree();
 },
 
 addVariable: function(name)
 {
-  var list = document.getElementById("varList");
-  var item = document.createElement("listitem");
-  item.appendChild(document.createElement("listcell")).setAttribute('label',"${"+name+"}");
   var text = null;
   try
   {
@@ -92,21 +158,12 @@ addVariable: function(name)
   {
     text="";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',text);
   var value = paneTitle.nightly.getVariable(name);
   if (value==null)
   {
     value="Undefined";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',value);
-  item.addEventListener("click", function() {
-    var titlebox = document.getElementById("customTitle");
-    var template = titlebox.value + " ${" + name + "}";
-    titlebox.value = template;
-    // manually set pref, pref change isn't triggered if we just set the value
-    paneTitle.nightly.preferences.setCharPref("templates.title", template);
-  }, true);
-  list.appendChild(item);
+  paneTitle.variables.push({variable: "${"+name+"}", description: text, value: value});
 },
 
 toggled: function()
@@ -114,7 +171,28 @@ toggled: function()
   var checkbox = document.getElementById("enableTitleBar");
   var text = document.getElementById("customTitle");
   text.disabled=!checkbox.checked;
-}
+},
+
+setupTree: function(){
+  var tree = document.getElementById("variablesTree");
+  tree.view = new arrayBasedTreeView(paneTitle.variables);
+  tree.addEventListener("click", function(event) {
+    var tbo = tree.treeBoxObject;
+
+    // get the row, col and child element at the point
+    var row = { }, col = { }, child = { };
+    tbo.getCellAt(event.clientX, event.clientY, row, col, child);
+
+    // a workaround to skip clicks from scrollbar
+    if (tree.view.selection.currentIndex === row.value) {
+      var titlebox = document.getElementById("customTitle");
+      var template = titlebox.value + " " + paneTitle.variables[row.value]["variable"];
+      titlebox.value = template;
+      // manually set pref, pref change isn't triggered if we just set the value
+      paneTitle.nightly.preferences.setCharPref("templates.title", template);
+    }
+  }, true);
+},
 }
 
 window.addEventListener("load",paneTitle.init,false);

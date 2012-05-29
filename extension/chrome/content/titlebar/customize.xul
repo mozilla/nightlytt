@@ -64,20 +64,15 @@
 
     <description style="padding-bottom: 5px">&nightly.variables.description;</description>
 
-    <listbox id="varList" flex="1">
-      <listhead>
-        <listheader label="&nightly.variable.label;"/>
-        <listheader label="&nightly.variabledesc.label;"/>
-        <listheader label="&nightly.variablevalue.label;"/>
-      </listhead>
-      <listcols>
-        <listcol style="width: 9em"/>
-        <listcol flex="1"/>
-        <listcol style="width: 15em"/>
-      </listcols>
-    </listbox>
+    <tree id="variablesTree" flex="1" style="height: 17em" hidecolumnpicker="true">
+      <treecols>
+        <treecol id="variable" label="&nightly.variable.label;" style="width: 9em"/>
+        <treecol id="description" label="&nightly.variabledesc.label;" flex="1"/>
+        <treecol id="value" label="&nightly.variablevalue.label;" style="width: 15em"/>
+      </treecols>
+      <treechildren/>
+    </tree>
 
-   
   </prefpane>
 
 </prefwindow>
