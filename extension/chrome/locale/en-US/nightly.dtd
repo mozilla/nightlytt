@@ -9,7 +9,8 @@
 
 <!ENTITY nightly.extensions.aboutsup.label    "Copy about:support to Pastebin">
 
-<!ENTITY nightly.pushlog.label      "Open Pushlog">
+<!ENTITY nightly.pushlog.lasttocurrent.label   "Open Pushlog between last and current build">
+<!ENTITY nightly.pushlog.currenttotip.label    "Open Pushlog after current build">
 
 <!ENTITY nightly.customize.label              "Customize Titlebar">
 
