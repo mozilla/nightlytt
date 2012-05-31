@@ -8,7 +8,7 @@ AboutNightly.prototype = {
     classDescription: "about:nightly",
     contractID: "@mozilla.org/network/protocol/about;1?what=nightly",
     classID: Components.ID("{4cec494a-d33a-4ee7-83d6-461925b5d84b}"),
-    QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule]),
+    QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule, Ci.nsIObserver]),
   
     getURIFlags: function(aURI) {
         return Ci.nsIAboutModule.ALLOW_SCRIPT;
@@ -20,6 +20,9 @@ AboutNightly.prototype = {
                                      null, null);
         channel.originalURI = aURI;
         return channel;
+    },
+  
+    observe: function(subject, topic, data) {
     }
 };
 
