@@ -37,17 +37,27 @@
 
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
+const PREF         = "nightly.disableCheckCompatibility";
+const PREFIX       = "extensions.checkCompatibility.";
+const PREF_NIGHTLY = "nightly";
+
+
 function nttAddonCompatibilityService() {
   this.prefService = Components.classes['@mozilla.org/preferences-service;1']
                     .getService(Components.interfaces.nsIPrefBranch2);
                  
-  this.prefService.addObserver("", this, false);
+  this.prefService.addObserver(PREF, this, false);
 
-  if(this.prefService.getBoolPref("nightly.disableCheckCompatibility"))
+  this.appinfo = Components.classes["@mozilla.org/xre/app-info;1"]
+               .getService(Components.interfaces.nsIXULAppInfo);
+
+  if(this.prefService.getBoolPref(PREF))
     this.setCompatPrefs();
 }
 
 nttAddonCompatibilityService.prototype = {
+  get version() this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1"),
+
   classDescription: "Nightly Tester Tools Addon Compatibility",
   classID: Components.ID("{126c18c5-386c-4c13-b59f-dc909e78aea0}"),
   contractID: "@mozilla.com/nightly/addoncompatibility;1",
@@ -57,7 +67,7 @@ nttAddonCompatibilityService.prototype = {
   observe : function(subject, topic, data) {
     if (topic == "nsPref:changed") {
       switch(data) {
-        case "nightly.disableCheckCompatibility":
+        case PREF:
           this.setCompatPrefs();
           break;
         default:
@@ -67,118 +77,18 @@ nttAddonCompatibilityService.prototype = {
   },
 
   setCompatPrefs : function() {
-    var prefs = ["extensions.checkCompatibility",
-                 "extensions.checkCompatibility.3.6b",
-                 "extensions.checkCompatibility.3.6",
-                 "extensions.checkCompatibility.3.6p",
-                 "extensions.checkCompatibility.3.6pre",
-                 "extensions.checkCompatibility.3.7a",
-                 "extensions.checkCompatibility.4.0",
-                 "extensions.checkCompatibility.4.0b",
-                 "extensions.checkCompatibility.4.0pre",
-                 "extensions.checkCompatibility.4.0p",
-                 "extensions.checkCompatibility.4.2a",
-                 "extensions.checkCompatibility.4.2a1",
-                 "extensions.checkCompatibility.4.2a1pre",
-                 "extensions.checkCompatibility.4.2",
-                 "extensions.checkCompatibility.4.2b",
-                 "extensions.checkCompatibility.5.0",
-                 "extensions.checkCompatibility.5.0a",
-                 "extensions.checkCompatibility.5.0b",
-                 "extensions.checkCompatibility.6.0",
-                 "extensions.checkCompatibility.6.0a",
-                 "extensions.checkCompatibility.6.0b",
-                 "extensions.checkCompatibility.7.0",
-                 "extensions.checkCompatibility.7.0a",
-                 "extensions.checkCompatibility.7.0b",
-                 "extensions.checkCompatibility.8.0",
-                 "extensions.checkCompatibility.8.0a",
-                 "extensions.checkCompatibility.9.0",
-                 "extensions.checkCompatibility.9.0a",
-                 "extensions.checkCompatibility.10.0",
-                 "extensions.checkCompatibility.10.0a",
-                 "extensions.checkCompatibility.11.0",
-                 "extensions.checkCompatibility.11.0a",
-                 "extensions.checkCompatibility.12.0",
-                 "extensions.checkCompatibility.12.0a",
-                 "extensions.checkCompatibility.13.0",
-                 "extensions.checkCompatibility.13.0a",
-                 "extensions.checkCompatibility.14.0",
-                 "extensions.checkCompatibility.14.0a",
-                 "extensions.checkCompatibility.15.0",
-                 "extensions.checkCompatibility.15.0a",
-                 "extensions.checkCompatibility.nightly"];
+    var prefs = [];
+    
+    switch(this.appinfo.name) {
+      case "Songbird":
+        break;
+      default:
+        prefs.push(PREFIX + PREF_NIGHTLY);
+        break;
+    }
+    prefs.push(PREFIX + this.version);
 
-    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-               .getService(Components.interfaces.nsIXULAppInfo);
-    if (appInfo.name == "Thunderbird") {
-      prefs = ["extensions.checkCompatibility",
-               "extensions.checkCompatibility.3.0",
-               "extensions.checkCompatibility.3.1p",
-               "extensions.checkCompatibility.3.1pre",
-               "extensions.checkCompatibility.3.1a",
-               "extensions.checkCompatibility.3.1b",
-               "extensions.checkCompatibility.3.1",
-               "extensions.checkCompatibility.3.2a",
-               "extensions.checkCompatibility.3.3a",
-               "extensions.checkCompatibility.7.0a",
-               "extensions.checkCompatibility.7.0b",
-               "extensions.checkCompatibility.8.0",
-               "extensions.checkCompatibility.8.0a",
-               "extensions.checkCompatibility.9.0",
-               "extensions.checkCompatibility.9.0a",
-               "extensions.checkCompatibility.10.0",
-               "extensions.checkCompatibility.10.0a",
-               "extensions.checkCompatibility.11.0",
-               "extensions.checkCompatibility.11.0a",
-               "extensions.checkCompatibility.12.0",
-               "extensions.checkCompatibility.12.0a",
-               "extensions.checkCompatibility.13.0",
-               "extensions.checkCompatibility.13.0a",
-               "extensions.checkCompatibility.14.0",
-               "extensions.checkCompatibility.14.0a",
-               "extensions.checkCompatibility.15.0",
-               "extensions.checkCompatibility.15.0a",
-               "extensions.checkCompatibility.nightly"];
-    }
-    else if (appInfo.name == "SeaMonkey") {
-     prefs = ["extensions.checkCompatibility",
-              "extensions.checkCompatibility.2.0",
-              "extensions.checkCompatibility.2.1p",
-              "extensions.checkCompatibility.2.1pre",
-              "extensions.checkCompatibility.2.1a",
-              "extensions.checkCompatibility.2.1b",
-              "extensions.checkCompatibility.2.1",
-              "extensions.checkCompatibility.2.2a",
-              "extensions.checkCompatibility.2.2b",
-              "extensions.checkCompatibility.2.4a",
-              "extensions.checkCompatibility.2.4b",
-              "extensions.checkCompatibility.2.5",
-              "extensions.checkCompatibility.2.5a",
-              "extensions.checkCompatibility.2.6",
-              "extensions.checkCompatibility.2.6a",
-              "extensions.checkCompatibility.2.7",
-              "extensions.checkCompatibility.2.7a",
-              "extensions.checkCompatibility.2.8",
-              "extensions.checkCompatibility.2.8a",
-              "extensions.checkCompatibility.2.9",
-              "extensions.checkCompatibility.2.9a",
-              "extensions.checkCompatibility.2.10",
-              "extensions.checkCompatibility.2.10a",
-              "extensions.checkCompatibility.2.11",
-              "extensions.checkCompatibility.2.11a",
-              "extensions.checkCompatibility.nightly"];
-    }
-    else if (appInfo.name == "Songbird") {
-     prefs = ["extensions.checkCompatibility",
-              "extensions.checkCompatibility.1.8",
-              "extensions.checkCompatibility.1.9",
-              "extensions.checkCompatibility.1.10",
-              "extensions.checkCompatibility.1.11",
-              "extensions.checkCompatibility.1.12"];
-    }
-
-    var enable = !this.prefService.getBoolPref("nightly.disableCheckCompatibility");
+    var enable = !this.prefService.getBoolPref(PREF);
     for(var i = 0; i < prefs.length; i++)
       this.prefService.setBoolPref(prefs[i], enable);
   }
