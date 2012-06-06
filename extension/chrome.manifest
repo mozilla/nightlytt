@@ -13,7 +13,6 @@ category profile-after-change AboutNightly @mozilla.org/network/protocol/about;1
 # addon compatiblity component
 component {126c18c5-386c-4c13-b59f-dc909e78aea0} components/nttAddonCompatibilityService.js
 contract @mozilla.com/nightly/addoncompatibility;1 {126c18c5-386c-4c13-b59f-dc909e78aea0}
-category profile-after-change nttAddonCompatibilityService @mozilla.com/nightly/addoncompatibility;1
 
 # Shared chrome
 override     chrome://nightly/content/platform.js                     chrome://nightly/content/winPlatform.js                  os=winnt
