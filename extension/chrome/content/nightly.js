@@ -493,14 +493,22 @@ openPushlog: function() {
 
 toggleCompatibility: function() {
   var forceCompat = nightly.preferences.getBoolPref("disableCheckCompatibility");
-  nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
+  var os = Components.classes["@mozilla.org/observer-service;1"].
+           getService(Components.interfaces.nsIObserverService);
+  function restartObserver(subject, topic, data){
+    os.removeObserver(this, "nttACS");
+    if (data == "restartNeeded") {
+      nightlyApp.openNotification("nightly-compatibility-restart",
+        nightly.getString("nightly.restart.message"),
+        nightly.getString("nightly.restart.label"),
+        nightly.getString("nightly.restart.accesskey"),
+        function() { Application.restart(); });
+    }
+  };
   if (nightlyApp.openNotification) {
-    nightlyApp.openNotification("nightly-compatibility-restart",
-      nightly.getString("nightly.restart.message"),
-      nightly.getString("nightly.restart.label"),
-      nightly.getString("nightly.restart.accesskey"),
-      function() { Application.restart(); });
+    os.addObserver({observe: restartObserver}, "nttACS", false);
   }
+  nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
 },
 
 }

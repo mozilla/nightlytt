@@ -51,6 +51,9 @@ function nttAddonCompatibilityService() {
   this.appinfo = Components.classes["@mozilla.org/xre/app-info;1"]
                .getService(Components.interfaces.nsIXULAppInfo);
 
+  this.obs = Components.classes["@mozilla.org/observer-service;1"]
+            .getService(Components.interfaces.nsIObserverService);
+
   if(this.prefService.getBoolPref(PREF))
     this.setCompatPrefs();
 }
@@ -68,13 +71,43 @@ nttAddonCompatibilityService.prototype = {
     if (topic == "nsPref:changed") {
       switch(data) {
         case PREF:
-          this.setCompatPrefs();
+          this.manageCompatPrefsSetting();
           break;
         default:
           break;
       }
     }
   },
+
+
+  manageCompatPrefsSetting : function() {
+    try{
+      Components.utils.import("resource://gre/modules/AddonManager.jsm");
+      let self = this;
+      AddonManager.getAddonsByTypes(null, function (addons) {
+          function count() addons.reduce(function (acc, a) acc + (
+              (a.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
+              (a.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
+            ), 0);
+
+          let startCount = count();
+          self.setCompatPrefs();
+          if (startCount != count()) {
+            Components.utils.reportError("restart needed! "
+              + ", counts: " + startCount + " and " + count()
+            );
+            self.obs.notifyObservers(null, "nttACS", "restartNeeded");
+          } else {
+            self.obs.notifyObservers(null, "nttACS", null);
+          }
+      });
+    } catch(e) {
+      // old extension manager API
+      this.setCompatPrefs();
+      this.obs.notifyObservers(null, "nttACS", "restartNeeded");
+    }
+  },
+
 
   setCompatPrefs : function() {
     var prefs = [];
