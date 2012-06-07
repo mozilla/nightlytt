@@ -112,5 +112,29 @@ var AllYouCanUpload = {
   }
 }
 
-Providers.addProvider(ImageShack);
+var GordonUploadScreenshot = {
+  addFormFields: function(formdata)
+  {
+    formdata.addControl("apiKey", "519acd4be68445997245348820");
+    formdata.addControl("testMode", "1");
+  },
+  
+  getFileFormField: function()
+  {
+    return "userfile";
+  },
+  
+  getReferer: function()
+  {
+    return "http://www.uploadscreenshot.com/api-documentation";
+  },
+  
+  getSubmissionURL: function()
+  {
+    return "http://img1.uploadscreenshot.com/api-upload.php";
+  }
+}
+
+Providers.addProvider(GordonUploadScreenshot);
+//Providers.addProvider(ImageShack);
 //Providers.addProvider(AllYouCanUpload);
