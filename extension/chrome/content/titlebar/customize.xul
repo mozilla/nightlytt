@@ -41,9 +41,10 @@
 
 <prefwindow id="NightlyTesterOptions" windowtype="NightlyTester:Customize"
             title="&nightly.customize.title;"
+            style="width: 42.75em; height: 28.5em" persist="width height"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <prefpane id="paneTitle" label="&nightly.customize.title;">
+  <prefpane id="paneTitle" label="&nightly.customize.title;" flex="1">
 
     <preferences>
       <preference id="idtitle" type="bool" name="nightly.idtitle" onchange="paneTitle.toggled();"/>
