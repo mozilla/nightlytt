@@ -35,4 +35,4 @@ overlay      chrome://navigator/content/navigator.xul                 chrome://n
 
 # Songbird chrome
 overlay      chrome://songbird/content/xul/layoutBaseOverlay.xul      chrome://nightly/content/songbirdOverlay.xul             application=songbird@songbirdnest.com
-
+override     chrome://nightly/skin/aboutNightly/aboutNightly.css      chrome://nightly/skin/aboutNightly/aboutNightly-sb.css   application=songbird@songbirdnest.com
