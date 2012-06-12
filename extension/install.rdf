@@ -4,7 +4,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{8620c15f-30dc-4dba-a131-7c5d20cf4a29}</em:id>
-    <em:version>3.3pre</em:version>
+    <em:version>3.4pre</em:version>
     <em:type>2</em:type>
     
     <!-- Need unpacking for crashme binary components -->
@@ -13,8 +13,9 @@
     <!-- Front End MetaData -->
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
-    <em:creator>Mossop</em:creator>
+    <em:creator>Mozilla QA Automation Services</em:creator>
     <em:contributor>Dave Hunt</em:contributor>
+    <em:contributor>Dave Townsend (original author)</em:contributor>
     <em:contributor>Ed Morley</em:contributor>
     <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
     <em:contributor>Heather Arthur</em:contributor>
@@ -35,7 +36,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.6</em:minVersion>
-        <em:maxVersion>14.0a1</em:maxVersion>
+        <em:maxVersion>15.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -44,7 +45,7 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.1</em:minVersion>
-        <em:maxVersion>14.0a1</em:maxVersion>
+        <em:maxVersion>15.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -53,7 +54,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1a1pre</em:minVersion>
-        <em:maxVersion>2.11a1</em:maxVersion>
+        <em:maxVersion>2.12a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -73,7 +74,7 @@
       <Description>
         <em:id>toolkit@mozilla.org</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>14.0a1</em:maxVersion>
+        <em:maxVersion>15.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 

@@ -42,3 +42,7 @@
 toolbar[iconsize="small"] #nightly-tester-enter {
   list-style-image: url("chrome://nightly/skin/idsmall.png");
 }
+
+.popup-notification-icon[popupid="nightly-compatibility-restart"] {
+  list-style-image: url("chrome://nightly/content/brand/logo.png");
+}

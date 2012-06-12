@@ -64,6 +64,7 @@ init: function()
   paneTitle.addVariable("Name");
   paneTitle.addVariable("Version");
   paneTitle.addVariable("AppBuildID");
+  paneTitle.addVariable("Changeset");
   paneTitle.addVariable("PlatformBuildID");
   paneTitle.addVariable("PlatformVersion");
   paneTitle.addVariable("GeckoVersion");
