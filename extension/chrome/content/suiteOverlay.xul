@@ -65,7 +65,8 @@
                 oncommand="nightly.pastebinAboutSupport();"/>
       <menuseparator/>
       <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-      <menuitem id="nightly-pushlog" label="&nightly.pushlog.label;" oncommand="nightly.openPushlog();"/>
+      <menuitem id="nightly-pushlog-lasttocurrent" label="&nightly.pushlog.lasttocurrent.label;" oncommand="nightly.openPushlogToCurrentBuild();"/>
+      <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
       <menuseparator/>
