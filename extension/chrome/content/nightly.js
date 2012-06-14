@@ -289,7 +289,7 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
-      if (node.id == 'nightly-pushlog') {
+      if (node.id == 'nightly-pushlog-lasttocurrent') {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       }
@@ -484,11 +484,24 @@ getChangeset: function() {
   return nightly.getAppIniString("App", "SourceStamp");
 },
 
-openPushlog: function() {
+openPushlog: function(fromChange, toChange) {
+  if (fromChange) {
+    var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + fromChange;
+    if (toChange)
+      pushlogUrl += "&tochange=" + toChange;
+    nightlyApp.openURL(pushlogUrl);
+  }
+},
+
+openPushlogToCurrentBuild: function() {
   var prevChangeset = nightly.preferences.getCharPref("prevChangeset");
-  var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
-    + "&tochange=" + nightly.getChangeset();
-  nightlyApp.openURL(pushlogUrl);
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(prevChangeset, currChangeset);
+},
+
+openPushlogSinceCurrentBuild: function() {
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(currChangeset);
 },
 
 toggleCompatibility: function() {
