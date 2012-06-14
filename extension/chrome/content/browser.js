@@ -79,12 +79,21 @@ openNotification: function(id, message, label, accessKey, callback) {
     callback: callback,
     accessKey: accessKey
   };
-  var options = {
-    timeout: Date.now() + 10000
-  };
+  if (typeof PopupNotifications != "undefined") {
+    var options = {
+      timeout: Date.now() + 10000
+    };
 
-  PopupNotifications.show(gBrowser.selectedBrowser, id,
-    message, "urlbar", action, null, options);
+    PopupNotifications.show(gBrowser.selectedBrowser, id,
+      message, "urlbar", action, null, options);
+  } else {
+    let nb = gBrowser.getNotificationBox();
+
+    nb.appendNotification(
+      message, id,
+      "chrome://nightly/content/brand/icon.png",
+      nb.PRIORITY_INFO_HIGH, [ action ]);
+  }
 },
 
 setCustomTitle: function(title)
