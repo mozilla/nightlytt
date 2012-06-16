@@ -14,12 +14,16 @@
  * The Original Code is Nightly Tester Tools.
  *
  * The Initial Developer of the Original Code is
- *     Dave Townsend <dtownsend@oxymoronical.com>.
+ *     Szabolcs Hubai <szab.hu@gmail.com>.
  *
- * Portions created by the Initial Developer are Copyright (C) 2007
+ * Portions created by the Initial Developer are Copyright (C) 2012
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ *   Robert Strong <robert.bugzilla@gmail.com>
+ *   Blair McBride <bmcbride@mozilla.com>
+ *   Marcos Santiago <littledodgeviper@sbcglobal.net>
+ *   Jimmy Phan <jphan9@gmail.com>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -35,71 +39,68 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-const Cc = Components.classes;
-const Ci = Components.interfaces;
+const { classes: Cc, interfaces: Ci, utils: Cu, results: Cr } = Components;
 
-const ourAddonID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
+const ADDONID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
 
 
 function init() {
-  var has_EM = "@mozilla.org/extensions/manager;1" in Components.classes;
-  if (has_EM) {
-    extensionLoader();
+  window.removeEventListener("load", init, false);
+
+  if ("@mozilla.org/extensions/manager;1" in Cc) {
+    ExtensionManager.getAddonByID(ADDONID, fillContributorsCallback);
   } else {
-    addonLoader();
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");
+    AddonManager.getAddonByID(ADDONID, fillContributorsCallback);
   }
 }
 
-function fillContributorsCB(addon) {
-  appendToList("about", "about", [ addon.creator ], "label");
-  appendToList("contributors", "contributorsList", addon.contributors, "li");
+function fillContributorsCallback(aAddon) {
+  appendToList("about", "about", [ aAddon.creator ], "label");
+  appendToList("contributors", "contributorsList", aAddon.contributors, "li");
 }
 
-function addonLoader() {
-  Components.utils.import("resource://gre/modules/AddonManager.jsm");
-  AddonManager.getAddonByID(ourAddonID, function(addon) {
-    fillContributorsCB(addon);
-  });
-}
+var ExtensionManager = {
+  getAddonByID: function (aID, aCallback) {
+    if (!aID || typeof aID != "string")
+      throw Components.Exception("aID must be a non-empty string",
+                                 Cr.NS_ERROR_INVALID_ARG);
 
-function extensionLoader() {
-  function EM_NS(aProperty)
-  {
-    return "http://www.mozilla.org/2004/em-rdf#" + aProperty;
-  }
+    if (typeof aCallback != "function")
+      throw Components.Exception("aCallback must be a function",
+                                 Cr.NS_ERROR_INVALID_ARG);
 
-  var em = Cc['@mozilla.org/extensions/manager;1']
-    .getService(Ci.nsIExtensionManager);
-  var rdfs = Cc["@mozilla.org/rdf/rdf-service;1"]
-    .getService(Ci.nsIRDFService);
-  var ds = em.datasource;
-  var extension = rdfs.GetResource("urn:mozilla:item:" + ourAddonID);
-
-  var addon = {};
-
-  var arc = rdfs.GetResource(EM_NS("homepageURL"));
-  addon.creator = {};
-  var homepage = ds.GetTarget(extension, arc, true);
-  if (homepage)
-    addon.creator.url = homepage.QueryInterface(Ci.nsIRDFLiteral).Value;
-
-  arc = rdfs.GetResource(EM_NS("creator"));
-  var creator = ds.GetTarget(extension, arc, true);
-  if (creator)
-    addon.creator.name = creator.QueryInterface(Ci.nsIRDFLiteral).Value;
-
-  arc = rdfs.GetResource(EM_NS("contributor"));
-  var contributors = ds.GetTargets(extension, arc, true);
-  if (contributors.hasMoreElements()) {
-    addon.contributors = [];
-    while (contributors.hasMoreElements()) {
-      var contributor = {};
-      contributor.name = contributors.getNext().QueryInterface(Ci.nsIRDFLiteral).Value;
-      addon.contributors.push(contributor);
+    function EM_NS(aProperty)
+    {
+      return "http://www.mozilla.org/2004/em-rdf#" + aProperty;
     }
-  }
 
-  fillContributorsCB(addon);
+    var em = Cc['@mozilla.org/extensions/manager;1']
+             .getService(Ci.nsIExtensionManager);
+    var rdfs = Cc["@mozilla.org/rdf/rdf-service;1"]
+               .getService(Ci.nsIRDFService);
+    var ds = em.datasource;
+    var extension = rdfs.GetResource("urn:mozilla:item:" + aID);
+
+    var addon = { creator: {}, contributors: [] };
+
+    arc = rdfs.GetResource(EM_NS("creator"));
+    var creator = ds.GetTarget(extension, arc, true);
+    if (creator)
+      addon.creator.name = creator.QueryInterface(Ci.nsIRDFLiteral).Value;
+
+    arc = rdfs.GetResource(EM_NS("contributor"));
+    var contributors = ds.GetTargets(extension, arc, true);
+    if (contributors.hasMoreElements()) {
+      while (contributors.hasMoreElements()) {
+        addon.contributors.push({
+          name: contributors.getNext().QueryInterface(Ci.nsIRDFLiteral).Value
+        });
+      }
+    }
+
+    aCallback(addon);
+  }
 }
 
 function appendToList(aHeaderId, aNodeId, aItems, aEType) {
@@ -126,7 +127,6 @@ function appendToList(aHeaderId, aNodeId, aItems, aEType) {
 
   return aItems.length;
 }
- 
 
-window.addEventListener("load", init, false); 
- 
+
+window.addEventListener("load", init, false);
