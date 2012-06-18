@@ -37,6 +37,8 @@
   - ***** END LICENSE BLOCK ***** -->
 
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://nightly/skin/titlebar/titlebar.css" type="text/css"?>
+
 <!DOCTYPE window SYSTEM "chrome://nightly/locale/customize.dtd">
 
 <prefwindow id="NightlyTesterOptions" windowtype="NightlyTester:Customize"
@@ -64,7 +66,7 @@
 
     <description style="padding-bottom: 5px">&nightly.variables.description;</description>
 
-    <tree id="variablesTree" flex="1" style="height: 17em" hidecolumnpicker="true">
+    <tree id="variableTree" flex="1" hidecolumnpicker="true">
       <treecols>
         <treecol id="variable" label="&nightly.variable.label;" flex="1" persist="width"/>
         <splitter class="tree-splitter"/>

@@ -40,64 +40,51 @@ function arrayBasedTreeView (treeViewData) {
 }
 
 arrayBasedTreeView.prototype = {
+  data: [],
 
-data: [],
+  get rowCount () {
+    return this.data.length;
+  },
 
-get rowCount()
-{ 
-  return this.data.length 
-},
+  getCellText: function (aRow, aColumn) {
+    return this.data[aRow][aColumn.id];
+  },
 
-getCellText: function(row,column)
-{
-  return this.data[row][column.id];
-},
+  setTree: function (aTreebox) {
+    this.treebox = aTreebox;
+  },
 
-setTree: function(treebox)
-{
-  this.treebox = treebox;
-},
+  isContainer: function (aRow) {
+    return false; 
+  },
 
-isContainer: function(row)
-{
-  return false; 
-},
+  isSeparator: function (aRow) {
+    return false;
+  },
 
-isSeparator: function(row)
-{
-  return false;
-},
+  isSorted: function () {
+    return false;
+  },
 
-isSorted: function(){
-  return false;
-},
+  getLevel: function (aRow) {
+    return 0; 
+  },
 
-getLevel: function(row)
-{
-  return 0; 
-},
+  getImageSrc: function (aRow, aCol) {
+    return null;
+  },
 
-getImageSrc: function(row,col)
-{
-  return null;
-},
+  getRowProperties: function (aRow, aProps) {
+  },
 
-getRowProperties: function(row,props)
-{
-},
+  getCellProperties: function (aRow, aCol, aProps) {
+  },
 
-getCellProperties: function(row,col,props)
-{
-},
+  getColumnProperties: function (aColID, aCol, aProps) {
+  },
 
-getColumnProperties: function(colid,col,props)
-{
-},
-
-cycleHeader: function(col)
-{
-},
-
+  cycleHeader: function (aCol) {
+  },
 };
 
 
@@ -106,8 +93,10 @@ var paneTitle = {
 bundle: null,
 variables: [],
 
-init: function()
+init: function(aEvent)
 {
+  aEvent.originalTarget.defaultView.window.removeEventListener("load", paneTitle.init, false);
+
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
               .getService(Components.interfaces.nsIWindowMediator);      
   var window = mediator.getMostRecentWindow("navigator:browser");
@@ -173,17 +162,23 @@ toggled: function()
   text.disabled=!checkbox.checked;
 },
 
-setupTree: function(){
-  var tree = document.getElementById("variablesTree");
+setupTree: function () {
+  var tree = document.getElementById("variableTree");
   tree.view = new arrayBasedTreeView(paneTitle.variables);
-  tree.addEventListener("click", function(event) {
+  tree.addEventListener("click", treeOnClickListener, true);
+},
+}
+
+function treeOnClickListener (aEvent) {
+  if (aEvent.originalTarget.tagName == "treechildren") {
+    var tree = aEvent.originalTarget.parentNode;
     var tbo = tree.treeBoxObject;
 
     // get the row, col and child element at the point
     var row = { }, col = { }, child = { };
-    tbo.getCellAt(event.clientX, event.clientY, row, col, child);
+    tbo.getCellAt(aEvent.clientX, aEvent.clientY, row, col, child);
 
-    // a workaround to skip clicks from scrollbar
+    // a workaround to skip extraneous clicks
     if (tree.view.selection.currentIndex === row.value) {
       var titlebox = document.getElementById("customTitle");
       var template = titlebox.value + " " + paneTitle.variables[row.value]["variable"];
@@ -191,8 +186,7 @@ setupTree: function(){
       // manually set pref, pref change isn't triggered if we just set the value
       paneTitle.nightly.preferences.setCharPref("templates.title", template);
     }
-  }, true);
-},
+  }
 }
 
 window.addEventListener("load",paneTitle.init,false);
