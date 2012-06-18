@@ -41,17 +41,23 @@
 
 const { classes: Cc, interfaces: Ci, utils: Cu, results: Cr } = Components;
 
-const ADDONID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
+const ADDON_ID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
 
 
 function init() {
   window.removeEventListener("load", init, false);
 
-  if ("@mozilla.org/extensions/manager;1" in Cc) {
-    ExtensionManager.getAddonByID(ADDONID, fillContributorsCallback);
+  var haveAM;
+  try {
+    Cu.import("resource://gre/modules/AddonManager.jsm");
+    haveAM = true;
+  } catch(e) {
+    haveAM = false;
+  }
+  if (haveAM) {
+    AddonManager.getAddonByID(ADDON_ID, fillContributorsCallback);
   } else {
-    Components.utils.import("resource://gre/modules/AddonManager.jsm");
-    AddonManager.getAddonByID(ADDONID, fillContributorsCallback);
+    ExtensionManager.getAddonByID(ADDON_ID, fillContributorsCallback);
   }
 }
 
