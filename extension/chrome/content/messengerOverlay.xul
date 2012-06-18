@@ -61,8 +61,6 @@
   <menupopup id="taskPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
     <menupopup onpopupshowing="nightly.menuPopup(event,this);">
-      <menuitem label="&nightly.openabout.label;" oncommand="nightlyApp.openAboutNightly();"/>
-      <menuseparator/>
       <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
       <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
       <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>

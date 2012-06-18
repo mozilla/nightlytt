@@ -1,4 +1,3 @@
-<!ENTITY nightly.openabout.label              "Open about:nightly">
 <!ENTITY nightly.openprofile.label            "Open Profile Folder">
 
 <!ENTITY nightly.id.copy.label                "Copy Build ID to Clipboard">
