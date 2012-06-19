@@ -376,9 +376,9 @@ getExtensionList: function(callback) {
           text[i]+=" [DISABLED]";
       }
       catch (e) { }
-      text.sort(nightly.insensitiveSort);
-      callback(text.join("\n"));
     }
+    text.sort(nightly.insensitiveSort);
+    callback(text.join("\n"));
   }
 },
 
