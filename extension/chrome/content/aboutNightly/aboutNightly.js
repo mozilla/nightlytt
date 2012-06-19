@@ -47,17 +47,18 @@ const ADDON_ID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
 function init() {
   window.removeEventListener("load", init, false);
 
-  var haveAM;
+  var manager = null;
   try {
-    Cu.import("resource://gre/modules/AddonManager.jsm");
-    haveAM = true;
-  } catch(e) {
-    haveAM = false;
+    var { AddonManager: manager } = Cu.import("resource://gre/modules/AddonManager.jsm");
+  } catch (e) {
+    var manager = ExtensionManager;
   }
-  if (haveAM) {
-    AddonManager.getAddonByID(ADDON_ID, fillContributorsCallback);
+
+  if (manager) {
+    manager.getAddonByID(ADDON_ID, fillContributorsCallback);
   } else {
-    ExtensionManager.getAddonByID(ADDON_ID, fillContributorsCallback);
+    throw Components.Exception("no usable Manager found",
+                               Cr.NS_ERROR_NOT_IMPLEMENTED);
   }
 }
 
