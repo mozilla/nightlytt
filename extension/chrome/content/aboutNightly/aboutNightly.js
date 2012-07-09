@@ -53,12 +53,7 @@ function init() {
     var manager = ExtensionManager;
   }
 
-  if (manager) {
-    manager.getAddonByID(ADDON_ID, fillContributorsCallback);
-  } else {
-    throw Components.Exception("no usable Manager found",
-                               Cr.NS_ERROR_NOT_IMPLEMENTED);
-  }
+  manager.getAddonByID(ADDON_ID, fillContributorsCallback);
 }
 
 function fillContributorsCallback(aAddon) {
