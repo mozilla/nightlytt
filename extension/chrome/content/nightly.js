@@ -289,7 +289,7 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
-      if (node.id == 'nightly-pushlog') {
+      if (node.id == 'nightly-pushlog-lasttocurrent') {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       }
@@ -376,9 +376,9 @@ getExtensionList: function(callback) {
           text[i]+=" [DISABLED]";
       }
       catch (e) { }
-      text.sort(nightly.insensitiveSort);
-      callback(text.join("\n"));
     }
+    text.sort(nightly.insensitiveSort);
+    callback(text.join("\n"));
   }
 },
 
@@ -455,10 +455,10 @@ openCustomize: function() {
     var prefservice = Components.classes["@mozilla.org/preferences-service;1"]
                                 .getService(Components.interfaces.nsIPrefBranch);
     var instantApply = prefservice.getBoolPref("browser.preferences.instantApply");
-    features = "chrome,titlebar,toolbar,centerscreen" + (instantApply ? ",dialog=no" : ",modal");
+    features = "chrome,titlebar,toolbar,centerscreen,resizable" + (instantApply ? ",dialog=no" : ",modal");
   }
   catch (e) {
-    features = "chrome,titlebar,toolbar,centerscreen,modal";
+    features = "chrome,titlebar,toolbar,centerscreen,resizable,modal";
   }
   openDialog("chrome://nightly/content/titlebar/customize.xul", "", features);
 },
@@ -484,11 +484,24 @@ getChangeset: function() {
   return nightly.getAppIniString("App", "SourceStamp");
 },
 
-openPushlog: function() {
+openPushlog: function(fromChange, toChange) {
+  if (fromChange) {
+    var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + fromChange;
+    if (toChange)
+      pushlogUrl += "&tochange=" + toChange;
+    nightlyApp.openURL(pushlogUrl);
+  }
+},
+
+openPushlogToCurrentBuild: function() {
   var prevChangeset = nightly.preferences.getCharPref("prevChangeset");
-  var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
-    + "&tochange=" + nightly.getChangeset();
-  nightlyApp.openURL(pushlogUrl);
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(prevChangeset, currChangeset);
+},
+
+openPushlogSinceCurrentBuild: function() {
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(currChangeset);
 },
 
 toggleCompatibility: function() {

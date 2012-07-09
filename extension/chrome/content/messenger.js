@@ -127,4 +127,9 @@ getWindowTitleForMessenger: function(aTab)
   return docTitle;
 },
 
+openAboutNightly: function () {
+  var tabmail = document.getElementById("tabmail");
+  tabmail.openTab("contentTab", { contentPage: "about:nightly" });
+},
+
 }
