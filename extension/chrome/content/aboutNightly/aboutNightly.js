@@ -47,7 +47,6 @@ const ADDON_ID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
 function init() {
   window.removeEventListener("load", init, false);
 
-  var manager = null;
   try {
     var { AddonManager: manager } = Cu.import("resource://gre/modules/AddonManager.jsm");
   } catch (e) {
@@ -69,11 +68,11 @@ function fillContributorsCallback(aAddon) {
 
 var ExtensionManager = {
   getAddonByID: function (aID, aCallback) {
-    if (!aID || typeof aID != "string")
+    if (!aID || typeof aID !== "string")
       throw Components.Exception("aID must be a non-empty string",
                                  Cr.NS_ERROR_INVALID_ARG);
 
-    if (typeof aCallback != "function")
+    if (typeof aCallback !== "function")
       throw Components.Exception("aCallback must be a function",
                                  Cr.NS_ERROR_INVALID_ARG);
 
@@ -114,7 +113,7 @@ function appendToList(aHeaderId, aNodeId, aItems, aEType) {
   var header = document.getElementById(aHeaderId);
   var node = document.getElementById(aNodeId);
 
-  if (!aItems || aItems.length == 0) {
+  if (!aItems || aItems.length === 0) {
     header.hidden = true;
     return 0;
   }
