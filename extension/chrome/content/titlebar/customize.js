@@ -42,7 +42,7 @@ function arrayBasedTreeView (treeViewData) {
 arrayBasedTreeView.prototype = {
   data: [],
 
-  get rowCount () {
+  get rowCount() {
     return this.data.length;
   },
 
@@ -95,7 +95,7 @@ variables: [],
 
 init: function(aEvent)
 {
-  aEvent.originalTarget.defaultView.window.removeEventListener("load", paneTitle.init, false);
+  aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
 
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
               .getService(Components.interfaces.nsIWindowMediator);      
