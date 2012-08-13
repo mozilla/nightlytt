@@ -35,43 +35,44 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 
-const PREF         = "nightly.disableCheckCompatibility";
-const PREFIX       = "extensions.checkCompatibility.";
-const PREF_NIGHTLY = "nightly";
+Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+
+const PREF_FORCE_COMPAT         = "nightly.disableCheckCompatibility";
+const PREF_CHECK_COMPAT_PREFIX  = "extensions.checkCompatibility.";
+const PREF_CHECK_COMPAT_NIGHTLY = "extensions.checkCompatibility.nightly";
 
 
 function nttAddonCompatibilityService() {
-  this.prefService = Components.classes['@mozilla.org/preferences-service;1']
-                    .getService(Components.interfaces.nsIPrefBranch2);
+  this.prefService = Cc['@mozilla.org/preferences-service;1']
+                     .getService(Ci.nsIPrefBranch2);
                  
-  this.prefService.addObserver(PREF, this, false);
+  this.prefService.addObserver(PREF_FORCE_COMPAT, this, false);
 
-  this.appinfo = Components.classes["@mozilla.org/xre/app-info;1"]
-               .getService(Components.interfaces.nsIXULAppInfo);
+  this.appinfo = Cc["@mozilla.org/xre/app-info;1"]
+                 .getService(Ci.nsIXULAppInfo);
 
-  this.obs = Components.classes["@mozilla.org/observer-service;1"]
-            .getService(Components.interfaces.nsIObserverService);
+  this.obs = Cc["@mozilla.org/observer-service;1"]
+             .getService(Ci.nsIObserverService);
 
-  if(this.prefService.getBoolPref(PREF))
+  if(this.prefService.getBoolPref(PREF_FORCE_COMPAT)) {
     this.setCompatPrefs();
+  }
 }
 
 nttAddonCompatibilityService.prototype = {
-  get version() this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1"),
-
   classDescription: "Nightly Tester Tools Addon Compatibility",
   classID: Components.ID("{126c18c5-386c-4c13-b59f-dc909e78aea0}"),
   contractID: "@mozilla.com/nightly/addoncompatibility;1",
-  QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsIObserver]),
+  QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver]),
 
   // nsIObserver
   observe : function(subject, topic, data) {
     if (topic == "nsPref:changed") {
       switch(data) {
-        case PREF:
-          this.manageCompatPrefsSetting();
+        case PREF_FORCE_COMPAT:
+          this.setCompatPrefsHelper();
           break;
         default:
           break;
@@ -80,27 +81,33 @@ nttAddonCompatibilityService.prototype = {
   },
 
 
-  manageCompatPrefsSetting : function() {
-    try{
-      Components.utils.import("resource://gre/modules/AddonManager.jsm");
-      let self = this;
-      AddonManager.getAddonsByTypes(null, function (addons) {
-          function count() addons.reduce(function (acc, a) acc + (
-              (a.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
-              (a.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
-            ), 0);
+  get version() {
+    return this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1");
+  },
 
-          let startCount = count();
-          self.setCompatPrefs();
-          if (startCount != count()) {
-            Components.utils.reportError("restart needed! "
-              + ", counts: " + startCount + " and " + count()
-            );
-            self.obs.notifyObservers(null, "nttACS", "restartNeeded");
-          } else {
-            self.obs.notifyObservers(null, "nttACS", null);
-          }
-      });
+  setCompatPrefsHelper : function() {
+    try{
+      Cu.import("resource://gre/modules/AddonManager.jsm");
+      let self = this;
+      function countPendingAddonsAndNotifyToRestartCallback(aAddons) {
+        function count() {
+          return aAddons.reduce(function (aAccumulator, aAddon) {
+              return aAccumulator + (
+                (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
+                (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
+              );
+            }, 0);
+        }
+
+        let startCount = count();
+        self.setCompatPrefs();
+        if (startCount != count()) {
+          self.obs.notifyObservers(null, "nttACS", "restartNeeded");
+        } else {
+          self.obs.notifyObservers(null, "nttACS", null);
+        }
+      }
+      AddonManager.getAddonsByTypes(null, countPendingAddonsAndNotifyToRestartCallback);
     } catch(e) {
       // old extension manager API
       this.setCompatPrefs();
@@ -116,12 +123,12 @@ nttAddonCompatibilityService.prototype = {
       case "Songbird":
         break;
       default:
-        prefs.push(PREFIX + PREF_NIGHTLY);
+        prefs.push(PREF_CHECK_COMPAT_NIGHTLY);
         break;
     }
-    prefs.push(PREFIX + this.version);
+    prefs.push(PREF_CHECK_COMPAT_PREFIX + this.version);
 
-    var enable = !this.prefService.getBoolPref(PREF);
+    var enable = !this.prefService.getBoolPref(PREF_FORCE_COMPAT);
     for(var i = 0; i < prefs.length; i++)
       this.prefService.setBoolPref(prefs[i], enable);
   }
