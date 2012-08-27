@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-function arrayBasedTreeView (treeViewData) {
+function arrayBasedTreeView(treeViewData) {
   this.data = treeViewData;
 }
 
@@ -169,8 +169,8 @@ setupTree: function () {
 },
 }
 
-function treeOnClickListener (aEvent) {
-  if (aEvent.originalTarget.tagName == "treechildren") {
+function treeOnClickListener(aEvent) {
+  if (aEvent.originalTarget.tagName === "treechildren") {
     var tree = aEvent.originalTarget.parentNode;
     var tbo = tree.treeBoxObject;
 
