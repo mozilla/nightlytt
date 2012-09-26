@@ -13,7 +13,7 @@
     <!-- Front End MetaData -->
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
-    <em:creator>Mozilla QA Automation Services</em:creator>
+    <em:creator>Automation Development</em:creator>
     <em:contributor>Dave Hunt</em:contributor>
     <em:contributor>Dave Townsend (original author)</em:contributor>
     <em:contributor>Ed Morley</em:contributor>
@@ -29,7 +29,7 @@
     <em:contributor>Tony Mechelynck</em:contributor>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
-    <em:homepageURL>https://wiki.mozilla.org/QA/Automation_Services/Projects/Addons/NightlyTesterTools</em:homepageURL>
+    <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>
 
     <!-- Firefox version --> 
     <em:targetApplication>

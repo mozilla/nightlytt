@@ -16,7 +16,7 @@ AboutNightly.prototype = {
   
     newChannel: function(aURI) {
         let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-        let channel = ios.newChannel("chrome://nightly/content/aboutNightly.xhtml",
+        let channel = ios.newChannel("chrome://nightly/content/aboutNightly/aboutNightly.xhtml",
                                      null, null);
         channel.originalURI = aURI;
         return channel;
