@@ -63,16 +63,17 @@ function fillContributorsCallback(aAddon) {
 
 var ExtensionManager = {
   getAddonByID: function (aID, aCallback) {
-    if (!aID || typeof aID !== "string")
+    if (!aID || typeof aID !== "string") {
       throw Components.Exception("aID must be a non-empty string",
                                  Cr.NS_ERROR_INVALID_ARG);
+    }
 
-    if (typeof aCallback !== "function")
+    if (typeof aCallback !== "function") {
       throw Components.Exception("aCallback must be a function",
                                  Cr.NS_ERROR_INVALID_ARG);
+    }
 
-    function EM_NS(aProperty)
-    {
+    function EM_NS(aProperty) {
       return "http://www.mozilla.org/2004/em-rdf#" + aProperty;
     }
 
@@ -87,8 +88,9 @@ var ExtensionManager = {
 
     arc = rdfs.GetResource(EM_NS("creator"));
     var creator = ds.GetTarget(extension, arc, true);
-    if (creator)
+    if (creator) {
       addon.creator.name = creator.QueryInterface(Ci.nsIRDFLiteral).Value;
+    }
 
     arc = rdfs.GetResource(EM_NS("contributor"));
     var contributors = ds.GetTargets(extension, arc, true);
@@ -113,8 +115,8 @@ function appendToList(aHeaderId, aNodeId, aItems, aEType) {
     return 0;
   }
 
-  aItems.forEach(function (currentItem) {
-    var url = currentItem.url;
+  aItems.forEach(function (aCurrentItem) {
+    var url = aCurrentItem.url;
     var listElem = document.createElement(aEType);
     var textContainer = listElem;
     if (url) {
@@ -122,7 +124,7 @@ function appendToList(aHeaderId, aNodeId, aItems, aEType) {
       listElem.appendChild(textContainer);
       textContainer.href = url;
     }
-    textContainer.textContent = currentItem.name;
+    textContainer.textContent = aCurrentItem.name;
     node.appendChild(listElem);
   });
 
