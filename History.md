@@ -1,3 +1,15 @@
+3.4 / 2012-10-11
+==================
+
+  * Extension: Include changeset info in the Insert/Copy Build ID menuitem and in 'Customize Titlebar'. (#65)
+  * Extension: Add pushlog-to-tip menuitem. (#61)
+  * Extension: Open customize.xul (Customize Titlebar) as a resizable window. (#55)
+  * Extension: Let nightlyApp.openNotification() fallback to notificationBox in legacy Fx. (#81)
+  * Extension: Include about:nightly in Nightly Tester Tools' menupopup for Thunderbird. (#56)
+  * Extension: Don't call callback function when iterating over Extension Manager's extensions list. (#88)
+  * Extension: Don't register aboutNightly component for 'profile-after-change' notification. (#57)
+  * Extension: Update 'Contributors' section automatically in about:nightly. (#58)
+
 3.3 / 2012-05-02
 ==================
 
