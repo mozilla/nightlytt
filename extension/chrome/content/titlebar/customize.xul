@@ -4,11 +4,13 @@
   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://nightly/skin/titlebar/titlebar.css" type="text/css"?>
+
 <!DOCTYPE window SYSTEM "chrome://nightly/locale/customize.dtd">
 
 <prefwindow id="NightlyTesterOptions" windowtype="NightlyTester:Customize"
             title="&nightly.customize.title;"
-            style="width: 42.75em; height: 28.5em" persist="width height"
+            persist="width height"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <prefpane id="paneTitle" label="&nightly.customize.title;" flex="1">
@@ -32,20 +34,17 @@
 
     <description style="padding-bottom: 5px">&nightly.variables.description;</description>
 
-    <listbox id="varList" flex="1">
-      <listhead>
-        <listheader label="&nightly.variable.label;"/>
-        <listheader label="&nightly.variabledesc.label;"/>
-        <listheader label="&nightly.variablevalue.label;"/>
-      </listhead>
-      <listcols>
-        <listcol style="width: 9em"/>
-        <listcol flex="1"/>
-        <listcol style="width: 15em"/>
-      </listcols>
-    </listbox>
+    <tree id="variableTree" flex="1" hidecolumnpicker="true">
+      <treecols>
+        <treecol id="variable" label="&nightly.variable.label;" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="description" label="&nightly.variabledesc.label;" flex="1" persist="width"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="value" label="&nightly.variablevalue.label;" flex="2" persist="width"/>
+      </treecols>
+      <treechildren/>
+    </tree>
 
-   
   </prefpane>
 
 </prefwindow>

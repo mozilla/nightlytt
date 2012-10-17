@@ -2,12 +2,68 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+function arrayBasedTreeView(treeViewData) {
+  this.data = treeViewData;
+}
+
+arrayBasedTreeView.prototype = {
+  data: [],
+
+  get rowCount() {
+    return this.data.length;
+  },
+
+  getCellText: function (aRow, aColumn) {
+    return this.data[aRow][aColumn.id];
+  },
+
+  setTree: function (aTreebox) {
+    this.treebox = aTreebox;
+  },
+
+  isContainer: function (aRow) {
+    return false; 
+  },
+
+  isSeparator: function (aRow) {
+    return false;
+  },
+
+  isSorted: function () {
+    return false;
+  },
+
+  getLevel: function (aRow) {
+    return 0; 
+  },
+
+  getImageSrc: function (aRow, aCol) {
+    return null;
+  },
+
+  getRowProperties: function (aRow, aProps) {
+  },
+
+  getCellProperties: function (aRow, aCol, aProps) {
+  },
+
+  getColumnProperties: function (aColID, aCol, aProps) {
+  },
+
+  cycleHeader: function (aCol) {
+  },
+};
+
+
 var paneTitle = {
 
 bundle: null,
+variables: [],
 
-init: function()
+init: function(aEvent)
 {
+  aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
+
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
               .getService(Components.interfaces.nsIWindowMediator);      
   var window = mediator.getMostRecentWindow("navigator:browser");
@@ -43,13 +99,12 @@ init: function()
   paneTitle.addVariable("Compiler");
   paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
+
+  paneTitle.setupTree();
 },
 
 addVariable: function(name)
 {
-  var list = document.getElementById("varList");
-  var item = document.createElement("listitem");
-  item.appendChild(document.createElement("listcell")).setAttribute('label',"${"+name+"}");
   var text = null;
   try
   {
@@ -59,21 +114,12 @@ addVariable: function(name)
   {
     text="";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',text);
   var value = paneTitle.nightly.getVariable(name);
   if (value==null)
   {
     value="Undefined";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',value);
-  item.addEventListener("click", function() {
-    var titlebox = document.getElementById("customTitle");
-    var template = titlebox.value + " ${" + name + "}";
-    titlebox.value = template;
-    // manually set pref, pref change isn't triggered if we just set the value
-    paneTitle.nightly.preferences.setCharPref("templates.title", template);
-  }, true);
-  list.appendChild(item);
+  paneTitle.variables.push({variable: "${"+name+"}", description: text, value: value});
 },
 
 toggled: function()
@@ -81,7 +127,33 @@ toggled: function()
   var checkbox = document.getElementById("enableTitleBar");
   var text = document.getElementById("customTitle");
   text.disabled=!checkbox.checked;
+},
+
+setupTree: function () {
+  var tree = document.getElementById("variableTree");
+  tree.view = new arrayBasedTreeView(paneTitle.variables);
+  tree.addEventListener("click", treeOnClickListener, true);
+},
 }
+
+function treeOnClickListener(aEvent) {
+  if (aEvent.originalTarget.tagName === "treechildren") {
+    var tree = aEvent.originalTarget.parentNode;
+    var tbo = tree.treeBoxObject;
+
+    // get the row, col and child element at the point
+    var row = { }, col = { }, child = { };
+    tbo.getCellAt(aEvent.clientX, aEvent.clientY, row, col, child);
+
+    // a workaround to skip extraneous clicks
+    if (tree.view.selection.currentIndex === row.value) {
+      var titlebox = document.getElementById("customTitle");
+      var template = titlebox.value + " " + paneTitle.variables[row.value]["variable"];
+      titlebox.value = template;
+      // manually set pref, pref change isn't triggered if we just set the value
+      paneTitle.nightly.preferences.setCharPref("templates.title", template);
+    }
+  }
 }
 
 window.addEventListener("load",paneTitle.init,false);
