@@ -55,6 +55,59 @@ arrayBasedTreeView.prototype = {
 };
 
 
+function arrayBasedTreeView(treeViewData) {
+  this.data = treeViewData;
+}
+
+arrayBasedTreeView.prototype = {
+  data: [],
+
+  get rowCount() {
+    return this.data.length;
+  },
+
+  getCellText: function (aRow, aColumn) {
+    return this.data[aRow][aColumn.id];
+  },
+
+  setTree: function (aTreebox) {
+    this.treebox = aTreebox;
+  },
+
+  isContainer: function (aRow) {
+    return false; 
+  },
+
+  isSeparator: function (aRow) {
+    return false;
+  },
+
+  isSorted: function () {
+    return false;
+  },
+
+  getLevel: function (aRow) {
+    return 0; 
+  },
+
+  getImageSrc: function (aRow, aCol) {
+    return null;
+  },
+
+  getRowProperties: function (aRow, aProps) {
+  },
+
+  getCellProperties: function (aRow, aCol, aProps) {
+  },
+
+  getColumnProperties: function (aColID, aCol, aProps) {
+  },
+
+  cycleHeader: function (aCol) {
+  },
+};
+
+
 var paneTitle = {
 
 bundle: null,
