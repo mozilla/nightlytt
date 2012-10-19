@@ -226,15 +226,15 @@ copyTemplate: function(template) {
   nightly.copyText(nightly.generateText(nightly.getTemplate(template)));
 },
 
-pastebin: function (content, onLoadCallback) {
+pastebin: function (content, onLoadCallback, onErrorCallback) {
   var postdata;
-  var pastebinURL = "http://pastebin.mozilla.org/";
+  const pastebinURL = "http://pastebin.mozilla.org/";
   var request = new XMLHttpRequest();
   request.open("POST", pastebinURL, true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
-      if (request.status==200) {
+      if (request.status === 200) {
         nightlyApp.openURL(request.channel.URI.spec);
       }
       if (typeof onLoadCallback == "function") {
@@ -242,6 +242,15 @@ pastebin: function (content, onLoadCallback) {
       }
     }
   };
+
+  function onError() {
+    if (typeof onErrorCallback === "function") {
+      onErrorCallback();
+    }
+  }
+
+  request.onabort = onError;
+  request.onerror = onError;
 
   if (typeof FormData === "function") {
     postdata = new FormData();
@@ -254,10 +263,20 @@ pastebin: function (content, onLoadCallback) {
 
     request.send(postdata);
   } else {
-    var scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-                       .getService(Components.interfaces.mozIJSSubScriptLoader);
     var targetObj = {}
-    scriptLoader.loadSubScript("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
+    try {
+      Components.utils.import("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
+    } catch (e) {
+      /**
+       * Prior to Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1), 
+       * JavaScript code modules could only be loaded using file: or resource: URLs. 
+       * Gecko 2.0 adds support for loading modules from chrome: URLs,
+       * even those inside JAR archives.
+       */
+      var scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+                         .getService(Components.interfaces.mozIJSSubScriptLoader);
+      scriptLoader.loadSubScript("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
+    }
     var { MultipartFormData } = targetObj;
     postdata = new MultipartFormData();
     postdata.addControl("code2", content);
@@ -298,7 +317,7 @@ parseHTML: function(url, callback) {
   frame.contentDocument.location.href = url;
 },
 
-pastebinAboutSupport: function(aEvent) {
+pastebinAboutSupport: function (aEvent) {
   var node = aEvent.originalTarget;
   node.setAttribute("loading", "true");
   node.disabled = true;
