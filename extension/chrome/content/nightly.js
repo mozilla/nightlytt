@@ -325,10 +325,11 @@ pastebinAboutSupport: function (aEvent) {
   nightly.parseHTML("about:support", function(doc) {
     var contents = doc.getElementById("contents");
     var text = nightlyPPrint.createTextForElement(contents);
-    nightly.pastebin(text, function() {
+    function enableMenuItem() {
       node.removeAttribute("loading");
       node.disabled = false;
-    });
+    }
+    nightly.pastebin(text, enableMenuItem, enableMenuItem);
   });
 },
 
