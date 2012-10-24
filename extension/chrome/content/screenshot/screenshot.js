@@ -145,12 +145,19 @@ function saveScreenshot()
     persist.persistFlags = Ci.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
     persist.persistFlags |= Ci.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
   
+    var privacyContext = null;
+    if ("nsILoadContext" in Ci) {
+      privacyContext = window.QueryInterface(Ci.nsIInterfaceRequestor)
+                             .getInterface(Ci.nsIWebNavigation)
+                             .QueryInterface(Ci.nsILoadContext);
+    }
+
     var tr = Cc["@mozilla.org/transfer;1"]
                .createInstance(Ci.nsITransfer);
   
-    tr.init(source, target, "", null, null, null, persist);
+    tr.init(source, target, "", null, null, null, persist, false);
     persist.progressListener = tr;
-    persist.saveURI(source, null, null, null, null, file);
+    persist.saveURI(source, null, null, null, null, file, privacyContext);
   }
 }
 
