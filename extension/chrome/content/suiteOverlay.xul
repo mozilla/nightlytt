@@ -36,6 +36,7 @@
       <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+      <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
       <menuseparator/>
       <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
                 type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
