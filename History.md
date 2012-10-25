@@ -1,4 +1,4 @@
-3.4 / 2012-10-11
+3.4 / 2012-10-25
 ==================
 
   * Extension: Include changeset info in the Insert/Copy Build ID menuitem and in 'Customize Titlebar'. (#65)
@@ -9,6 +9,8 @@
   * Extension: Don't call callback function when iterating over Extension Manager's extensions list. (#88)
   * Extension: Don't register aboutNightly component for 'profile-after-change' notification. (#57)
   * Extension: Update 'Contributors' section automatically in about:nightly. (#58)
+  * Extension: Re-license under MPL2. (#39, #98)
+  * Extension: Make columns of 'Customize Titlebar' dialog's tree resizable. (#25)
 
 3.3 / 2012-05-02
 ==================
