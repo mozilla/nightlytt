@@ -1,4 +1,4 @@
-3.4 / 2012-10-25
+3.4 / 2012-10-26
 ==================
 
   * Extension: Include changeset info in the Insert/Copy Build ID menuitem and in 'Customize Titlebar'. (#65)
@@ -11,6 +11,7 @@
   * Extension: Update 'Contributors' section automatically in about:nightly. (#58)
   * Extension: Re-license under MPL2. (#39, #98)
   * Extension: Make columns of 'Customize Titlebar' dialog's tree resizable. (#25)
+  * Extension: Add privacy context to saveScreenshot() due to Bug 795065. (#99)
 
 3.3 / 2012-05-02
 ==================
