@@ -7,6 +7,7 @@ var nightlyApp = {
 repository: ['comm-central','comm-aurora'],
 
 oldUpdateTitlebar: null,
+debugQATitleModifierWorkaround: null,
 
 get defaultTitle() {
   var tabbrowser = gBrowser;
@@ -33,6 +34,17 @@ init: function()
 
     tabbrowser.updateTitlebar = nightly.updateTitlebar;
     tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
+
+    var debugQABundle = document.getElementById("debugQANavigatorBundle");
+    if (debugQABundle) {
+      var titlemodifier = debugQABundle.getFormattedString("titlemodifier",
+                                                  [nightly.variables.name,
+                                                  nightly.variables.appbuildid]);
+
+      if (document.documentElement.getAttribute("titlemodifier") === titlemodifier){
+        nightlyApp.debugQATitleModifierWorkaround = nightly.variables.name;
+      }
+    }
   }
 },
 
@@ -63,7 +75,8 @@ getWindowTitleForNavigator: function (aBrowser) {
   var docTitle;
   var docElement = document.documentElement;
   var sep = docElement.getAttribute("titlemenuseparator");
-  var modifier = docElement.getAttribute("titlemodifier");
+  var modifier = nightlyApp.debugQATitleModifierWorkaround || 
+                 docElement.getAttribute("titlemodifier");
 
   if (aBrowser.docShell.contentViewer)
     docTitle = aBrowser.contentTitle;
