@@ -37,11 +37,12 @@ init: function()
 
     var debugQABundle = document.getElementById("debugQANavigatorBundle");
     if (debugQABundle) {
-      var titlemodifier = debugQABundle.getFormattedString("titlemodifier",
+      var debugQAModifier = debugQABundle.getFormattedString("titlemodifier",
                                                   [nightly.variables.name,
                                                   nightly.variables.appbuildid]);
 
-      if (document.documentElement.getAttribute("titlemodifier") === titlemodifier){
+      var docModifier = document.documentElement.getAttribute("titlemodifier");
+      if (docModifier === debugQAModifier) {
         nightlyApp.debugQATitleModifierWorkaround = nightly.variables.name;
       }
     }
@@ -75,8 +76,12 @@ getWindowTitleForNavigator: function (aBrowser) {
   var docTitle;
   var docElement = document.documentElement;
   var sep = docElement.getAttribute("titlemenuseparator");
-  var modifier = nightlyApp.debugQATitleModifierWorkaround || 
-                 docElement.getAttribute("titlemodifier");
+  var modifier = "";
+
+  if (!Application.platformIsMac) {
+    modifier = nightlyApp.debugQATitleModifierWorkaround ||
+               docElement.getAttribute("titlemodifier");
+  }
 
   if (aBrowser.docShell.contentViewer)
     docTitle = aBrowser.contentTitle;
