@@ -74,20 +74,6 @@ nttAddonCompatibilityService.prototype = {
                  "extensions.checkCompatibility.14.0a",
                  "extensions.checkCompatibility.15.0",
                  "extensions.checkCompatibility.15.0a",
-                 "extensions.checkCompatibility.16.0",
-                 "extensions.checkCompatibility.16.0a",
-                 "extensions.checkCompatibility.17.0",
-                 "extensions.checkCompatibility.17.0a",
-                 "extensions.checkCompatibility.18.0",
-                 "extensions.checkCompatibility.18.0a",
-                 "extensions.checkCompatibility.19.0",
-                 "extensions.checkCompatibility.19.0a",
-                 "extensions.checkCompatibility.20.0",
-                 "extensions.checkCompatibility.20.0a",
-                 "extensions.checkCompatibility.21.0",
-                 "extensions.checkCompatibility.21.0a",
-                 "extensions.checkCompatibility.22.0",
-                 "extensions.checkCompatibility.22.0a",
                  "extensions.checkCompatibility.nightly"];
 
     var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
@@ -120,20 +106,6 @@ nttAddonCompatibilityService.prototype = {
                "extensions.checkCompatibility.14.0a",
                "extensions.checkCompatibility.15.0",
                "extensions.checkCompatibility.15.0a",
-               "extensions.checkCompatibility.16.0",
-               "extensions.checkCompatibility.16.0a",
-               "extensions.checkCompatibility.17.0",
-               "extensions.checkCompatibility.17.0a",
-               "extensions.checkCompatibility.18.0",
-               "extensions.checkCompatibility.18.0a",
-               "extensions.checkCompatibility.19.0",
-               "extensions.checkCompatibility.19.0a",
-               "extensions.checkCompatibility.20.0",
-               "extensions.checkCompatibility.20.0a",
-               "extensions.checkCompatibility.21.0",
-               "extensions.checkCompatibility.21.0a",
-               "extensions.checkCompatibility.22.0",
-               "extensions.checkCompatibility.22.0a",
                "extensions.checkCompatibility.nightly"];
     }
     else if (appInfo.name == "SeaMonkey") {
@@ -162,36 +134,15 @@ nttAddonCompatibilityService.prototype = {
               "extensions.checkCompatibility.2.10a",
               "extensions.checkCompatibility.2.11",
               "extensions.checkCompatibility.2.11a",
-              "extensions.checkCompatibility.2.12",
-              "extensions.checkCompatibility.2.12a",
-              "extensions.checkCompatibility.2.13",
-              "extensions.checkCompatibility.2.13a",
-              "extensions.checkCompatibility.2.14",
-              "extensions.checkCompatibility.2.14a",
-              "extensions.checkCompatibility.2.15",
-              "extensions.checkCompatibility.2.15a",
-              "extensions.checkCompatibility.2.16",
-              "extensions.checkCompatibility.2.16a",
-              "extensions.checkCompatibility.2.17",
-              "extensions.checkCompatibility.2.17a",
-              "extensions.checkCompatibility.2.18",
-              "extensions.checkCompatibility.2.18a",
               "extensions.checkCompatibility.nightly"];
     }
     else if (appInfo.name == "Songbird") {
      prefs = ["extensions.checkCompatibility",
-              "extensions.checkCompatibility.1.6",
-              "extensions.checkCompatibility.1.7",
               "extensions.checkCompatibility.1.8",
               "extensions.checkCompatibility.1.9",
               "extensions.checkCompatibility.1.10",
               "extensions.checkCompatibility.1.11",
-              "extensions.checkCompatibility.1.12",
-              "extensions.checkCompatibility.2.0",
-              "extensions.checkCompatibility.2.1",
-              "extensions.checkCompatibility.2.2",
-              "extensions.checkCompatibility.2.3",
-              "extensions.checkCompatibility.2.4"];
+              "extensions.checkCompatibility.1.12"];
     }
 
     var enable = !this.prefService.getBoolPref("nightly.disableCheckCompatibility");
