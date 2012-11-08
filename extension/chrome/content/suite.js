@@ -102,10 +102,16 @@ getWindowTitleForNavigator: function (aBrowser) {
   }
   newTitle += modifier;
 
+  /**
+   * If location bar is hidden and the URL type supports a host,
+   * add the scheme and host to the title to prevent spoofing.
+   * XXX https://bugzilla.mozilla.org/show_bug.cgi?id=22183#c239
+   * (only for schemes that support a host)
+   */
   try {
     if (docElement.getAttribute("chromehidden").indexOf("location") != -1) {
-      var uri  = aBrowser.mURIFixup.createExposableURI(
-                   aBrowser.mCurrentBrowser.currentURI);
+      var uri = aBrowser.mURIFixup.createExposableURI(
+                  aBrowser.mCurrentBrowser.currentURI);
       if (uri.schemeIs("about"))
         newTitle = uri.spec + sep + newTitle;
       else if (uri.host)
