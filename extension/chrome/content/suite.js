@@ -10,11 +10,15 @@ oldUpdateTitlebar: null,
 debugQATitleModifierWorkaround: null,
 
 get defaultTitle() {
-  return nightlyApp.getWindowTitleForNavigator(gBrowser.mCurrentBrowser);
+  if (nightlyApp.oldUpdateTitlebar) {
+    return nightlyApp.getWindowTitleForNavigator(gBrowser.mCurrentBrowser);
+  }
 },
 
 get tabTitle() {
-  return gBrowser.mCurrentBrowser.contentTitle;
+  if (nightlyApp.oldUpdateTitlebar) {
+    return gBrowser.mCurrentBrowser.contentTitle;
+  }
 },
 
 init: function()
@@ -60,6 +64,8 @@ setStandardTitle: function()
 {
   if (nightlyApp.oldUpdateTitlebar) {
     nightlyApp.oldUpdateTitlebar.call(gBrowser);
+  } else {
+    gBrowser.updateTitlebar.call(gBrowser);
   }
 },
 
