@@ -10,13 +10,11 @@ oldUpdateTitlebar: null,
 debugQATitleModifierWorkaround: null,
 
 get defaultTitle() {
-  var tabbrowser = gBrowser;
-  return nightlyApp.getWindowTitleForNavigator(tabbrowser.mCurrentBrowser);
+  return nightlyApp.getWindowTitleForNavigator(gBrowser.mCurrentBrowser);
 },
 
 get tabTitle() {
-  var tabbrowser = gBrowser;
-  return tabbrowser.mCurrentBrowser.contentTitle;
+  return gBrowser.mCurrentBrowser.contentTitle;
 },
 
 init: function()
@@ -28,12 +26,11 @@ init: function()
   }
   nightly.variables.brandname=brandbundle.getString("brandFullName");
 
-  var tabbrowser = document.getElementById("content");
-  if (tabbrowser && typeof(tabbrowser.updateTitlebar) === "function") {
-    nightlyApp.oldUpdateTitlebar = tabbrowser.updateTitlebar;
+  if (gBrowser && typeof(gBrowser.updateTitlebar) === "function") {
+    nightlyApp.oldUpdateTitlebar = gBrowser.updateTitlebar;
 
-    tabbrowser.updateTitlebar = nightly.updateTitlebar;
-    tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
+    gBrowser.updateTitlebar = nightly.updateTitlebar;
+    gBrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
 
     var debugQABundle = document.getElementById("debugQANavigatorBundle");
     if (debugQABundle) {
@@ -56,14 +53,13 @@ openURL: function(url, event)
 
 setCustomTitle: function(title)
 {
-  document.getElementById("content").ownerDocument.title = title;
+  gBrowser.ownerDocument.title = title;
 },
 
 setStandardTitle: function()
 {
   if (nightlyApp.oldUpdateTitlebar) {
-    var tabbrowser = document.getElementById("content");
-    nightlyApp.oldUpdateTitlebar.call(tabbrowser);
+    nightlyApp.oldUpdateTitlebar.call(gBrowser);
   }
 },
 
