@@ -6,8 +6,22 @@ var nightlyApp = {
   
 repository: ['comm-central','comm-aurora'],
 
-oldUpdateTitlebar: null,
+_oldUpdateTitlebar: null,
 debugQATitleModifierWorkaround: null,
+
+get oldUpdateTitlebar() {
+  if (!nightlyApp._oldUpdateTitlebar) {
+    Components.utils.import("resource://nightly/Logging.jsm");
+    WARN("No suitable titlebar function was found! Titlebar customization is incomplete! Please file a bug!");
+  }
+  return nightlyApp._oldUpdateTitlebar;
+},
+
+set oldUpdateTitlebar(aParam) {
+  if (typeof(aParam) === "function") {
+    nightlyApp._oldUpdateTitlebar = aParam;
+  }
+},
 
 get defaultTitle() {
   if (nightlyApp.oldUpdateTitlebar) {
@@ -30,7 +44,7 @@ init: function()
   }
   nightly.variables.brandname=brandbundle.getString("brandFullName");
 
-  if (gBrowser && typeof(gBrowser.updateTitlebar) === "function") {
+  if (typeof(gBrowser) !== "undefined" && typeof(gBrowser.updateTitlebar) === "function") {
     nightlyApp.oldUpdateTitlebar = gBrowser.updateTitlebar;
 
     gBrowser.updateTitlebar = nightly.updateTitlebar;
@@ -57,15 +71,15 @@ openURL: function(url, event)
 
 setCustomTitle: function(title)
 {
-  gBrowser.ownerDocument.title = title;
+  if (nightlyApp.oldUpdateTitlebar) {
+    gBrowser.ownerDocument.title = title;
+  }
 },
 
 setStandardTitle: function()
 {
   if (nightlyApp.oldUpdateTitlebar) {
     nightlyApp.oldUpdateTitlebar.call(gBrowser);
-  } else {
-    gBrowser.updateTitlebar.call(gBrowser);
   }
 },
 
