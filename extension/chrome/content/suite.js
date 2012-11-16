@@ -11,7 +11,7 @@ debugQATitleModifierWorkaround: null,
 
 get oldUpdateTitlebar() {
   if (!nightlyApp._oldUpdateTitlebar) {
-    Components.utils.import("resource://nightly/Logging.jsm");
+    var { WARN, LOG, ERROR } = Components.utils.import("resource://nightly/Logging.jsm", {});
     WARN("No suitable titlebar function was found! Titlebar customization is incomplete! Please file a bug!");
   }
   return nightlyApp._oldUpdateTitlebar;
@@ -25,7 +25,7 @@ set oldUpdateTitlebar(aParam) {
 
 get defaultTitle() {
   if (nightlyApp.oldUpdateTitlebar) {
-    return nightlyApp.getWindowTitleForNavigator(gBrowser.mCurrentBrowser);
+    return nightlyApp.getWindowTitleForNavigator.call(gBrowser);
   }
 },
 
@@ -84,10 +84,14 @@ setStandardTitle: function()
 },
 
 /**
- * Calculates the title like tabbrowser's updateTitlebar(), but doesn't set.
+ * This is mostly a copy of tabbrowser's updateTitlebar():
+ * - calculates the title (like updateTitlebar())
+ * - returns the value (in opposite to updateTitlebar() which sets it to window directly)
+ * - is enhanced to work seamlessly with SeaMonkey Debug and QA UI addon
+ *
  * See related Bug 457548 and suite/browser/tabbrowser.xml for details.
  */
-getWindowTitleForNavigator: function (aBrowser) {
+getWindowTitleForNavigator: function () {
   var newTitle = "";
   var docTitle;
   var docElement = document.documentElement;
@@ -99,13 +103,20 @@ getWindowTitleForNavigator: function (aBrowser) {
                docElement.getAttribute("titlemodifier");
   }
 
-  if (aBrowser.docShell.contentViewer)
-    docTitle = aBrowser.contentTitle;
+  /**
+   * TODO Explain this check
+   */ 
+  if (this.docShell.contentViewer)
+    docTitle = this.contentTitle;
 
   if (!docTitle && !modifier) {
-    docTitle = aBrowser.getTitleForURI(aBrowser.mCurrentBrowser.currentURI);
+    docTitle = this.getTitleForURI(this.mCurrentBrowser.currentURI);
     if (!docTitle) {
-      docTitle = aBrowser.mStringBundle.getString("tabs.untitled");
+      /**
+       * Here we actually override contenttitlesetting, because we
+       * don't want the titledefault value.
+       */
+      docTitle = this.mStringBundle.getString("tabs.untitled");
     }
   }
 
@@ -124,8 +135,8 @@ getWindowTitleForNavigator: function (aBrowser) {
    */
   try {
     if (docElement.getAttribute("chromehidden").indexOf("location") != -1) {
-      var uri = aBrowser.mURIFixup.createExposableURI(
-                  aBrowser.mCurrentBrowser.currentURI);
+      var uri = this.mURIFixup.createExposableURI(
+                  this.mCurrentBrowser.currentURI);
       if (uri.schemeIs("about"))
         newTitle = uri.spec + sep + newTitle;
       else if (uri.host)
