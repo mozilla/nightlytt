@@ -115,8 +115,7 @@ var AllYouCanUpload = {
 var GordonUploadScreenshot = {
   addFormFields: function(formdata)
   {
-    formdata.addControl("apiKey", "519acd4be68445997245348820");
-    formdata.addControl("testMode", "1");
+    formdata.addControl("apiKey", "31dc22b9221404130294843815");
   },
   
   getFileFormField: function()
