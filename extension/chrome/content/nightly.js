@@ -433,7 +433,7 @@ openCustomize: function() {
 getAppIniString : function(section, key) {
   var directoryService = Components.classes["@mozilla.org/file/directory_service;1"].
                            getService(Components.interfaces.nsIProperties);
-  var inifile = directoryService.get("CurProcD", Components.interfaces.nsIFile);
+  var inifile = directoryService.get("GreD", Components.interfaces.nsIFile);
   inifile.append("application.ini");
   
   var iniParser = Components.manager.getClassObjectByContractID(
