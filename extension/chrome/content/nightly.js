@@ -302,7 +302,7 @@ getExtensionList: function(callback) {
   try {
     Components.utils.import("resource://gre/modules/AddonManager.jsm");  
 
-    AddonManager.getAllAddons(function(addons) {
+    AddonManager.getAddonsByTypes(['extension'], function(addons) {
       if (!addons.length)
         nightly.showAlert("nightly.noextensions.message", []);
 
