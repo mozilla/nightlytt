@@ -1,46 +1,69 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is Nightly Tester Tools.
- *
- * The Initial Developer of the Original Code is
- *     Dave Townsend <dtownsend@oxymoronical.com>.
- *
- * Portions created by the Initial Developer are Copyright (C) 2007
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+function arrayBasedTreeView(treeViewData) {
+  this.data = treeViewData;
+}
+
+arrayBasedTreeView.prototype = {
+  data: [],
+
+  get rowCount() {
+    return this.data.length;
+  },
+
+  getCellText: function (aRow, aColumn) {
+    return this.data[aRow][aColumn.id];
+  },
+
+  setTree: function (aTreebox) {
+    this.treebox = aTreebox;
+  },
+
+  isContainer: function (aRow) {
+    return false; 
+  },
+
+  isSeparator: function (aRow) {
+    return false;
+  },
+
+  isSorted: function () {
+    return false;
+  },
+
+  getLevel: function (aRow) {
+    return 0; 
+  },
+
+  getImageSrc: function (aRow, aCol) {
+    return null;
+  },
+
+  getRowProperties: function (aRow, aProps) {
+  },
+
+  getCellProperties: function (aRow, aCol, aProps) {
+  },
+
+  getColumnProperties: function (aColID, aCol, aProps) {
+  },
+
+  cycleHeader: function (aCol) {
+  },
+};
+
 
 var paneTitle = {
 
 bundle: null,
+variables: [],
 
-init: function()
+init: function(aEvent)
 {
+  aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
+
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
               .getService(Components.interfaces.nsIWindowMediator);      
   var window = mediator.getMostRecentWindow("navigator:browser");
@@ -76,13 +99,12 @@ init: function()
   paneTitle.addVariable("Compiler");
   paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
+
+  paneTitle.setupTree();
 },
 
 addVariable: function(name)
 {
-  var list = document.getElementById("varList");
-  var item = document.createElement("listitem");
-  item.appendChild(document.createElement("listcell")).setAttribute('label',"${"+name+"}");
   var text = null;
   try
   {
@@ -92,21 +114,12 @@ addVariable: function(name)
   {
     text="";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',text);
   var value = paneTitle.nightly.getVariable(name);
   if (value==null)
   {
     value="Undefined";
   }
-  item.appendChild(document.createElement("listcell")).setAttribute('label',value);
-  item.addEventListener("click", function() {
-    var titlebox = document.getElementById("customTitle");
-    var template = titlebox.value + " ${" + name + "}";
-    titlebox.value = template;
-    // manually set pref, pref change isn't triggered if we just set the value
-    paneTitle.nightly.preferences.setCharPref("templates.title", template);
-  }, true);
-  list.appendChild(item);
+  paneTitle.variables.push({variable: "${"+name+"}", description: text, value: value});
 },
 
 toggled: function()
@@ -114,7 +127,33 @@ toggled: function()
   var checkbox = document.getElementById("enableTitleBar");
   var text = document.getElementById("customTitle");
   text.disabled=!checkbox.checked;
+},
+
+setupTree: function () {
+  var tree = document.getElementById("variableTree");
+  tree.view = new arrayBasedTreeView(paneTitle.variables);
+  tree.addEventListener("click", treeOnClickListener, true);
+},
 }
+
+function treeOnClickListener(aEvent) {
+  if (aEvent.originalTarget.tagName === "treechildren") {
+    var tree = aEvent.originalTarget.parentNode;
+    var tbo = tree.treeBoxObject;
+
+    // get the row, col and child element at the point
+    var row = { }, col = { }, child = { };
+    tbo.getCellAt(aEvent.clientX, aEvent.clientY, row, col, child);
+
+    // a workaround to skip extraneous clicks
+    if (tree.view.selection.currentIndex === row.value) {
+      var titlebox = document.getElementById("customTitle");
+      var template = titlebox.value + " " + paneTitle.variables[row.value]["variable"];
+      titlebox.value = template;
+      // manually set pref, pref change isn't triggered if we just set the value
+      paneTitle.nightly.preferences.setCharPref("templates.title", template);
+    }
+  }
 }
 
 window.addEventListener("load",paneTitle.init,false);
