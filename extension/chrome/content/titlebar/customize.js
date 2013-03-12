@@ -42,12 +42,15 @@ arrayBasedTreeView.prototype = {
   },
 
   getRowProperties: function (aRow, aProps) {
+    return "";
   },
 
   getCellProperties: function (aRow, aCol, aProps) {
+    return "";
   },
 
   getColumnProperties: function (aColID, aCol, aProps) {
+    return "";
   },
 
   cycleHeader: function (aCol) {
