@@ -116,9 +116,11 @@ function saveScreenshot()
   fp.filterIndex = 0;
   fp.defaultString="screenshot";
 
-  var result = fp.show();
-  if (result==fp.returnOK || result==fp.returnReplace)
-  {
+  var doneCallback = function (aResult) {
+    if (!aResult || aResult == returnCancel) {
+      return;
+    }
+
     var file = fp.file;
     var mimetype = "image/png";
     var options = "";
@@ -158,6 +160,13 @@ function saveScreenshot()
     tr.init(source, target, "", null, null, null, persist, false);
     persist.progressListener = tr;
     persist.saveURI(source, null, null, null, null, file, privacyContext);
+  }
+
+  if (fp.open) {
+    fp.open({done: doneCallback});
+  } else {
+    var result = fp.show();
+    doneCallback(result);
   }
 }
 
