@@ -49,12 +49,19 @@ nttAddonCompatibilityService.prototype = {
     }
   },
 
-
   setCompatPrefsHelper : function () {
+    let self = this;
+    let notifyObject = { restart: true };
+    function sendNotification(options) {
+      let { count } = options;
+      let startCount = count();
+      self.setCompatPrefs();
+      notifyObject.restart = startCount != count();
+      self.obs.notifyObservers(null, "nttACS", JSON.stringify(notifyObject));
+    }
     try{
       Cu.import("resource://gre/modules/AddonManager.jsm");
-      let self = this;
-      function countPendingAddonsAndNotifyToRestartCallback(aAddons) {
+      AddonManager.getAddonsByTypes(null, function (aAddons) {
         function isPendingAddon(aAddon) {
           return (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
             (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
@@ -63,23 +70,19 @@ nttAddonCompatibilityService.prototype = {
         function count() {
           return aAddons.filter(isPendingAddon).length;
         }
-
-        let startCount = count();
-        self.setCompatPrefs();
-        if (startCount != count()) {
-          self.obs.notifyObservers(null, "nttACS", JSON.stringify({ restart: true }));
-        } else {
-          self.obs.notifyObservers(null, "nttACS", null);
-        }
-      }
-      AddonManager.getAddonsByTypes(null, countPendingAddonsAndNotifyToRestartCallback);
+        sendNotification({count: count});
+      });
     } catch(e) {
       // old extension manager API
-      this.setCompatPrefs();
-      this.obs.notifyObservers(null, "nttACS", JSON.stringify({ restart: true }));
+      let counter = 0;
+      function count() {
+        // Feel free to write the real count() for the old EM API,
+        // but now it's always returning a different number
+        return counter++;
+      }
+      sendNotification({count: count});
     }
   },
-
 
   setCompatPrefs : function () {
     var prefs = [];
