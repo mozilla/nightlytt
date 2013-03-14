@@ -23,6 +23,8 @@ function nttAddonCompatibilityService() {
   this.obs = Cc["@mozilla.org/observer-service;1"]
              .getService(Ci.nsIObserverService);
 
+  this.version = this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1");
+
   if(this.prefService.getBoolPref(PREF_FORCE_COMPAT)) {
     this.setCompatPrefs();
   }
@@ -35,7 +37,7 @@ nttAddonCompatibilityService.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver]),
 
   // nsIObserver
-  observe : function(subject, topic, data) {
+  observe : function (subject, topic, data) {
     if (topic == "nsPref:changed") {
       switch(data) {
         case PREF_FORCE_COMPAT:
@@ -48,28 +50,24 @@ nttAddonCompatibilityService.prototype = {
   },
 
 
-  get version() {
-    return this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1");
-  },
-
-  setCompatPrefsHelper : function() {
+  setCompatPrefsHelper : function () {
     try{
       Cu.import("resource://gre/modules/AddonManager.jsm");
       let self = this;
       function countPendingAddonsAndNotifyToRestartCallback(aAddons) {
+        function isPendingAddon(aAddon) {
+          return (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
+            (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
+          ;
+        }
         function count() {
-          return aAddons.reduce(function (aAccumulator, aAddon) {
-              return aAccumulator + (
-                (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
-                (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
-              );
-            }, 0);
+          return aAddons.filter(isPendingAddon).length;
         }
 
         let startCount = count();
         self.setCompatPrefs();
         if (startCount != count()) {
-          self.obs.notifyObservers(null, "nttACS", "restartNeeded");
+          self.obs.notifyObservers(null, "nttACS", JSON.stringify({ restart: true }));
         } else {
           self.obs.notifyObservers(null, "nttACS", null);
         }
@@ -78,16 +76,24 @@ nttAddonCompatibilityService.prototype = {
     } catch(e) {
       // old extension manager API
       this.setCompatPrefs();
-      this.obs.notifyObservers(null, "nttACS", "restartNeeded");
+      this.obs.notifyObservers(null, "nttACS", JSON.stringify({ restart: true }));
     }
   },
 
 
-  setCompatPrefs : function() {
+  setCompatPrefs : function () {
     var prefs = [];
     
-    switch(this.appinfo.name) {
+    switch (this.appinfo.name) {
       case "Songbird":
+        /**
+         * Excluding Songbird because it is based on Gecko 1.9.2
+         * and "extensions.checkCompatibility.nightly" preference
+         * introduced in Gecko 7.
+         *
+         * @see http://kb.mozillazine.org/Extensions.checkCompatibility
+         * @see http://www.oxymoronical.com/blog/2011/05/How-to-disable-extension-compatibility-checking-on-Nightly-builds-of-Firefox
+         */
         break;
       default:
         prefs.push(PREF_CHECK_COMPAT_NIGHTLY);

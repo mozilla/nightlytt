@@ -478,7 +478,8 @@ toggleCompatibility: function() {
   var restartObserver = {
     observe: function (subject, topic, data) {
       obs.removeObserver(restartObserver, "nttACS");
-      if (data == "restartNeeded") {
+      var parsedData = JSON.parse(data);
+      if (parsedData && parsedData.restart) {
         nightlyApp.openNotification("nightly-compatibility-restart",
           nightly.getString("nightly.restart.message"),
           nightly.getString("nightly.restart.label"),
