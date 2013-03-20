@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+ - License, v. 2.0. If a copy of the MPL was not distributed with this
+ - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE html [
+  <!ENTITY % htmlDTD PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+  %htmlDTD;
+  <!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd">
+  %brandDTD;
+  <!ENTITY % securityPrefsDTD SYSTEM "chrome://browser/locale/preferences/security.dtd">
+  %securityPrefsDTD;
+  <!ENTITY % aboutRightsDTD SYSTEM "chrome://global/locale/aboutRights.dtd">
+  %aboutRightsDTD;
+]>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- References:
+  - https://developer.mozilla.org/En/Custom_about:_URLs
+  - https://developer.mozilla.org/en/XPCOM/XPCOM_changes_in_Gecko_2.0#Component_manifests
+  -->
+
+<head>
+  <title>About Nightly Test Tools</title>
+  <link rel="stylesheet" href="chrome://global/skin/about.css" type="text/css"/>
+  <link rel="stylesheet" href="chrome://nightly/skin/aboutNightly/aboutNightly.css" type="text/css"/>
+  <script src="chrome://nightly/content/aboutNightly/aboutNightly.js"></script>
+</head>
+<body>
+  <h1>About Nightly Tester Tools</h1>
+
+  <div id="about"><a name="about"></a>
+    Author: 
+  </div>
+
+  <div id="contributors"><a name="contributors"></a>
+    <h2>Contributors</h2>
+
+    <ul id="contributorsList" />
+  </div>
+
+  <div id="features"><a name="features"></a>
+    <h2>Features</h2>
+    
+    <ul>
+      <li>titlebar customization</li>
+      <li>copy build id to clipboard</li>
+      <li>copy extensions list to clipboard</li>
+      <li>screenshot utility</li>
+      <li>open profile folder</li>
+    </ul>
+
+  </div>
+
+  <div id="links"><a name="links"></a>
+    <h2>Links</h2>
+
+    <ul>
+      <li>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/6543/">
+          addons.mozilla.org page
+        </a>
+      </li>
+      <li>
+        <a href="https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools">
+          Wiki
+        </a>
+      </li>
+      <li>
+        <a href="http://forums.mozillazine.org/viewtopic.php?f=23&amp;t=2015603">
+          Nightly Tester Tools Resurrection
+        </a>
+      </li>
+
+      <li>
+        <a href="https://github.com/mozilla/nightlytt/issues">
+          Bugs and feature requests
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/mozilla/nightlytt">
+          Source code
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+</body>
+</html>

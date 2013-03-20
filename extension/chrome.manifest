@@ -8,7 +8,6 @@ resource     nightly          modules/
 # about page
 component {4cec494a-d33a-4ee7-83d6-461925b5d84b} components/aboutNightly.js
 contract @mozilla.org/network/protocol/about;1?what=nightly {4cec494a-d33a-4ee7-83d6-461925b5d84b}
-category profile-after-change AboutNightly @mozilla.org/network/protocol/about;1?what=nightly
 
 # addon compatiblity component
 component {126c18c5-386c-4c13-b59f-dc909e78aea0} components/nttAddonCompatibilityService.js
@@ -35,4 +34,4 @@ overlay      chrome://navigator/content/navigator.xul                 chrome://n
 
 # Songbird chrome
 overlay      chrome://songbird/content/xul/layoutBaseOverlay.xul      chrome://nightly/content/songbirdOverlay.xul             application=songbird@songbirdnest.com
-
+override     chrome://nightly/skin/aboutNightly/aboutNightly.css      chrome://nightly/skin/aboutNightly/aboutNightly-sb.css   application=songbird@songbirdnest.com
