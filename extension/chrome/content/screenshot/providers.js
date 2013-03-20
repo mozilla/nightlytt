@@ -101,6 +101,34 @@ var GordonUploadScreenshot = {
   }
 }
 
+var PostimageDotOrg = {
+  addFormFields: function(formdata)
+  {
+    formdata.addControl("mode", "local");
+    formdata.addControl("um", "image");
+    formdata.addControl("mode", "local");
+    formdata.addControl("forumurl", "http://postimage.org");
+    //formdata.addControl("MAX_FILE_SIZE", 10*1024*1024);
+    //formdata.addControl("hash", 671);
+  },
+  
+  getFileFormField: function()
+  {
+    return "upload[]";
+  },
+  
+  getReferer: function()
+  {
+    return "http://postimage.org";
+  },
+  
+  getSubmissionURL: function()
+  {
+    return "http://postimage.org";
+  }
+}
+
+Providers.addProvider(PostimageDotOrg);
 Providers.addProvider(GordonUploadScreenshot);
 //Providers.addProvider(ImageShack);
 //Providers.addProvider(AllYouCanUpload);
