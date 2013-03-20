@@ -29,78 +29,6 @@ var Providers = {
   }
 }
 
-var ImageShack = {
-  addFormFields: function(formdata)
-  {
-    formdata.addControl("uploadtype", "on");
-    formdata.addControl("url", "paste image url here");
-    formdata.addControl("MAX_FILE_SIZE", "3145728");
-    formdata.addControl("refer", "");
-    formdata.addControl("brand", "");
-    formdata.addControl("optsize", "320x320");
-  },
-  
-  getFileFormField: function()
-  {
-    return "fileupload";
-  },
-  
-  getReferer: function()
-  {
-    return "http://www.imageshack.us/";
-  },
-  
-  getSubmissionURL: function()
-  {
-    return "http://www.imageshack.us/";
-  }
-}
-
-var AllYouCanUpload = {
-  addFormFields: function(formdata)
-  {
-    formdata.addControl("images[0].submittedPhotoSize", "100%");
-    formdata.addControl("imagesCount", "1");
-  },
-  
-  getFileFormField: function()
-  {
-    return "images[0].fileName";
-  },
-  
-  getReferer: function()
-  {
-    return "http://allyoucanupload.webshots.com/";
-  },
-  
-  getSubmissionURL: function()
-  {
-    return "http://allyoucanupload.webshots.com/uploadcomplete";
-  }
-}
-
-var GordonUploadScreenshot = {
-  addFormFields: function(formdata)
-  {
-    formdata.addControl("apiKey", "31dc22b9221404130294843815");
-  },
-  
-  getFileFormField: function()
-  {
-    return "userfile";
-  },
-  
-  getReferer: function()
-  {
-    return "http://www.uploadscreenshot.com/api-documentation";
-  },
-  
-  getSubmissionURL: function()
-  {
-    return "http://img1.uploadscreenshot.com/api-upload.php";
-  }
-}
-
 var PostimageDotOrg = {
   addFormFields: function(formdata)
   {
@@ -129,6 +57,3 @@ var PostimageDotOrg = {
 }
 
 Providers.addProvider(PostimageDotOrg);
-Providers.addProvider(GordonUploadScreenshot);
-//Providers.addProvider(ImageShack);
-//Providers.addProvider(AllYouCanUpload);
