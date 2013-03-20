@@ -116,8 +116,8 @@ function saveScreenshot()
   fp.filterIndex = 0;
   fp.defaultString="screenshot";
 
-  var doneCallback = function (aResult) {
-    if (!aResult || aResult == returnCancel) {
+  var fpCallback = function fpCallback_done(aResult) {
+    if (aResult !== fp.returnOK && aResult !== fp.returnReplace) {
       return;
     }
 
@@ -163,10 +163,9 @@ function saveScreenshot()
   }
 
   if (fp.open) {
-    fp.open({done: doneCallback});
+    fp.open({done: fpCallback});
   } else {
-    var result = fp.show();
-    doneCallback(result);
+    fpCallback(fp.show());
   }
 }
 
