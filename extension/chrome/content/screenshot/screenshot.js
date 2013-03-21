@@ -116,56 +116,56 @@ function saveScreenshot()
   fp.filterIndex = 0;
   fp.defaultString="screenshot";
 
-  var fpCallback = function fpCallback_done(aResult) {
-    if (aResult !== fp.returnOK && aResult !== fp.returnReplace) {
-      return;
-    }
+  var fpCallback = {
+    done: function fpCallback_done(aResult) {
+      if (aResult == fp.returnOK || aResult == fp.returnReplace) {
+        var file = fp.file;
+        var mimetype = "image/png";
+        var options = "";
+        var extension = "png";
+        if (fp.filterIndex == 1)
+        {
+          extension = "jpg";
+          mimetype = "image/jpeg";
+          options = "quality=80";
+        }
 
-    var file = fp.file;
-    var mimetype = "image/png";
-    var options = "";
-    var extension = "png";
-    if (fp.filterIndex == 1)
-    {
-      extension = "jpg";
-      mimetype = "image/jpeg";
-      options = "quality=80";
-    }
+        if (file.leafName.indexOf(".") < 0)
+          file.leafName += "." + extension;
 
-    if (file.leafName.indexOf(".") < 0)
-      file.leafName += "." + extension;
-    
-    var ioService = Cc["@mozilla.org/network/io-service;1"]
-                      .getService(Ci.nsIIOService);
-    
-    var source = ioService.newURI(canvas.toDataURL(mimetype, options), "UTF8", null);
-    var target = ioService.newFileURI(file)
-    
-    var persist = Cc["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
-                    .createInstance(Ci.nsIWebBrowserPersist);
-  
-    persist.persistFlags = Ci.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
-    persist.persistFlags |= Ci.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
-  
-    var privacyContext = null;
-    if ("nsILoadContext" in Ci) {
-      privacyContext = window.QueryInterface(Ci.nsIInterfaceRequestor)
-                             .getInterface(Ci.nsIWebNavigation)
-                             .QueryInterface(Ci.nsILoadContext);
-    }
+        var ioService = Cc["@mozilla.org/network/io-service;1"]
+                          .getService(Ci.nsIIOService);
 
-    var tr = Cc["@mozilla.org/transfer;1"]
-               .createInstance(Ci.nsITransfer);
-  
-    tr.init(source, target, "", null, null, null, persist, false);
-    persist.progressListener = tr;
-    persist.saveURI(source, null, null, null, null, file, privacyContext);
+        var source = ioService.newURI(canvas.toDataURL(mimetype, options), "UTF8", null);
+        var target = ioService.newFileURI(file)
+
+        var persist = Cc["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
+                        .createInstance(Ci.nsIWebBrowserPersist);
+
+        persist.persistFlags = Ci.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
+        persist.persistFlags |= Ci.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
+
+        var privacyContext = null;
+        if ("nsILoadContext" in Ci) {
+          privacyContext = window.QueryInterface(Ci.nsIInterfaceRequestor)
+                                 .getInterface(Ci.nsIWebNavigation)
+                                 .QueryInterface(Ci.nsILoadContext);
+        }
+
+        var tr = Cc["@mozilla.org/transfer;1"]
+                   .createInstance(Ci.nsITransfer);
+
+        tr.init(source, target, "", null, null, null, persist, false);
+        persist.progressListener = tr;
+        persist.saveURI(source, null, null, null, null, file, privacyContext);
+      }
+    }
   }
 
   if (fp.open) {
-    fp.open({done: fpCallback});
+    fp.open(fpCallback);
   } else {
-    fpCallback(fp.show());
+    fpCallback.done(fp.show());
   }
 }
 
