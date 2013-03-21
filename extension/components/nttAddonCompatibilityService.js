@@ -25,7 +25,7 @@ function nttAddonCompatibilityService() {
 
   this.version = this.appinfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/i, "$1");
 
-  if(this.prefService.getBoolPref(PREF_FORCE_COMPAT)) {
+  if (this.prefService.getBoolPref(PREF_FORCE_COMPAT)) {
     this.setCompatPrefs();
   }
 }
@@ -39,7 +39,7 @@ nttAddonCompatibilityService.prototype = {
   // nsIObserver
   observe : function (subject, topic, data) {
     if (topic == "nsPref:changed") {
-      switch(data) {
+      switch (data) {
         case PREF_FORCE_COMPAT:
           this.setCompatPrefsHelper();
           break;
@@ -59,16 +59,16 @@ nttAddonCompatibilityService.prototype = {
       notifyObject.restart = startCount != count();
       self.obs.notifyObservers(null, "nttACS", JSON.stringify(notifyObject));
     }
-    try{
+    try {
       Cu.import("resource://gre/modules/AddonManager.jsm");
       AddonManager.getAddonsByTypes(null, function (aAddons) {
-        function isPendingAddon(aAddon) {
-          return (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
-            (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
-          ;
-        }
         function count() {
-          return aAddons.filter(isPendingAddon).length;
+          return aAddons.filter(function isPendingAddon(aAddon) {
+            return
+              (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
+              (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
+            ;
+          }).length;
         }
         sendNotification({count: count});
       });
@@ -105,8 +105,9 @@ nttAddonCompatibilityService.prototype = {
     prefs.push(PREF_CHECK_COMPAT_PREFIX + this.version);
 
     var enable = !this.prefService.getBoolPref(PREF_FORCE_COMPAT);
-    for(var i = 0; i < prefs.length; i++)
+    for(var i = 0; i < prefs.length; i++) {
       this.prefService.setBoolPref(prefs[i], enable);
+    }
   }
 };
 
