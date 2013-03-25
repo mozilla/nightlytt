@@ -57,7 +57,7 @@ nttAddonCompatibilityService.prototype = {
       let startCount = count();
       self.setCompatPrefs();
       notifyObject.restart = startCount != count();
-      self.obs.notifyObservers(null, "nttACS", JSON.stringify(notifyObject));
+      self.obs.notifyObservers(null, "_nttACS", JSON.stringify(notifyObject));
     }
     try {
       Cu.import("resource://gre/modules/AddonManager.jsm");

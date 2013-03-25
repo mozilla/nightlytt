@@ -477,7 +477,7 @@ toggleCompatibility: function() {
             getService(Components.interfaces.nsIObserverService);
   var restartObserver = {
     observe: function (subject, topic, data) {
-      obs.removeObserver(restartObserver, "nttACS");
+      obs.removeObserver(restartObserver, "_nttACS");
       var parsedData = JSON.parse(data);
       if (parsedData && parsedData.restart) {
         nightlyApp.openNotification("nightly-compatibility-restart",
@@ -489,7 +489,7 @@ toggleCompatibility: function() {
     }
   };
   if (nightlyApp.openNotification) {
-    obs.addObserver(restartObserver, "nttACS", false);
+    obs.addObserver(restartObserver, "_nttACS", false);
   }
   nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
 },
