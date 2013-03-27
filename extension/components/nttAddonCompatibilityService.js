@@ -64,8 +64,7 @@ nttAddonCompatibilityService.prototype = {
       AddonManager.getAddonsByTypes(null, function (aAddons) {
         function count() {
           return aAddons.filter(function isPendingAddon(aAddon) {
-            return
-              (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
+            return (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
               (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0
             ;
           }).length;
