@@ -104,7 +104,7 @@ nttAddonCompatibilityService.prototype = {
     prefs.push(PREF_CHECK_COMPAT_PREFIX + this.version);
 
     var enable = !this.prefService.getBoolPref(PREF_FORCE_COMPAT);
-    for(var i = 0; i < prefs.length; i++) {
+    for (var i = 0; i < prefs.length; i++) {
       this.prefService.setBoolPref(prefs[i], enable);
     }
   }
