@@ -14,7 +14,7 @@ const PREF_CHECK_COMPAT_NIGHTLY = "extensions.checkCompatibility.nightly";
 function nttAddonCompatibilityService() {
   this.prefService = Cc['@mozilla.org/preferences-service;1']
                      .getService(Ci.nsIPrefBranch2);
-                 
+
   this.prefService.addObserver(PREF_FORCE_COMPAT, this, false);
 
   this.appinfo = Cc["@mozilla.org/xre/app-info;1"]
@@ -66,7 +66,7 @@ nttAddonCompatibilityService.prototype = {
           return aAddons.filter(function isPendingAddon(aAddon) {
             return
               (aAddon.pendingOperations & AddonManager.PENDING_ENABLE) != 0 ||
-              (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0 
+              (aAddon.pendingOperations & AddonManager.PENDING_DISABLE) != 0
             ;
           }).length;
         }
@@ -86,7 +86,7 @@ nttAddonCompatibilityService.prototype = {
 
   setCompatPrefs : function () {
     var prefs = [];
-    
+
     switch (this.appinfo.name) {
       case "Songbird":
         /**
