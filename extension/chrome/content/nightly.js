@@ -440,7 +440,11 @@ getAppIniString : function(section, key) {
                     "@mozilla.org/xpcom/ini-parser-factory;1",
                      Components.interfaces.nsIINIParserFactory)
                   .createINIParser(inifile);
-  return iniParser.getString(section, key);
+  try {
+    return iniParser.getString(section, key);
+  } catch (e) {
+    return undefined;
+  }
 },
 
 getRepo: function() {
