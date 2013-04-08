@@ -142,7 +142,16 @@ getStoredItem: function(type, name) {
     return nightly.preferences.getCharPref(type+"."+name);
   }
   catch (e) {}
-  return nightly[type][name];
+
+  if (nightly[type].hasOwnProperty(name)) {
+    varvalue = nightly[type][name];
+    if (varvalue === undefined || varvalue === null) {
+      varvalue = nightly.getString("nightly.variables.nullvalue");
+    }
+    return varvalue;
+  }
+
+  return undefined;
 },
 
 getVariable: function(name) {
