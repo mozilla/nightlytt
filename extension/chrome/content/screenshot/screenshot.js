@@ -118,12 +118,12 @@ function saveScreenshot()
 
   var fpCallback = {
     done: function fpCallback_done(aResult) {
-      if (aResult == fp.returnOK || aResult == fp.returnReplace) {
+      if (aResult !== fp.returnCancel) {
         var file = fp.file;
         var mimetype = "image/png";
         var options = "";
         var extension = "png";
-        if (fp.filterIndex == 1)
+        if (fp.filterIndex === 1)
         {
           extension = "jpg";
           mimetype = "image/jpeg";
