@@ -137,7 +137,7 @@ observe: function(prefBranch, subject, pref) {
 
 getStoredItem: function(type, name) {
   name = name.toLowerCase();
-  var varvalue = null;
+  var value = null;
   try {
     return nightly.preferences.getCharPref(type+"."+name);
   }
@@ -145,8 +145,8 @@ getStoredItem: function(type, name) {
 
   if (nightly[type].hasOwnProperty(name)) {
     varvalue = nightly[type][name];
-    if (varvalue === undefined || varvalue === null) {
-      varvalue = nightly.getString("nightly.variables.nullvalue");
+    if (value === undefined || value === null) {
+      value = nightly.getString("nightly.variables.nullvalue");
     }
     return varvalue;
   }
