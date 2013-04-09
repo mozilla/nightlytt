@@ -144,11 +144,11 @@ getStoredItem: function(type, name) {
   catch (e) {}
 
   if (nightly[type].hasOwnProperty(name)) {
-    varvalue = nightly[type][name];
+    value = nightly[type][name];
     if (value === undefined || value === null) {
       value = nightly.getString("nightly.variables.nullvalue");
     }
-    return varvalue;
+    return value;
   }
 
   return undefined;
