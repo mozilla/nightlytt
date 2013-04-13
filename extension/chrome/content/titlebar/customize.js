@@ -118,10 +118,6 @@ addVariable: function(name)
     text="";
   }
   var value = paneTitle.nightly.getVariable(name);
-  if (value==null)
-  {
-    value="Undefined";
-  }
   paneTitle.variables.push({variable: "${"+name+"}", description: text, value: value});
 },
 

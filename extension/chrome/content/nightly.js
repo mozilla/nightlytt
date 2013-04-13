@@ -137,12 +137,21 @@ observe: function(prefBranch, subject, pref) {
 
 getStoredItem: function(type, name) {
   name = name.toLowerCase();
-  var varvalue = null;
+  var value = null;
   try {
     return nightly.preferences.getCharPref(type+"."+name);
   }
   catch (e) {}
-  return nightly[type][name];
+
+  if (nightly[type].hasOwnProperty(name)) {
+    value = nightly[type][name];
+    if (value === undefined || value === null) {
+      value = nightly.getString("nightly.variables.nullvalue");
+    }
+    return value;
+  }
+
+  return undefined;
 },
 
 getVariable: function(name) {
@@ -440,7 +449,11 @@ getAppIniString : function(section, key) {
                     "@mozilla.org/xpcom/ini-parser-factory;1",
                      Components.interfaces.nsIINIParserFactory)
                   .createINIParser(inifile);
-  return iniParser.getString(section, key);
+  try {
+    return iniParser.getString(section, key);
+  } catch (e) {
+    return undefined;
+  }
 },
 
 getRepo: function() {
