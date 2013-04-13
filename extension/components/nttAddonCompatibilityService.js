@@ -56,7 +56,7 @@ nttAddonCompatibilityService.prototype = {
       let { count } = options;
       let startCount = count();
       self.setCompatPrefs();
-      notifyObject.restart = startCount != count();
+      notifyObject.restart = startCount !== count();
       self.obs.notifyObservers(null, "_nttACS", JSON.stringify(notifyObject));
     }
     try {
@@ -71,7 +71,7 @@ nttAddonCompatibilityService.prototype = {
         }
         sendNotification({count: count});
       });
-    } catch(e) {
+    } catch (e) {
       // old extension manager API
       let counter = 0;
       function count() {

@@ -473,22 +473,22 @@ openPushlogSinceCurrentBuild: function() {
 
 toggleCompatibility: function() {
   var forceCompat = nightly.preferences.getBoolPref("disableCheckCompatibility");
-  var obs = Components.classes["@mozilla.org/observer-service;1"].
-            getService(Components.interfaces.nsIObserverService);
-  var restartObserver = {
-    observe: function (subject, topic, data) {
-      obs.removeObserver(restartObserver, "_nttACS");
-      var parsedData = JSON.parse(data);
-      if (parsedData && parsedData.restart) {
-        nightlyApp.openNotification("nightly-compatibility-restart",
-          nightly.getString("nightly.restart.message"),
-          nightly.getString("nightly.restart.label"),
-          nightly.getString("nightly.restart.accesskey"),
-          function() { Application.restart(); });
-      }
-    }
-  };
   if (nightlyApp.openNotification) {
+    var obs = Components.classes["@mozilla.org/observer-service;1"]
+              .getService(Components.interfaces.nsIObserverService);
+    var restartObserver = {
+      observe: function (subject, topic, data) {
+        obs.removeObserver(restartObserver, "_nttACS");
+        var parsedData = JSON.parse(data);
+        if (parsedData && parsedData.restart) {
+          nightlyApp.openNotification("nightly-compatibility-restart",
+            nightly.getString("nightly.restart.message"),
+            nightly.getString("nightly.restart.label"),
+            nightly.getString("nightly.restart.accesskey"),
+            function() { Application.restart(); });
+        }
+      }
+    };
     obs.addObserver(restartObserver, "_nttACS", false);
   }
   nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
