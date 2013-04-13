@@ -10,7 +10,11 @@
 
 <overlay id="NightlyMessengerOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-       
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
+  </stringbundleset>
+
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="messenger.js" />
   <script type="application/x-javascript" src="crashme.js" />

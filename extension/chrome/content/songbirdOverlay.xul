@@ -10,7 +10,11 @@
 
 <overlay id="NightlySongbirdOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-       
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
+  </stringbundleset>
+
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="songbird.js" />
   <script type="application/x-javascript" src="chrome://nightly/content/platform.js" />
