@@ -444,7 +444,12 @@ getAppIniString : function(section, key) {
                            getService(Components.interfaces.nsIProperties);
   var inifile = directoryService.get("GreD", Components.interfaces.nsIFile);
   inifile.append("application.ini");
-  
+
+  if (!inifile.exists()) {
+    inifile = directoryService.get("CurProcD", Components.interfaces.nsIFile);
+    inifile.append("application.ini");
+  }
+
   var iniParser = Components.manager.getClassObjectByContractID(
                     "@mozilla.org/xpcom/ini-parser-factory;1",
                      Components.interfaces.nsIINIParserFactory)
