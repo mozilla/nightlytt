@@ -1,3 +1,12 @@
+3.5 / 2013-04-22
+==================
+
+  * Extension: Use CurProcD as a fallback when referencing GRE specific files. (#115)
+  * Extension: Detect the application version automatically and setup the right compatibility pref. (#52)
+  * Extension: Favor the new nsIFilePicker::ShowAsync method in saveScreenshot(). (#112)
+  * Extension: Remove usage of nsISupportsArray due to its deprecation. (#121)
+  * Extension: Use getAddonsByTypes() to only retrieve extensions for getExtensionList(). (#94)
+
 3.4 / 2013-02-19
 ==================
 
