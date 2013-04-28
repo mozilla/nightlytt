@@ -18,9 +18,7 @@ get oldUpdateTitlebar() {
 },
 
 set oldUpdateTitlebar(aParam) {
-  if (typeof(aParam) === "function") {
-    nightlyApp._oldUpdateTitlebar = aParam;
-  }
+  nightlyApp._oldUpdateTitlebar = aParam;
 },
 
 get defaultTitle() {
@@ -31,7 +29,7 @@ get defaultTitle() {
 
 get tabTitle() {
   if (nightlyApp.oldUpdateTitlebar) {
-    return gBrowser.mCurrentBrowser.contentTitle;
+    return gBrowser.contentTitle;
   }
 },
 
@@ -107,10 +105,15 @@ getWindowTitleForNavigator: function () {
    * TODO Explain this check
    */ 
   if (this.docShell.contentViewer)
-    docTitle = this.contentTitle;
+    /**
+     * Strip out any null bytes in the content title, since the
+     * underlying widget implementations of nsWindow::SetTitle pass
+     * null-terminated strings to system APIs.
+     */
+    docTitle = this.contentTitle.replace(/\0+/g, "");
 
   if (!docTitle && !modifier) {
-    docTitle = this.getTitleForURI(this.mCurrentBrowser.currentURI);
+    docTitle = this.getTitleForURI(this.currentURI);
     if (!docTitle) {
       /**
        * Here we actually override contenttitlesetting, because we
@@ -136,7 +139,7 @@ getWindowTitleForNavigator: function () {
   try {
     if (docElement.getAttribute("chromehidden").indexOf("location") != -1) {
       var uri = this.mURIFixup.createExposableURI(
-                  this.mCurrentBrowser.currentURI);
+                  this.currentURI);
       if (uri.schemeIs("about"))
         newTitle = uri.spec + sep + newTitle;
       else if (uri.host)
