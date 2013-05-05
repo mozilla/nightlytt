@@ -42,7 +42,7 @@ init: function()
   }
   nightly.variables.brandname=brandbundle.getString("brandFullName");
 
-  if (typeof(gBrowser) !== "undefined" && typeof(gBrowser.updateTitlebar) === "function") {
+  if ("gBrowser" in window && typeof(gBrowser.updateTitlebar) === "function") {
     nightlyApp.oldUpdateTitlebar = gBrowser.updateTitlebar;
 
     gBrowser.updateTitlebar = nightly.updateTitlebar;
@@ -110,7 +110,7 @@ getWindowTitleForNavigator: function () {
      * underlying widget implementations of nsWindow::SetTitle pass
      * null-terminated strings to system APIs.
      */
-    docTitle = this.contentTitle.replace(/\0+/g, "");
+    docTitle = this.contentTitle.replace("\0", "");
 
   if (!docTitle && !modifier) {
     docTitle = this.getTitleForURI(this.currentURI);
