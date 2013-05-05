@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
-var EXPORTED_SYMBOLS = ["iniFiles"];
+var EXPORTED_SYMBOLS = ["IniFile"];
 
 const { classes: Cc, interfaces: Ci, utils: Cu, manager: Cm } = Components;
 
@@ -12,11 +12,11 @@ var appInfo = Cc["@mozilla.org/xre/app-info;1"]
 
 var directoryService;
 
-function iniFileExtractor (aName) {
+function IniFile (aName) {
   this.mININame = aName;
 }
 
-iniFileExtractor.prototype = {
+IniFile.prototype = {
   mININame : null,
   mFile : null,
   mINIParser : null,
@@ -65,8 +65,8 @@ iniFileExtractor.prototype = {
 
 var iniFiles = {};
 
-iniFiles.application = new iniFileExtractor("application.ini");
-iniFiles.platform = new iniFileExtractor("platform.ini");
+iniFiles.application = new IniFile("application.ini");
+iniFiles.platform = new IniFile("platform.ini");
 iniFiles.appInfo = appInfo;
 
 iniFiles.changeSet = iniFiles.application.getString("App","SourceStamp");
