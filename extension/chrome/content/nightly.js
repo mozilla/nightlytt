@@ -6,18 +6,29 @@ var nightly = {
 
 variables: {
   _appInfo: null,
-  _iniFiles: null,
+  _buildInfo: null,
   get appInfo() {
     if (!this._appInfo) {
-      this._appInfo = this.iniFiles.appInfo;
+      this._appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
+                                .getService(Components.interfaces.nsIXULAppInfo)
+                                .QueryInterface(Components.interfaces.nsIXULRuntime);
     }
     return this._appInfo;
   },
-  get iniFiles() {
-    if (!this._iniFiles) {
-      this._iniFiles = Components.utils.import("resource://nightly/iniFiles.jsm", {}).iniFiles;
+  get buildInfo() {
+    if (!this._buildInfo) {
+      var { IniFile } = Components.utils.import("resource://nightly/IniFile.jsm", {});
+      var application = new IniFile("application.ini");
+      var platform = new IniFile("platform.ini");
+
+      this._buildInfo = {};
+      this._buildInfo.changeSet = application.getString("App","SourceStamp");
+      this._buildInfo.repository = application.getString("App","SourceRepository");
+
+      this._buildInfo.platformChangeSet = platform.getString("Build","SourceStamp");
+      this._buildInfo.platformRepository = platform.getString("Build","SourceRepository");
     }
-    return this._iniFiles;
+    return this._buildInfo;
   },
 
   get appid() this.appInfo.ID,
@@ -29,12 +40,10 @@ variables: {
   get platformversion() this.appInfo.platformVersion,
   get geckobuildid() this.appInfo.platformBuildID,
   get geckoversion() this.appInfo.platformVersion,
-  get changeset() this.iniFiles.changeSet,
-  get platformchangeset() this.iniFiles.platformChangeSet,
-  get geckochangeset() this.iniFiles.platformChangeSet,
-  get repo() this.appInfo.repo,
-  get platformrepo() this.appInfo.platformRepo,
-  get geckorepo() this.appInfo.platformRepo,
+  get changeset() this.buildInfo.changeSet,
+  get platformchangeset() this.buildInfo.platformChangeSet,
+  get repository() this.buildInfo.repository,
+  get platformrepository() this.buildInfo.platformRepository,
   brandname: null,
   get useragent() navigator.userAgent,
   get locale() {
@@ -472,7 +481,7 @@ getAppIniString : function(section, key) {
 },
 
 getRepo: function() {
-  return nightly.getVariable("repo");
+  return nightly.getVariable("repository");
 },
 
 getChangeset: function() {
