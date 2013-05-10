@@ -3,6 +3,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <!-- Strings for Title Customization dialog. -->
+
 <!-- LOCALIZATION NOTE: The same English string as the following is also defined
                         as a different entity for use in the menu,
                         see ./nightly.dtd -->
