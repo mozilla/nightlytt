@@ -1,0 +1,12 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY screenshot.window.title "屏幕截图获取工具">
+<!ENTITY screenshot.save.label "另存为...">
+<!ENTITY screenshot.submit.label "上传到 ImageShack...">
+<!ENTITY screenshot.copy.label "复制到剪贴板">
+<!ENTITY screenshot.redraw.label "重绘">
+<!ENTITY screenshot.zoom.label "缩放：">
+<!ENTITY screenshot.window.label "窗口：">
+<!ENTITY screenshot.timer.label "延迟捕获：5">
