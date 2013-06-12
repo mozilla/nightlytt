@@ -23,11 +23,10 @@ function findIniFile(aName) {
 }
 
 function createINIParser(aFile) {
-  var iniParser = Cm.getClassObjectByContractID(
+  return Cm.getClassObjectByContractID(
                       "@mozilla.org/xpcom/ini-parser-factory;1",
                       Ci.nsIINIParserFactory)
-                  .createINIParser(aFile);
-  return iniParser;
+           .createINIParser(aFile);
 }
 
 function IniFile (aName) {
