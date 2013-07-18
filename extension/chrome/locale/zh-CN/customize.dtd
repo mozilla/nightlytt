@@ -2,9 +2,16 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
+<!-- Strings for Title Customization dialog. -->
+
+<!-- LOCALIZATION NOTE: The same English string as the following is also defined
+                        as a different entity for use in the menu,
+                        see ./nightly.dtd -->
 <!ENTITY nightly.customize.title "定制标题栏">
+
 <!ENTITY nightly.paneTitlebar.title "标题栏">
 <!ENTITY nightly.paneTitlebar.description "标题栏定制">
+
 <!ENTITY nightly.customtitle.label "使用自定义标题">
 <!ENTITY nightly.customtemplate.label "自定义标题模板：">
 <!ENTITY nightly.variables.description "下列变量可以用在标题中(大小写敏感)。">

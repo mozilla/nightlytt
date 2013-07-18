@@ -3,6 +3,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <!ENTITY screenshot.window.title "屏幕截图获取工具">
+
 <!ENTITY screenshot.save.label "另存为...">
 <!ENTITY screenshot.submit.label "上传到 ImageShack...">
 <!ENTITY screenshot.copy.label "复制到剪贴板">
