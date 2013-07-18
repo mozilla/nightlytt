@@ -2,6 +2,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
+<!-- Menu item labels and tooltips -->
 <!ENTITY nightly.openabout.label              "Open about:nightly">
 <!ENTITY nightly.openprofile.label            "Open Profile Folder">
 
@@ -14,15 +15,18 @@
 
 <!ENTITY nightly.extensions.aboutsup.label    "Copy about:support to Pastebin">
 
-<!ENTITY nightly.pushlog.lasttocurrent.label   "Open Pushlog between last and current build">
-<!ENTITY nightly.pushlog.currenttotip.label    "Open Pushlog after current build">
+<!ENTITY nightly.pushlog.lasttocurrent.label  "Open Pushlog between last and current build">
+<!ENTITY nightly.pushlog.currenttotip.label   "Open Pushlog after current build">
 
+<!-- LOCALIZATION NOTE: The same English string as the following is also used
+                        for a dialog title, defined as a different entity, see ./customize.dtd -->
 <!ENTITY nightly.customize.label              "Customize Titlebar">
 
 <!ENTITY nightly.compatibility.label          "Force Addon Compatibility">
 
 <!ENTITY nightly.screenshot.full.label        "Take Screenshot">
 
+<!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "Crash me!">
 <!ENTITY nightly.crashme.nullptr.label "Null pointer deref!">
 <!ENTITY nightly.crashme.nullfncall.label "Null function call!">
