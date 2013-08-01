@@ -1,3 +1,12 @@
+3.6 / 2013-08-06
+==================
+
+  * Extension: Include zh-CN locales from BabelZilla. (#143)
+  * Extension: Make dtd entities for Customize Titlebar more localization friendly. (#140)
+  * Extension: Set file extension in filepicker to avoid silent overwrites. (#124)
+  * Extension: Add basic Seamonkey support to titlebar customization. (#31)
+  * Extension: Fix for illegal characters in MPL 2.0 headers. (#133)
+
 3.5 / 2013-04-25
 ==================
 
