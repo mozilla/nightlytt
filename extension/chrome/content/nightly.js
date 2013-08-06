@@ -203,20 +203,71 @@ copyTemplate: function(template) {
   nightly.copyText(nightly.generateText(nightly.getTemplate(template)));
 },
 
-pastebin: function (content) {
-  var postdata = "paste_code=" + encodeURIComponent(content);
+pastebin: function (content, onLoadCallback, onErrorCallback) {
+  var postdata;
+  const pastebinURL = "http://pastebin.mozilla.org/";
   var request = new XMLHttpRequest();
-  request.open("POST","http://pastebin.com/api_public.php", true);
-  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  request.setRequestHeader("Content-length", postdata.length);
+  request.open("POST", pastebinURL, true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
-      if (request.status==200)
-        nightlyApp.openURL(request.responseText);
+      if (request.status === 200) {
+        nightlyApp.openURL(request.channel.URI.spec);
+      }
+      if (typeof onLoadCallback == "function") {
+        onLoadCallback();
+      }
     }
   };
-  request.send(postdata);
+
+  function onError() {
+    if (typeof onErrorCallback === "function") {
+      onErrorCallback();
+    }
+  }
+
+  request.onabort = onError;
+  request.onerror = onError;
+
+  if (typeof FormData === "function") {
+    postdata = new FormData();
+    postdata.append("code2", content);
+    postdata.append("expiry", "d");
+    postdata.append("format", "text");
+    postdata.append("parent_pid", "");
+    postdata.append("paste", "Send");
+    postdata.append("poster", "anonymous");
+
+    request.send(postdata);
+  } else {
+    var targetObj = {}
+    try {
+      Components.utils.import("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
+    } catch (e) {
+      /**
+       * Prior to Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1), 
+       * JavaScript code modules could only be loaded using file: or resource: URLs. 
+       * Gecko 2.0 adds support for loading modules from chrome: URLs,
+       * even those inside JAR archives.
+       */
+      var scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+                         .getService(Components.interfaces.mozIJSSubScriptLoader);
+      scriptLoader.loadSubScript("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
+    }
+    var { MultipartFormData } = targetObj;
+    postdata = new MultipartFormData();
+    postdata.addControl("code2", content);
+    postdata.addControl("expiry", "d");
+    postdata.addControl("format", "text");
+    postdata.addControl("parent_pid", "");
+    postdata.addControl("paste", "Send");
+    postdata.addControl("poster", "anonymous");
+
+    request.setRequestHeader("Content-type", postdata.getContentType());
+    request.setRequestHeader("Content-length", postdata.length);
+
+    request.send(postdata.getPostData());
+  }
 },
 
 parseHTML: function(url, callback) {
@@ -228,7 +279,7 @@ parseHTML: function(url, callback) {
   frame.setAttribute("name", "sample-frame");
   frame.setAttribute("type", "content");
   frame.setAttribute("collapsed", "true");
-  document.getElementById("main-window").appendChild(frame);
+  document.lastChild.appendChild(frame);
 
   frame.addEventListener("load", function (event) {
     var doc = event.originalTarget;
@@ -237,16 +288,25 @@ parseHTML: function(url, callback) {
 
     setTimeout(function () {  // give enough time for js to populate page
       callback(doc);
+      frame.parentNode.removeChild(frame);
     }, 800);
   }, true);
   frame.contentDocument.location.href = url;
 },
 
-pastebinAboutSupport: function() {
+pastebinAboutSupport: function (aEvent) {
+  var node = aEvent.originalTarget;
+  node.setAttribute("loading", "true");
+  node.disabled = true;
+
   nightly.parseHTML("about:support", function(doc) {
     var contents = doc.getElementById("contents");
     var text = nightlyPPrint.createTextForElement(contents);
-    nightly.pastebin(text);
+    function enableMenuItem() {
+      node.removeAttribute("loading");
+      node.disabled = false;
+    }
+    nightly.pastebin(text, enableMenuItem, enableMenuItem);
   });
 },
 
@@ -266,6 +326,9 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
+      if (node.id == 'nightly-aboutsupport') {
+        node.hidden = !("@mozilla.org/network/protocol/about;1?what=support" in Components.classes);
+      }
       if (node.id == 'nightly-pushlog-lasttocurrent') {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
