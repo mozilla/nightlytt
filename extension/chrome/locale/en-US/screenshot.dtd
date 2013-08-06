@@ -5,7 +5,7 @@
 <!ENTITY screenshot.window.title        "Screenshot Grabber">
 
 <!ENTITY screenshot.save.label          "Save As...">
-<!ENTITY screenshot.submit.label        "Submit to ImageShack...">
+<!ENTITY screenshot.submit.label        "Submit Image...">
 <!ENTITY screenshot.copy.label          "Copy to Clipboard">
 <!ENTITY screenshot.redraw.label        "Redraw">
 <!ENTITY screenshot.zoom.label          "Zoom:">

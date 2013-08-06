@@ -80,7 +80,7 @@ function captureTimer()
 
 function submitScreenshot()
 {
-  var fileService = ImageShack;
+  var fileService = Providers.getSelectedProvider();
   
   var data = canvas.toDataURL("image/png");
   var pos = data.indexOf(";",5);

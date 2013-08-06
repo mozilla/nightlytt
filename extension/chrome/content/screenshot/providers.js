@@ -29,55 +29,67 @@ var Providers = {
   }
 }
 
-var ImageShack = {
+var PostimageDotOrg = {
   addFormFields: function(formdata)
   {
-    formdata.addControl("uploadtype", "on");
-    formdata.addControl("url", "paste image url here");
-    formdata.addControl("MAX_FILE_SIZE", "3145728");
-    formdata.addControl("refer", "");
-    formdata.addControl("brand", "");
-    formdata.addControl("optsize", "320x320");
+    formdata.addControl("mode", "local");
+    formdata.addControl("um", "image");
+    formdata.addControl("mode", "local");
+    formdata.addControl("forumurl", "http://postimage.org");
+    //formdata.addControl("MAX_FILE_SIZE", 10*1024*1024);
+    //formdata.addControl("hash", 671);
   },
   
   getFileFormField: function()
   {
-    return "fileupload";
+    return "upload[]";
   },
   
   getReferer: function()
   {
-    return "http://www.imageshack.us/";
+    return "http://postimage.org";
   },
   
   getSubmissionURL: function()
   {
-    return "http://www.imageshack.us/";
+    return "http://postimage.org";
   }
 }
 
-var AllYouCanUpload = {
+var bayimg = {
+  genRemovalCode: function (aLength)
+  {
+    var len = aLength || 10;
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i=0; i < len; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+  },
+
   addFormFields: function(formdata)
   {
-    formdata.addControl("images[0].submittedPhotoSize", "100%");
-    formdata.addControl("imagesCount", "1");
+    formdata.addControl("code", bayimg.genRemovalCode());
   },
   
   getFileFormField: function()
   {
-    return "images[0].fileName";
+    return "file";
   },
   
   getReferer: function()
   {
-    return "http://allyoucanupload.webshots.com/";
+    return "http://bayimg.com";
   },
   
   getSubmissionURL: function()
   {
-    return "http://allyoucanupload.webshots.com/uploadcomplete";
+    return "http://upload.bayimg.com/upload";
   }
 }
 
-Providers.addProvider(ImageShack);
-//Providers.addProvider(AllYouCanUpload);
+Providers.addProvider(PostimageDotOrg);
+Providers.addProvider(bayimg);
