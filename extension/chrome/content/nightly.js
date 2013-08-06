@@ -6,6 +6,7 @@ var nightly = {
 
 variables: {
   _appInfo: null,
+  _buildInfo: null,
   get appInfo() {
     if (!this._appInfo) {
       this._appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
@@ -13,6 +14,21 @@ variables: {
                                 .QueryInterface(Components.interfaces.nsIXULRuntime);
     }
     return this._appInfo;
+  },
+  get buildInfo() {
+    if (!this._buildInfo) {
+      var { IniFile } = Components.utils.import("resource://nightly/IniFile.jsm", {});
+      var application = new IniFile("application.ini");
+      var platform = new IniFile("platform.ini");
+
+      this._buildInfo = {};
+      this._buildInfo.changeSet = application.getString("App","SourceStamp");
+      this._buildInfo.repository = application.getString("App","SourceRepository");
+
+      this._buildInfo.platformChangeSet = platform.getString("Build","SourceStamp");
+      this._buildInfo.platformRepository = platform.getString("Build","SourceRepository");
+    }
+    return this._buildInfo;
   },
 
   get appid() this.appInfo.ID,
@@ -24,7 +40,10 @@ variables: {
   get platformversion() this.appInfo.platformVersion,
   get geckobuildid() this.appInfo.platformBuildID,
   get geckoversion() this.appInfo.platformVersion,
-  get changeset() { return nightly.getChangeset(); },
+  get changeset() this.buildInfo.changeSet,
+  get platformchangeset() this.buildInfo.platformChangeSet,
+  get repository() this.buildInfo.repository,
+  get platformrepository() this.buildInfo.platformRepository,
   brandname: null,
   get useragent() navigator.userAgent,
   get locale() {
@@ -526,11 +545,11 @@ getAppIniString : function(section, key) {
 },
 
 getRepo: function() {
-  return nightly.getAppIniString("App", "SourceRepository");
+  return nightly.getVariable("repository");
 },
 
 getChangeset: function() {
-  return nightly.getAppIniString("App", "SourceStamp");
+  return nightly.getVariable("changeSet");
 },
 
 openPushlog: function(fromChange, toChange) {

@@ -95,6 +95,7 @@ init: function(aEvent)
   paneTitle.addVariable("PlatformBuildID");
   paneTitle.addVariable("PlatformVersion");
   paneTitle.addVariable("GeckoVersion");
+  paneTitle.addVariable("PlatformChangeset");
   paneTitle.addVariable("BrandName");
   paneTitle.addVariable("UserAgent");
   paneTitle.addVariable("Locale");
