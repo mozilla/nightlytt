@@ -87,7 +87,7 @@ showConfirmEx: function (aOptions) {
   var button2Title = options.button2Title;
   var text = options.text;
 
-  promptService.confirmEx(null, "Nightly Tester Tools", text,
+  return promptService.confirmEx(null, "Nightly Tester Tools", text,
     buttonFlags, button0Title, button1Title, button2Title,
     null, {}
   );
@@ -318,7 +318,21 @@ insertTemplate: function(template) {
       return;
     }
   }
-  nightly.showAlert("nightly.notextbox.message", []);
+
+  // no usable element was found
+  const psButtonFlags = Components.interfaces.nsIPromptService;
+  var promptOptions = {};
+  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
+    nightly.getString("nightly.notextbox.clipboardinstead.message");
+  promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_OK  +
+    psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING + 
+    psButtonFlags.BUTTON_POS_1_DEFAULT;
+  promptOptions.button0Title = nightly.getString("nightly.copybutton.message");
+
+  var buttonPressed = nightly.showConfirmEx(promptOptions);
+  if (buttonPressed == 0) {
+    nightly.copyTemplate(template);
+  }
 },
 
 insensitiveSort: function(a, b) {
