@@ -68,11 +68,34 @@ isTrunk: function() {
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
-showAlert: function(id, args) {
+/**
+ *  @param aOptions {Object}
+ *  @param aOptions.text {String}
+ *  @param aOptions.buttonFlags {Long}
+ *  @param aOptions.button0Title {String}
+ *  @param aOptions.button1Title {String}
+ *  @param aOptions.button2Title {String}
+ */
+showConfirmEx: function (aOptions) {
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                 .getService(Components.interfaces.nsIPromptService);
+
+  var options = aOptions || {};
+  var buttonFlags = options.buttonFlags || promptService.BUTTON_TITLE_OK * promptService.BUTTON_POS_0;
+  var button0Title = options.button0Title;
+  var button1Title = options.button1Title;
+  var button2Title = options.button2Title;
+  var text = options.text;
+
+  promptService.confirmEx(null, "Nightly Tester Tools", text,
+    buttonFlags, button0Title, button1Title, button2Title,
+    null, {}
+  );
+},
+
+showAlert: function(id, args) {
   var text = nightly.getString(id, args);
-  promptService.alert(null, "Nightly Tester Tools", text);
+  nightly.showConfirmEx({text: text});
 },
 
 init: function() {
