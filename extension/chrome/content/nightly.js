@@ -45,8 +45,13 @@ variables: {
 templates: {
 },
 
-getString: function(name) {
-  return document.getElementById("nightlyBundle").getString(name);
+getString: function(name, format) {
+  if (format) {
+    return document.getElementById("nightlyBundle").getFormattedString(name, format);
+  }
+  else {
+    return document.getElementById("nightlyBundle").getString(name);
+  }
 },
 
 preferences: null,
@@ -64,12 +69,9 @@ isTrunk: function() {
 },
 
 showAlert: function(id, args) {
-   var sbs = Components.classes["@mozilla.org/intl/stringbundle;1"]
-                      .getService(Components.interfaces.nsIStringBundleService);
-  var bundle = sbs.createBundle("chrome://nightly/locale/nightly.properties");
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                 .getService(Components.interfaces.nsIPromptService);
-  var text=bundle.formatStringFromName(id, args, args.length);
+  var text = nightly.getString(id, args);
   promptService.alert(null, "Nightly Tester Tools", text);
 },
 
