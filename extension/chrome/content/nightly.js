@@ -69,12 +69,12 @@ isTrunk: function() {
 },
 
 /**
- *  @param aOptions {Object}
- *  @param aOptions.text {String}
- *  @param aOptions.buttonFlags {Long}
- *  @param aOptions.button0Title {String}
- *  @param aOptions.button1Title {String}
- *  @param aOptions.button2Title {String}
+ *  @param {Object} aOptions
+ *  @param {String} aOptions.text
+ *  @param {Number} aOptions.buttonFlags
+ *  @param {String} aOptions.button0Title
+ *  @param {String} aOptions.button1Title
+ *  @param {String} aOptions.button2Title
  */
 showConfirmEx: function (aOptions) {
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
@@ -82,13 +82,9 @@ showConfirmEx: function (aOptions) {
 
   var options = aOptions || {};
   var buttonFlags = options.buttonFlags || promptService.BUTTON_TITLE_OK * promptService.BUTTON_POS_0;
-  var button0Title = options.button0Title;
-  var button1Title = options.button1Title;
-  var button2Title = options.button2Title;
-  var text = options.text;
 
-  return promptService.confirmEx(null, "Nightly Tester Tools", text,
-    buttonFlags, button0Title, button1Title, button2Title,
+  return promptService.confirmEx(null, "Nightly Tester Tools", options.text,
+    buttonFlags, options.button0Title, options.button1Title, options.button2Title,
     null, {}
   );
 },
