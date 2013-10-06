@@ -319,11 +319,11 @@ insertTemplate: function(template) {
   const psButtonFlags = Components.interfaces.nsIPromptService;
   var promptOptions = {};
   promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
-    nightly.getString("nightly.notextbox.clipboardinstead.message");
+    nightly.getString("nightly.notextbox.clipboardInstead.message");
   promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_OK  +
     psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING + 
     psButtonFlags.BUTTON_POS_1_DEFAULT;
-  promptOptions.button0Title = nightly.getString("nightly.copybutton.message");
+  promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
 
   var buttonPressed = nightly.showConfirmEx(promptOptions);
   if (buttonPressed == 0) {
