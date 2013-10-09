@@ -85,8 +85,7 @@ showConfirmEx: function (aOptions) {
 
   return promptService.confirmEx(null, "Nightly Tester Tools", options.text,
     buttonFlags, options.button0Title, options.button1Title, options.button2Title,
-    null, {}
-  );
+    null, {});
 },
 
 showAlert: function(id, args) {
