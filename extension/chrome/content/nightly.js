@@ -69,12 +69,19 @@ isTrunk: function() {
 },
 
 /**
+ *  A helper function for nsIPromptService.confirmEx().
+ *  Popping up an alert("Hello!") is as simple as nightly.showConfirmEx({text: "Hello!"});
+ *
+ *  @see https://developer.mozilla.org/docs/XPCOM_Interface_Reference/nsIPromptService#confirmEx%28%29
+ *
  *  @param {Object} aOptions
  *  @param {String} aOptions.text
  *  @param {Number} aOptions.buttonFlags
  *  @param {String} aOptions.button0Title
  *  @param {String} aOptions.button1Title
  *  @param {String} aOptions.button2Title
+ *
+ *  @returns {Number} Index of the button pressed (0..2)
  */
 showConfirmEx: function (aOptions) {
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
@@ -319,9 +326,9 @@ insertTemplate: function(template) {
   var promptOptions = {};
   promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
     nightly.getString("nightly.notextbox.clipboardInstead.message");
-  promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_OK  +
-    psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING + 
-    psButtonFlags.BUTTON_POS_1_DEFAULT;
+  promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING +
+    psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_CANCEL;
+    
   promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
 
   var buttonPressed = nightly.showConfirmEx(promptOptions);
