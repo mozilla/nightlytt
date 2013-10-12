@@ -24,6 +24,13 @@
     <key key="s" modifiers="accel,shift" oncommand="nightly.getScreenshot();"/>
   </keyset>
 
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="nightly-tester-enter"
+            class="toolbarbutton-1"
+            label="&nightly.id.insert.label;"
+            tooltiptext="&nightly.id.insert.tooltip;"
+            oncommand="nightly.insertTemplate('buildid');"/>
+  </toolbarpalette>
 
   <menupopup id="taskPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
