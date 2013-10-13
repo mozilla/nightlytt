@@ -65,8 +65,13 @@ variables: {
 templates: {
 },
 
-getString: function(name) {
-  return document.getElementById("nightlyBundle").getString(name);
+getString: function(name, format) {
+  if (format) {
+    return document.getElementById("nightlyBundle").getFormattedString(name, format);
+  }
+  else {
+    return document.getElementById("nightlyBundle").getString(name);
+  }
 },
 
 preferences: null,
@@ -83,14 +88,36 @@ isTrunk: function() {
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
-showAlert: function(id, args) {
-   var sbs = Components.classes["@mozilla.org/intl/stringbundle;1"]
-                      .getService(Components.interfaces.nsIStringBundleService);
-  var bundle = sbs.createBundle("chrome://nightly/locale/nightly.properties");
+/**
+ *  A helper function for nsIPromptService.confirmEx().
+ *  Popping up an alert("Hello!") is as simple as nightly.showConfirmEx({text: "Hello!"});
+ *
+ *  @see https://developer.mozilla.org/docs/XPCOM_Interface_Reference/nsIPromptService#confirmEx%28%29
+ *
+ *  @param {Object} aOptions
+ *  @param {String} aOptions.text
+ *  @param {Number} aOptions.buttonFlags
+ *  @param {String} aOptions.button0Title
+ *  @param {String} aOptions.button1Title
+ *  @param {String} aOptions.button2Title
+ *
+ *  @returns {Number} Index of the button pressed (0..2)
+ */
+showConfirmEx: function (aOptions) {
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                 .getService(Components.interfaces.nsIPromptService);
-  var text=bundle.formatStringFromName(id, args, args.length);
-  promptService.alert(null, "Nightly Tester Tools", text);
+
+  var options = aOptions || {};
+  var buttonFlags = options.buttonFlags || promptService.BUTTON_TITLE_OK * promptService.BUTTON_POS_0;
+
+  return promptService.confirmEx(null, "Nightly Tester Tools", options.text,
+    buttonFlags, options.button0Title, options.button1Title, options.button2Title,
+    null, {});
+},
+
+showAlert: function(id, args) {
+  var text = nightly.getString(id, args);
+  nightly.showConfirmEx({text: text});
 },
 
 init: function() {
@@ -376,7 +403,21 @@ insertTemplate: function(template) {
       return;
     }
   }
-  nightly.showAlert("nightly.notextbox.message", []);
+
+  // no usable element was found
+  const psButtonFlags = Components.interfaces.nsIPromptService;
+  var promptOptions = {};
+  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
+    nightly.getString("nightly.notextbox.clipboardInstead.message");
+  promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING +
+    psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_CANCEL;
+    
+  promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
+
+  var buttonPressed = nightly.showConfirmEx(promptOptions);
+  if (buttonPressed == 0) {
+    nightly.copyTemplate(template);
+  }
 },
 
 insensitiveSort: function(a, b) {
