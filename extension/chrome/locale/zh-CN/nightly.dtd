@@ -1,0 +1,36 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+   
+<!-- Menu item labels and tooltips -->
+<!ENTITY nightly.openabout.label "打开 about:nightly">
+<!ENTITY nightly.openprofile.label "打开配置文件夹">
+
+<!ENTITY nightly.id.copy.label "复制 Build ID 到剪贴板">
+<!ENTITY nightly.id.insert.label "插入 Build ID 到文本框">
+<!ENTITY nightly.id.insert.tooltip "插入构建标识符到当前文本框。">
+
+<!ENTITY nightly.extensions.copy.label "复制扩展列表到剪贴板">
+<!ENTITY nightly.extensions.insert.label "插入扩展列表到文本框">
+<!ENTITY nightly.extensions.aboutsup.label "复制 about:support 到 Pastebin">
+
+<!ENTITY nightly.pushlog.lasttocurrent.label "打开当前与上次构建间的推送日志">
+<!ENTITY nightly.pushlog.currenttotip.label "打开当前构建后的推送日志">
+
+<!-- LOCALIZATION NOTE: The same English string as the following is also used
+                        for a dialog title, defined as a different entity, see ./customize.dtd -->
+<!ENTITY nightly.customize.label "定制标题栏">
+
+<!ENTITY nightly.compatibility.label "强制附加组件兼容">
+
+<!ENTITY nightly.screenshot.full.label "屏幕截图">
+
+<!-- Miscellaneous Crash-Me strings -->
+<!ENTITY nightly.crashme.label "崩溃浏览器！">
+<!ENTITY nightly.crashme.nullptr.label "Null pointer deref!">
+<!ENTITY nightly.crashme.nullfncall.label "Null function call!">
+<!ENTITY nightly.crashme.divzero.label "Divide by zero!">
+<!ENTITY nightly.crashme.stack.label "Stack overflow!">
+<!ENTITY nightly.crashme.purevirt.label "Pure virtual call!">
+<!ENTITY nightly.crashme.iph.label "Invalid parameter to CRT method!">
+<!ENTITY nightly.crashme.objc.label "ObjC Exception!">

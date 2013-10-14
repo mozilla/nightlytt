@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{8620c15f-30dc-4dba-a131-7c5d20cf4a29}</em:id>
-    <em:version>3.2.2pre</em:version>
+    <em:version>3.7pre</em:version>
     <em:type>2</em:type>
     
     <!-- Need unpacking for crashme binary components -->
@@ -13,22 +17,32 @@
     <!-- Front End MetaData -->
     <em:name>Nightly Tester Tools</em:name>
     <em:description>Useful tools for the nightly tester.</em:description>
-    <em:creator>Mossop</em:creator>
-    <em:contributor>Peter van der Woude (original idea)</em:contributor>
+    <em:creator>Automation Development</em:creator>
+    <em:contributor>Dave Hunt</em:contributor>
+    <em:contributor>Dave Townsend (original author)</em:contributor>
+    <em:contributor>Ed Morley</em:contributor>
+    <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
+    <em:contributor>Heather Arthur</em:contributor>
+    <em:contributor>Henrik Skupin</em:contributor>
+    <em:contributor>Jeff Hammel</em:contributor>
     <em:contributor>Jesse Ruderman (Mac fixes)</em:contributor>
+    <em:contributor>Peter van der Woude (original idea)</em:contributor>
     <em:contributor>Steve England (QA)</em:contributor>
     <em:contributor>Stephen Lau (Songbird port)</em:contributor>
-    <em:contributor>FAMFAMFAM (Some icons)</em:contributor>
+    <em:contributor>Szabolcs Hubai</em:contributor>
+    <em:contributor>Tony Mechelynck</em:contributor>
+
+    <em:translator>Wang.H.K (zh-CN)</em:translator>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
-    <em:homepageURL>http://www.oxymoronical.com/web/firefox/nightly</em:homepageURL>
+    <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>
 
     <!-- Firefox version --> 
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>3.6</em:minVersion>
-        <em:maxVersion>13.0a1</em:maxVersion>
+        <em:maxVersion>26.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -37,7 +51,7 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.1</em:minVersion>
-        <em:maxVersion>13.0a1</em:maxVersion>
+        <em:maxVersion>26.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -46,7 +60,7 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.1a1pre</em:minVersion>
-        <em:maxVersion>2.10a1</em:maxVersion>
+        <em:maxVersion>2.23</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -55,7 +69,7 @@
       <Description>
         <em:id>songbird@songbirdnest.com</em:id>
         <em:minVersion>1.6</em:minVersion>
-        <em:maxVersion>1.12.0a</em:maxVersion>
+        <em:maxVersion>2.2.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -66,7 +80,7 @@
       <Description>
         <em:id>toolkit@mozilla.org</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>13.0a1</em:maxVersion>
+        <em:maxVersion>26.0</em:maxVersion>
       </Description>
     </em:targetApplication>
 

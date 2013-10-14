@@ -1,39 +1,6 @@
-/* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1/GPL 2.0/LGPL 2.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is Nightly Tester Tools.
- *
- * The Initial Developer of the Original Code is
- *     Dave Townsend <dtownsend@oxymoronical.com>.
- *
- * Portions created by the Initial Developer are Copyright (C) 2007
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *
- * Alternatively, the contents of this file may be used under the terms of
- * either the GNU General Public License Version 2 or later (the "GPL"), or
- * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
- * in which case the provisions of the GPL or the LGPL are applicable instead
- * of those above. If you wish to allow use of your version of this file only
- * under the terms of either the GPL or the LGPL, and not to allow others to
- * use your version of this file under the terms of the MPL, indicate your
- * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
- * the provisions above, a recipient may use your version of this file under
- * the terms of any one of the MPL, the GPL or the LGPL.
- *
- * ***** END LICENSE BLOCK ***** */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 var nightly = {
 
@@ -57,6 +24,7 @@ variables: {
   get platformversion() this.appInfo.platformVersion,
   get geckobuildid() this.appInfo.platformBuildID,
   get geckoversion() this.appInfo.platformVersion,
+  get changeset() { return nightly.getChangeset(); },
   brandname: null,
   get useragent() navigator.userAgent,
   get locale() {
@@ -78,8 +46,13 @@ variables: {
 templates: {
 },
 
-getString: function(name) {
-  return document.getElementById("nightlyBundle").getString(name);
+getString: function(name, format) {
+  if (format) {
+    return document.getElementById("nightlyBundle").getFormattedString(name, format);
+  }
+  else {
+    return document.getElementById("nightlyBundle").getString(name);
+  }
 },
 
 preferences: null,
@@ -96,14 +69,36 @@ isTrunk: function() {
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
-showAlert: function(id, args) {
-   var sbs = Components.classes["@mozilla.org/intl/stringbundle;1"]
-                      .getService(Components.interfaces.nsIStringBundleService);
-  var bundle = sbs.createBundle("chrome://nightly/locale/nightly.properties");
+/**
+ *  A helper function for nsIPromptService.confirmEx().
+ *  Popping up an alert("Hello!") is as simple as nightly.showConfirmEx({text: "Hello!"});
+ *
+ *  @see https://developer.mozilla.org/docs/XPCOM_Interface_Reference/nsIPromptService#confirmEx%28%29
+ *
+ *  @param {Object} aOptions
+ *  @param {String} aOptions.text
+ *  @param {Number} aOptions.buttonFlags
+ *  @param {String} aOptions.button0Title
+ *  @param {String} aOptions.button1Title
+ *  @param {String} aOptions.button2Title
+ *
+ *  @returns {Number} Index of the button pressed (0..2)
+ */
+showConfirmEx: function (aOptions) {
   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                 .getService(Components.interfaces.nsIPromptService);
-  var text=bundle.formatStringFromName(id, args, args.length);
-  promptService.alert(null, "Nightly Tester Tools", text);
+
+  var options = aOptions || {};
+  var buttonFlags = options.buttonFlags || promptService.BUTTON_TITLE_OK * promptService.BUTTON_POS_0;
+
+  return promptService.confirmEx(null, "Nightly Tester Tools", options.text,
+    buttonFlags, options.button0Title, options.button1Title, options.button2Title,
+    null, {});
+},
+
+showAlert: function(id, args) {
+  var text = nightly.getString(id, args);
+  nightly.showConfirmEx({text: text});
 },
 
 init: function() {
@@ -170,12 +165,21 @@ observe: function(prefBranch, subject, pref) {
 
 getStoredItem: function(type, name) {
   name = name.toLowerCase();
-  var varvalue = null;
+  var value = null;
   try {
     return nightly.preferences.getCharPref(type+"."+name);
   }
   catch (e) {}
-  return nightly[type][name];
+
+  if (nightly[type].hasOwnProperty(name)) {
+    value = nightly[type][name];
+    if (value === undefined || value === null) {
+      value = nightly.getString("nightly.variables.nullvalue");
+    }
+    return value;
+  }
+
+  return undefined;
 },
 
 getVariable: function(name) {
@@ -289,7 +293,7 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
-      if (node.id == 'nightly-pushlog') {
+      if (node.id == 'nightly-pushlog-lasttocurrent') {
         node.hidden = !nightly.isTrunk();
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       }
@@ -317,7 +321,21 @@ insertTemplate: function(template) {
       return;
     }
   }
-  nightly.showAlert("nightly.notextbox.message", []);
+
+  // no usable element was found
+  const psButtonFlags = Components.interfaces.nsIPromptService;
+  var promptOptions = {};
+  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
+    nightly.getString("nightly.notextbox.clipboardInstead.message");
+  promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING +
+    psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_CANCEL;
+    
+  promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
+
+  var buttonPressed = nightly.showConfirmEx(promptOptions);
+  if (buttonPressed == 0) {
+    nightly.copyTemplate(template);
+  }
 },
 
 insensitiveSort: function(a, b) {
@@ -335,7 +353,7 @@ getExtensionList: function(callback) {
   try {
     Components.utils.import("resource://gre/modules/AddonManager.jsm");  
 
-    AddonManager.getAllAddons(function(addons) {
+    AddonManager.getAddonsByTypes(['extension'], function(addons) {
       if (!addons.length)
         nightly.showAlert("nightly.noextensions.message", []);
 
@@ -376,9 +394,9 @@ getExtensionList: function(callback) {
           text[i]+=" [DISABLED]";
       }
       catch (e) { }
-      text.sort(nightly.insensitiveSort);
-      callback(text.join("\n"));
     }
+    text.sort(nightly.insensitiveSort);
+    callback(text.join("\n"));
   }
 },
 
@@ -455,10 +473,10 @@ openCustomize: function() {
     var prefservice = Components.classes["@mozilla.org/preferences-service;1"]
                                 .getService(Components.interfaces.nsIPrefBranch);
     var instantApply = prefservice.getBoolPref("browser.preferences.instantApply");
-    features = "chrome,titlebar,toolbar,centerscreen" + (instantApply ? ",dialog=no" : ",modal");
+    features = "chrome,titlebar,toolbar,centerscreen,resizable" + (instantApply ? ",dialog=no" : ",modal");
   }
   catch (e) {
-    features = "chrome,titlebar,toolbar,centerscreen,modal";
+    features = "chrome,titlebar,toolbar,centerscreen,resizable,modal";
   }
   openDialog("chrome://nightly/content/titlebar/customize.xul", "", features);
 },
@@ -466,14 +484,23 @@ openCustomize: function() {
 getAppIniString : function(section, key) {
   var directoryService = Components.classes["@mozilla.org/file/directory_service;1"].
                            getService(Components.interfaces.nsIProperties);
-  var inifile = directoryService.get("CurProcD", Components.interfaces.nsIFile);
+  var inifile = directoryService.get("GreD", Components.interfaces.nsIFile);
   inifile.append("application.ini");
-  
+
+  if (!inifile.exists()) {
+    inifile = directoryService.get("CurProcD", Components.interfaces.nsIFile);
+    inifile.append("application.ini");
+  }
+
   var iniParser = Components.manager.getClassObjectByContractID(
                     "@mozilla.org/xpcom/ini-parser-factory;1",
                      Components.interfaces.nsIINIParserFactory)
                   .createINIParser(inifile);
-  return iniParser.getString(section, key);
+  try {
+    return iniParser.getString(section, key);
+  } catch (e) {
+    return undefined;
+  }
 },
 
 getRepo: function() {
@@ -484,23 +511,47 @@ getChangeset: function() {
   return nightly.getAppIniString("App", "SourceStamp");
 },
 
-openPushlog: function() {
+openPushlog: function(fromChange, toChange) {
+  if (fromChange) {
+    var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + fromChange;
+    if (toChange)
+      pushlogUrl += "&tochange=" + toChange;
+    nightlyApp.openURL(pushlogUrl);
+  }
+},
+
+openPushlogToCurrentBuild: function() {
   var prevChangeset = nightly.preferences.getCharPref("prevChangeset");
-  var pushlogUrl = nightly.getRepo() + "/pushloghtml?fromchange=" + prevChangeset
-    + "&tochange=" + nightly.getChangeset();
-  nightlyApp.openURL(pushlogUrl);
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(prevChangeset, currChangeset);
+},
+
+openPushlogSinceCurrentBuild: function() {
+  var currChangeset = nightly.getChangeset();
+  nightly.openPushlog(currChangeset);
 },
 
 toggleCompatibility: function() {
   var forceCompat = nightly.preferences.getBoolPref("disableCheckCompatibility");
-  nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
   if (nightlyApp.openNotification) {
-    nightlyApp.openNotification("nightly-compatibility-restart",
-      nightly.getString("nightly.restart.message"),
-      nightly.getString("nightly.restart.label"),
-      nightly.getString("nightly.restart.accesskey"),
-      function() { Application.restart(); });
+    var obs = Components.classes["@mozilla.org/observer-service;1"]
+              .getService(Components.interfaces.nsIObserverService);
+    var restartObserver = {
+      observe: function (subject, topic, data) {
+        obs.removeObserver(restartObserver, "_nttACS");
+        var parsedData = JSON.parse(data);
+        if (parsedData && parsedData.restart) {
+          nightlyApp.openNotification("nightly-compatibility-restart",
+            nightly.getString("nightly.restart.message"),
+            nightly.getString("nightly.restart.label"),
+            nightly.getString("nightly.restart.accesskey"),
+            function() { Application.restart(); });
+        }
+      }
+    };
+    obs.addObserver(restartObserver, "_nttACS", false);
   }
+  nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
 },
 
 }
