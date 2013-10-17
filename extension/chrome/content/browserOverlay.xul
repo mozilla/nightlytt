@@ -75,8 +75,8 @@
     </menu>
   </menupopup>
   
-  <vbox id="appmenuPrimaryPane">
-    <menu id="nightly-appmenu" label="Nightly Tester Tools" insertafter="appmenu_webDeveloper">
+  <vbox id="appmenuSecondaryPane">
+    <menu id="nightly-appmenu" label="Nightly Tester Tools" insertafter="appmenu_addons">
       <menupopup onpopupshowing="nightly.menuPopup(event,this);">
         <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
         <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
