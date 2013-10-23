@@ -1,3 +1,12 @@
+3.7 / 2013-10-29
+==================
+
+  * Extension: Include sv-SE locale from BabelZilla (#160)
+  * Extension: Move NTT appmenu entry for Firefox into the secondary pane, and place under Addons menu (#157)
+  * Extension: Change toolbar button's behavior to offer copy to clipboard if no text box is selected (#153)
+  * Extension: Add "Build Identifier" Toolbar Icon to SeaMonkey's main window (#154)
+  * Extension: Overlay Thunderbird's AppMenu (#100)
+
 3.6 / 2013-08-06
 ==================
 
