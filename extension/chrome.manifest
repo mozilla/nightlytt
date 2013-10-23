@@ -3,6 +3,7 @@ skin         nightly          classic/1.0                             chrome/ski
 
 locale       nightly          en-US                                   chrome/locale/en-US/
 locale       nightly          zh-CN                                   chrome/locale/zh-CN/
+locale       nightly          sv-SE                                   chrome/locale/sv-SE/
 
 resource     nightly          modules/
 

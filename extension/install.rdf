@@ -33,6 +33,7 @@
     <em:contributor>Tony Mechelynck</em:contributor>
 
     <em:translator>Wang.H.K (zh-CN)</em:translator>
+    <em:translator>Mikael Hiort af Ornäs (sv-SE)</em:translator>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
     <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>
