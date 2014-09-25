@@ -27,6 +27,9 @@ get defaultTitle() {
   }
 },
 
+get tabsCount() {
+  return gBrowser.browsers.length;
+},
 get tabTitle() {
   if (nightlyApp.oldUpdateTitlebar) {
     return gBrowser.contentTitle;
