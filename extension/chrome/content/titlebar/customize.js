@@ -102,7 +102,7 @@ init: function(aEvent)
   paneTitle.addVariable("Compiler");
   paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
-
+  paneTitle.addVariable("TabsCount");
   paneTitle.setupTree();
 },
 
