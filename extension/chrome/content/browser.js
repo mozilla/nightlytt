@@ -17,6 +17,10 @@ get tabTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.mCurrentBrowser.contentTitle;
 },
+get tabsCount() {
+  var tabbrowser = document.getElementById("content");
+  return tabbrowser.visibleTabs.length;
+},
 
 init: function()
 {
