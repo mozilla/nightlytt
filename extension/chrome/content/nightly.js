@@ -37,6 +37,7 @@ variables: {
   get compiler() this.appInfo.XPCOMABI.split("-")[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
   get tabtitle() { return nightlyApp.tabTitle; },
+  get tabscount() {return nightlyApp.tabsCount; },
   profile: null,
   toolkit: "cairo",
   flags: ""
