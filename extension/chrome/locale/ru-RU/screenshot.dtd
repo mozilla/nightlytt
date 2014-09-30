@@ -1,0 +1,13 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY screenshot.window.title        "Скриншотер">
+
+<!ENTITY screenshot.save.label          "Сохранить...">
+<!ENTITY screenshot.submit.label        "Отправить на ImageShack...">
+<!ENTITY screenshot.copy.label          "Копировать в буфер">
+<!ENTITY screenshot.redraw.label        "Перерисовать">
+<!ENTITY screenshot.zoom.label          "Увеличение:">
+<!ENTITY screenshot.window.label        "Окно:">
+<!ENTITY screenshot.timer.label         "Захват через: 5">
