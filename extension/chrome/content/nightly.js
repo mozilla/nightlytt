@@ -34,7 +34,7 @@ variables: {
   },
   get os() this.appInfo.OS,
   get processor() this.appInfo.XPCOMABI.split("-")[0],
-  get compiler() this.appInfo.XPCOMABI.split("-")[1],
+  get compiler() this.appInfo.XPCOMABI.split(/-(.*)$/)[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
   get tabscount() {return nightlyApp.tabsCount; },
   get tabtitle() { return nightlyApp.tabTitle; },
