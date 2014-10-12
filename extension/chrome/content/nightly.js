@@ -38,6 +38,7 @@ variables: {
   get defaulttitle() { return nightlyApp.defaultTitle; },
   get tabscount() {return nightlyApp.tabsCount; },
   get tabtitle() { return nightlyApp.tabTitle; },
+  get tabgroup() { return nightlyApp.tabGroupTitle; },
   profile: null,
   toolkit: "cairo",
   flags: ""

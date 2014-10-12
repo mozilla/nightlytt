@@ -22,6 +22,14 @@ get tabTitle() {
   return tabbrowser.mCurrentBrowser.contentTitle;
 },
 
+get tabGroupTitle() {
+  try 
+  {
+    return nightlyApp.getTabGroupTitle(window);
+  } 
+  catch (e) { }
+},
+
 init: function()
 {
   var brandbundle = document.getElementById("bundle_brand");
@@ -37,6 +45,11 @@ init: function()
 
   tabbrowser.updateTitlebar = nightly.updateTitlebar;
   tabbrowser.addEventListener("DOMTitleChanged", nightly.updateTitlebar, false);
+
+  try { // import tabGroupTitle functionality for titlebar customization
+    Components.utils.import("resource://nightly/tabGroupTitle.jsm", nightlyApp);
+  }
+  catch(e) { Components.utils.reportError(e); }
 },
 
 openURL: function(url)

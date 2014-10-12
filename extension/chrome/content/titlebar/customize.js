@@ -85,6 +85,7 @@ init: function(aEvent)
   
   paneTitle.addVariable("DefaultTitle");
   paneTitle.addVariable("TabTitle");
+  paneTitle.addVariable("TabGroup");
   paneTitle.addVariable("AppID");
   paneTitle.addVariable("Vendor");
   paneTitle.addVariable("Name");
