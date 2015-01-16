@@ -83,26 +83,26 @@ init: function(aEvent)
 
   paneTitle.bundle=document.getElementById("variablesBundle");
   
-  paneTitle.addVariable("DefaultTitle");
-  paneTitle.addVariable("TabTitle");
-  paneTitle.addVariable("AppID");
-  paneTitle.addVariable("Vendor");
-  paneTitle.addVariable("Name");
-  paneTitle.addVariable("Version");
   paneTitle.addVariable("AppBuildID");
+  paneTitle.addVariable("AppID");
+  paneTitle.addVariable("BrandName");
   paneTitle.addVariable("Changeset");
+  paneTitle.addVariable("Compiler");
+  paneTitle.addVariable("DefaultTitle");
+  paneTitle.addVariable("GeckoVersion");
+  paneTitle.addVariable("Locale");
+  paneTitle.addVariable("Name");
+  paneTitle.addVariable("OS");
   paneTitle.addVariable("PlatformBuildID");
   paneTitle.addVariable("PlatformVersion");
-  paneTitle.addVariable("GeckoVersion");
-  paneTitle.addVariable("BrandName");
-  paneTitle.addVariable("UserAgent");
-  paneTitle.addVariable("Locale");
-  paneTitle.addVariable("OS");
   paneTitle.addVariable("Processor");
-  paneTitle.addVariable("Compiler");
-  paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
   paneTitle.addVariable("TabsCount");
+  paneTitle.addVariable("TabTitle");
+  paneTitle.addVariable("Toolkit");
+  paneTitle.addVariable("UserAgent");
+  paneTitle.addVariable("Vendor");
+  paneTitle.addVariable("Version");
   paneTitle.setupTree();
 },
 
