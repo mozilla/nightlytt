@@ -13,7 +13,7 @@
 <!ENTITY nightly.extensions.copy.label        "Copy List of Extensions to Clipboard">
 <!ENTITY nightly.extensions.insert.label      "Insert List of Extensions into Textbox">
 
-<!ENTITY nightly.extensions.aboutsup.label    "Copy about:support to Pastebin">
+<!ENTITY nightly.extensions.aboutsup.label    "Copy about:support to Clipboard">
 
 <!ENTITY nightly.pushlog.lasttocurrent.label  "Open Pushlog between last and current build">
 <!ENTITY nightly.pushlog.currenttotip.label   "Open Pushlog after current build">
@@ -32,7 +32,6 @@
 <!ENTITY nightly.crashme.nullfncall.label "Null function call!">
 <!ENTITY nightly.crashme.divzero.label "Divide by zero!">
 <!ENTITY nightly.crashme.stack.label "Stack overflow!">
-<!ENTITY nightly.crashme.purevirt.label "Pure virtual call!">
-<!ENTITY nightly.crashme.iph.label "Invalid parameter to CRT method!">
-<!ENTITY nightly.crashme.objc.label "ObjC Exception!">
-
+<!ENTITY nightly.crashme.purevirt.label "Pure virtual call! (no crash)">
+<!ENTITY nightly.crashme.iph.label "Invalid parameter to CRT method! (no crash)">
+<!ENTITY nightly.crashme.objc.label "ObjC Exception! (no crash)">

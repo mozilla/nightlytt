@@ -22,7 +22,7 @@ arrayBasedTreeView.prototype = {
   },
 
   isContainer: function (aRow) {
-    return false; 
+    return false;
   },
 
   isSeparator: function (aRow) {
@@ -34,7 +34,7 @@ arrayBasedTreeView.prototype = {
   },
 
   getLevel: function (aRow) {
-    return 0; 
+    return 0;
   },
 
   getImageSrc: function (aRow, aCol) {
@@ -68,7 +68,7 @@ init: function(aEvent)
   aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
 
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
-              .getService(Components.interfaces.nsIWindowMediator);      
+              .getService(Components.interfaces.nsIWindowMediator);
   var window = mediator.getMostRecentWindow("navigator:browser");
   if (!window)
     window=mediator.getMostRecentWindow("mail:3pane");
@@ -82,27 +82,32 @@ init: function(aEvent)
   paneTitle.toggled();
 
   paneTitle.bundle=document.getElementById("variablesBundle");
-  
-  paneTitle.addVariable("AppBuildID");
+
+  paneTitle.addVariable("DefaultTitle");
+  paneTitle.addVariable("TabTitle");
   paneTitle.addVariable("AppID");
   paneTitle.addVariable("BrandName");
-  paneTitle.addVariable("Changeset");
-  paneTitle.addVariable("Compiler");
-  paneTitle.addVariable("DefaultTitle");
-  paneTitle.addVariable("GeckoVersion");
-  paneTitle.addVariable("Locale");
+  paneTitle.addVariable("Vendor");
   paneTitle.addVariable("Name");
-  paneTitle.addVariable("OS");
+  paneTitle.addVariable("Version");
+  paneTitle.addVariable("VersionPretty");
+  paneTitle.addVariable("Channel");
+  paneTitle.addVariable("ChannelPretty");
+  paneTitle.addVariable("VersionChannel");
+  paneTitle.addVariable("AppBuildID");
   paneTitle.addVariable("PlatformBuildID");
   paneTitle.addVariable("PlatformVersion");
+  paneTitle.addVariable("GeckoVersion");
+  paneTitle.addVariable("Changeset");
+  paneTitle.addVariable("UserAgent");
+  paneTitle.addVariable("Locale");
+  paneTitle.addVariable("OS");
   paneTitle.addVariable("Processor");
+  paneTitle.addVariable("Compiler");
+  paneTitle.addVariable("Toolkit");
   paneTitle.addVariable("Profile");
   paneTitle.addVariable("TabsCount");
-  paneTitle.addVariable("TabTitle");
-  paneTitle.addVariable("Toolkit");
-  paneTitle.addVariable("UserAgent");
-  paneTitle.addVariable("Vendor");
-  paneTitle.addVariable("Version");
+
   paneTitle.setupTree();
 },
 
@@ -150,7 +155,7 @@ function treeOnClickListener(aEvent) {
       var template = titlebox.value + " " + paneTitle.variables[row.value]["variable"];
       titlebox.value = template;
       // manually set pref, pref change isn't triggered if we just set the value
-      paneTitle.nightly.preferences.setCharPref("templates.title", template);
+      paneTitle.nightly.preferences.setCharPref("templates.titlebar", template);
     }
   }
 }

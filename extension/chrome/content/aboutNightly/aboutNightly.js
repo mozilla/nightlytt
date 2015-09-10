@@ -4,7 +4,7 @@
 
 const { classes: Cc, interfaces: Ci, utils: Cu, results: Cr } = Components;
 
-const ADDON_ID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}";
+const ADDON_ID = "{8620c15f-30dc-4dba-a131-7c5d20cf4a40}";
 
 
 function init() {

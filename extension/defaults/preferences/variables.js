@@ -3,4 +3,4 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 pref("nightly.templates.buildid", "${UserAgent} ID:${AppBuildID}${Flags} CSet: ${Changeset}");
-pref("nightly.templates.title", "${DefaultTitle} (Build ${AppBuildID})");
+pref("nightly.templates.titlebar", "${TabTitle} - ${Vendor} ${Name} ${VersionChannel} (${AppBuildID})");

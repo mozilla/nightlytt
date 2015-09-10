@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 var nightlyApp = {
-  
+
 repository: ['comm-central','comm-aurora'],
 
 _oldUpdateTitlebar: null,
@@ -106,7 +106,7 @@ getWindowTitleForNavigator: function () {
 
   /**
    * TODO Explain this check
-   */ 
+   */
   if (this.docShell.contentViewer)
     /**
      * Strip out any null bytes in the content title, since the

@@ -32,7 +32,7 @@ init: function()
   }
   nightly.variables.defaulttitle=brandbundle.getString("brandShortName");
   nightly.variables.brandname=brandbundle.getString("brandFullName");
-  
+
   var tabmail = document.getElementById("tabmail");
   if (tabmail && typeof(tabmail.setDocumentTitle) === "function")
   {
@@ -53,7 +53,7 @@ openURL: function(url, event)
 
 customTabmailSetDocumentTitle: function(aTab)
 {
-  document.title = nightly.generateText(nightly.getTemplate("title"));
+  document.title = nightly.generateText(nightly.getTemplate("titlebar")) + ' - Utilu';
 },
 
 updateTitle: function()

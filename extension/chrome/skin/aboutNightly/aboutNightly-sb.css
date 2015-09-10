@@ -21,6 +21,10 @@ body {
   background: -moz-Field;
 }
 
+h1 {
+  margin-top: 0;
+}
+
 .aboutPageWideContainer {
   max-width: 80%;
 }

@@ -16,9 +16,13 @@ variables: {
   },
 
   get appid() this.appInfo.ID,
-  get vendor() this.appInfo.vendor,
+  get vendor() { return nightly.verifyVendor(this.appInfo.vendor); },
   get name() this.appInfo.name,
   get version() this.appInfo.version,
+  get versionpretty() { return nightly.makeVersionPretty(this.appInfo.version); },
+  get channel() { return nightly.updateChannel(); },
+  get channelpretty() { return nightly.updateChannelPretty(); },
+  get versionchannel() { return nightly.versionAndChannel(this.appInfo.version); },
   get appbuildid() this.appInfo.appBuildID,
   get platformbuildid() this.appInfo.platformBuildID,
   get platformversion() this.appInfo.platformVersion,
@@ -36,7 +40,7 @@ variables: {
   get processor() this.appInfo.XPCOMABI.split("-")[0],
   get compiler() this.appInfo.XPCOMABI.split(/-(.*)$/)[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
-  get tabscount() {return nightlyApp.tabsCount; },
+  get tabscount() { return nightlyApp.tabsCount; },
   get tabtitle() { return nightlyApp.tabTitle; },
   profile: null,
   toolkit: "cairo",
@@ -57,15 +61,15 @@ getString: function(name, format) {
 
 preferences: null,
 
-isTrunk: function() { 
+isTrunk: function() {
   let isNightlyRepo = false;
-  
+
   for each (var repo in nightlyApp.repository) {
     isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
   }
-  
+
   return isNightlyRepo
-    && (nightly.variables.platformversion.indexOf("pre") != -1 || 
+    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
@@ -91,7 +95,7 @@ showConfirmEx: function (aOptions) {
   var options = aOptions || {};
   var buttonFlags = options.buttonFlags || promptService.BUTTON_TITLE_OK * promptService.BUTTON_POS_0;
 
-  return promptService.confirmEx(null, "Nightly Tester Tools", options.text,
+  return promptService.confirmEx(null, "Utilu Nightly Tester Tools", options.text,
     buttonFlags, options.button0Title, options.button1Title, options.button2Title,
     null, {});
 },
@@ -128,8 +132,8 @@ init: function() {
 
   nightlyApp.init();
   nightly.prefChange("idtitle");
-  
-  var changeset = nightly.getChangeset();  
+
+  var changeset = nightly.getChangeset();
   var currChangeset = nightly.preferences.getCharPref("currChangeset");
   if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
     // keep track of previous nightly's changeset for pushlog
@@ -144,14 +148,13 @@ unload: function(pref) {
 },
 
 prefChange: function(pref) {
-  if ((pref == "idtitle") || (pref == "templates.title"))
+  if ((pref == "idtitle") || (pref == "templates.titlebar"))
     nightly.updateTitlebar();
 },
 
-updateTitlebar: function()
-{
+updateTitlebar: function() {
   if (nightly.preferences.getBoolPref("idtitle")) {
-    var title = nightly.getTemplate("title");
+    var title = nightly.getTemplate("titlebar") + ' - Utilu';
     nightlyApp.setCustomTitle(nightly.generateText(title));
   }
   else {
@@ -230,27 +233,11 @@ copyTemplate: function(template) {
   nightly.copyText(nightly.generateText(nightly.getTemplate(template)));
 },
 
-pastebin: function (content) {
-  var postdata = "paste_code=" + encodeURIComponent(content);
-  var request = new XMLHttpRequest();
-  request.open("POST","http://pastebin.com/api_public.php", true);
-  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  request.setRequestHeader("Content-length", postdata.length);
-
-  request.onreadystatechange = function() {
-    if (request.readyState == 4 ) {
-      if (request.status==200)
-        nightlyApp.openURL(request.responseText);
-    }
-  };
-  request.send(postdata);
-},
-
 parseHTML: function(url, callback) {
   var frame = document.getElementById("sample-frame");
   if (!frame)
     frame = document.createElement("iframe");
-  
+
   frame.setAttribute("id", "sample-frame");
   frame.setAttribute("name", "sample-frame");
   frame.setAttribute("type", "content");
@@ -262,31 +249,64 @@ parseHTML: function(url, callback) {
     if (doc.location.href == "about:blank" || doc.defaultView.frameElement)
       return;
 
-    setTimeout(function () {  // give enough time for js to populate page
+    setTimeout(function () { // give enough time for js to populate page
       callback(doc);
     }, 800);
   }, true);
   frame.contentDocument.location.href = url;
 },
 
-pastebinAboutSupport: function() {
+verifyVendor: function(vendor) {
+  if (vendor == '') { vendor = 'Mozilla'; } // Mozilla Thunderbird
+  return vendor;
+},
+makeVersionPretty: function(ver) {
+  ver = ver.replace('0a2','0.0.0');
+  ver = ver.replace('0a1','0.0.0');
+  while (ver.match(new RegExp('\\.','g')).length < 3) { ver += '.0'; }
+  return ver;
+},
+updateChannel: function() {
+  return Components.classes["@mozilla.org/preferences-service;1"]
+                   .getService(Components.interfaces.nsIPrefService).getBranch("app.update.").getCharPref("channel");
+},
+updateChannelPretty: function() {
+  var channel = nightly.updateChannel();
+  if (channel == 'release') { channel = 'Release' }
+  else if (channel == 'esr') { channel = 'ESR' }
+  else if (channel == 'beta') { channel = 'beta' }
+  else if (channel == 'aurora') { channel = 'Aurora' }
+  else if (channel == 'nightly') { channel = 'Nighty' }
+  else if (channel == 'default') { channel = 'Default' }
+  else channel = '';
+  return channel;
+},
+versionAndChannel: function(ver) {
+  var ver = nightly.makeVersionPretty(ver);
+  var channel = nightly.updateChannelPretty();
+  if (channel == 'Release' || channel == 'Default') { channel = ''; }
+  if (channel != '') { ver += ' ' + channel; }
+  return ver;
+},
+
+copyAboutSupport: function() {
   nightly.parseHTML("about:support", function(doc) {
     var contents = doc.getElementById("contents");
     var text = nightlyPPrint.createTextForElement(contents);
-    nightly.pastebin(text);
+    nightly.copyText(text);
   });
 },
 
 menuPopup: function(event, menupopup) {
   if (menupopup == event.target) {
     var attext = false;
-    
+
     var element = document.commandDispatcher.focusedElement;
     if (element) {
       var type = element.localName.toLowerCase();
       attext = ((type == "input") || (type == "textarea"))
     }
-      
+
     var node=menupopup.firstChild;
     while (node) {
       if (node.id.indexOf("-insert") != -1)
@@ -325,11 +345,11 @@ insertTemplate: function(template) {
   // no usable element was found
   const psButtonFlags = Components.interfaces.nsIPromptService;
   var promptOptions = {};
-  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
+  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" +
     nightly.getString("nightly.notextbox.clipboardInstead.message");
   promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING +
     psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_CANCEL;
-    
+
   promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
 
   var buttonPressed = nightly.showConfirmEx(promptOptions);
@@ -351,7 +371,7 @@ insensitiveSort: function(a, b) {
 
 getExtensionList: function(callback) {
   try {
-    Components.utils.import("resource://gre/modules/AddonManager.jsm");  
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
     AddonManager.getAddonsByTypes(['extension'], function(addons) {
       if (!addons.length)
@@ -362,7 +382,7 @@ getExtensionList: function(callback) {
           + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
       });
       strings.sort(nightly.insensitiveSort);
-      callback(strings.join("\n"));
+      callback(strings.join(" \n"));
     });
   } catch(e) {
     // old extension manager API - take out after Firefox 3.6 support dropped
@@ -396,7 +416,7 @@ getExtensionList: function(callback) {
       catch (e) { }
     }
     text.sort(nightly.insensitiveSort);
-    callback(text.join("\n"));
+    callback(text.join(" \n"));
   }
 },
 
@@ -557,7 +577,7 @@ toggleCompatibility: function() {
 }
 
 try { // import ctypes for determining wether to show crashme menu item
-  Components.utils.import("resource://gre/modules/ctypes.jsm"); 
+  Components.utils.import("resource://gre/modules/ctypes.jsm");
 }
 catch(e) {}
 
