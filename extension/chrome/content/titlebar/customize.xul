@@ -17,7 +17,7 @@
 
     <preferences>
       <preference id="idtitle" type="bool" name="nightly.idtitle" onchange="paneTitle.toggled();"/>
-      <preference id="title" type="string" name="nightly.templates.title"/>
+      <preference id="title" type="string" name="nightly.templates.titlebar"/>
       <preference id="extension-compat" type="bool" name="nightly.disableCheckCompatibility"/>
     </preferences>
 

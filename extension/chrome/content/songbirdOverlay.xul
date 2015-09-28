@@ -24,7 +24,7 @@
   </keyset>
 
   <menupopup id="menu_ToolsPopup">
-    <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
+    <menu id="nightly-menu" label="Utilu Nightly Tester Tools" insertafter="devToolsSeparator">
     <menupopup onpopupshowing="nightly.menuPopup(event,this);">
       <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
       <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
@@ -39,5 +39,5 @@
     </menupopup>
     </menu>
   </menupopup>
-  
+
 </overlay>

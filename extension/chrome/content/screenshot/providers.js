@@ -5,24 +5,24 @@
 var Providers = {
   _providers: [],
   _selected: null,
-  
+
   addProvider: function(provider)
   {
     this._providers.push(provider);
     if (this._selected == null)
       this._selected = provider;
   },
-  
+
   selectProvider: function(provider)
   {
     this._selected = provider;
   },
-  
+
   getSelectedProvider: function()
   {
     return this._selected;
   },
-  
+
   getProviders: function()
   {
     return this._providers;
@@ -39,45 +39,21 @@ var ImageShack = {
     formdata.addControl("brand", "");
     formdata.addControl("optsize", "320x320");
   },
-  
+
   getFileFormField: function()
   {
     return "fileupload";
   },
-  
-  getReferer: function()
-  {
-    return "http://www.imageshack.us/";
-  },
-  
-  getSubmissionURL: function()
-  {
-    return "http://www.imageshack.us/";
-  }
-}
 
-var AllYouCanUpload = {
-  addFormFields: function(formdata)
-  {
-    formdata.addControl("images[0].submittedPhotoSize", "100%");
-    formdata.addControl("imagesCount", "1");
-  },
-  
-  getFileFormField: function()
-  {
-    return "images[0].fileName";
-  },
-  
   getReferer: function()
   {
-    return "http://allyoucanupload.webshots.com/";
+    return "http://imageshack.us/";
   },
-  
+
   getSubmissionURL: function()
   {
-    return "http://allyoucanupload.webshots.com/uploadcomplete";
+    return "http://imageshack.us/";
   }
 }
 
 Providers.addProvider(ImageShack);
-//Providers.addProvider(AllYouCanUpload);

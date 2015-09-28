@@ -1,19 +1,22 @@
-# Nightly Tester Tools
-Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla apps like Firefox and Thunderbird. Some features are:
+# Utilu Nightly Tester Tools
+Utilu Nightly Tester Tools is an addon for displaying the version number in the titlebar and for aiding testers of nightly builds of Mozilla apps like Firefox and Thunderbird. Some features are:
 
-* Extension compatibility fixing
-* Titlebar customization
-* Build ID retrieval
-* Copy extension list to clipboard
-* Screenshots
+* Copy Build ID to Clipboard
+* Copy List of Extensions to Clipboard
+* Copy about:support to Clipboard
 * Open Profile Folder
+* Open Pushlog
+* Screenshots utility
+* Titlebar customization
+* Crash options
+* Extension compatibility fixing
 
 # Install
-You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/6543/). To install for development, clone the repo:
+You can install the latest stable Utilu Nightly Tester Tools from [utilu.com](http://utilu.com/). To install for development, clone the repo:
 
-    git clone git://github.com/mozilla/nightlytt.git
+    git clone git://github.com/Utilu/nightlytt.git
 
-then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a29}' to the "extensions" directory in your [profile folder](http://kb.mozillazine.org/Profile_folder) with the text:
+then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a40}' to the "extensions" directory in your [profile folder](http://kb.mozillazine.org/Profile_folder) with the text:
 
     ~/nightlytt/
 
@@ -37,5 +40,4 @@ All bugs are reported to the Nightly Tester Tools component at bugzilla.mozilla.
 This project uses [.editorconfig](http://editorconfig.org/#overview), which sets defaults for the formatting of the code. So enjoy the use of [compatible editor](http://editorconfig.org/#download). Just download and install the corresponding plugin.
 
 # Related Add-ons:
-* [Screengrab](https://addons.mozilla.org/en-US/firefox/addon/1146/)
 * [Add-on Compatibility Reporter](https://addons.mozilla.org/en-US/firefox/addon/15003/)
