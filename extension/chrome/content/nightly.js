@@ -36,7 +36,7 @@ variables: {
   get processor() this.appInfo.XPCOMABI.split("-")[0],
   get compiler() this.appInfo.XPCOMABI.split(/-(.*)$/)[1],
   get defaulttitle() { return nightlyApp.defaultTitle; },
-  get tabscount() {return nightlyApp.tabsCount; },
+  get tabscount() { return nightlyApp.tabsCount; },
   get tabtitle() { return nightlyApp.tabTitle; },
   profile: null,
   toolkit: "cairo",
@@ -57,15 +57,15 @@ getString: function(name, format) {
 
 preferences: null,
 
-isTrunk: function() { 
+isTrunk: function() {
   let isNightlyRepo = false;
-  
+
   for each (var repo in nightlyApp.repository) {
     isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
   }
-  
+
   return isNightlyRepo
-    && (nightly.variables.platformversion.indexOf("pre") != -1 || 
+    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
         nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
@@ -128,8 +128,8 @@ init: function() {
 
   nightlyApp.init();
   nightly.prefChange("idtitle");
-  
-  var changeset = nightly.getChangeset();  
+
+  var changeset = nightly.getChangeset();
   var currChangeset = nightly.preferences.getCharPref("currChangeset");
   if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
     // keep track of previous nightly's changeset for pushlog
@@ -148,8 +148,7 @@ prefChange: function(pref) {
     nightly.updateTitlebar();
 },
 
-updateTitlebar: function()
-{
+updateTitlebar: function() {
   if (nightly.preferences.getBoolPref("idtitle")) {
     var title = nightly.getTemplate("title");
     nightlyApp.setCustomTitle(nightly.generateText(title));
@@ -250,7 +249,7 @@ parseHTML: function(url, callback) {
   var frame = document.getElementById("sample-frame");
   if (!frame)
     frame = document.createElement("iframe");
-  
+
   frame.setAttribute("id", "sample-frame");
   frame.setAttribute("name", "sample-frame");
   frame.setAttribute("type", "content");
@@ -262,7 +261,7 @@ parseHTML: function(url, callback) {
     if (doc.location.href == "about:blank" || doc.defaultView.frameElement)
       return;
 
-    setTimeout(function () {  // give enough time for js to populate page
+    setTimeout(function () { // give enough time for js to populate page
       callback(doc);
     }, 800);
   }, true);
@@ -280,13 +279,13 @@ pastebinAboutSupport: function() {
 menuPopup: function(event, menupopup) {
   if (menupopup == event.target) {
     var attext = false;
-    
+
     var element = document.commandDispatcher.focusedElement;
     if (element) {
       var type = element.localName.toLowerCase();
       attext = ((type == "input") || (type == "textarea"))
     }
-      
+
     var node=menupopup.firstChild;
     while (node) {
       if (node.id.indexOf("-insert") != -1)
@@ -325,11 +324,11 @@ insertTemplate: function(template) {
   // no usable element was found
   const psButtonFlags = Components.interfaces.nsIPromptService;
   var promptOptions = {};
-  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" + 
+  promptOptions.text = nightly.getString("nightly.notextbox.message") + "\n" +
     nightly.getString("nightly.notextbox.clipboardInstead.message");
   promptOptions.buttonFlags = psButtonFlags.BUTTON_POS_0 * psButtonFlags.BUTTON_TITLE_IS_STRING +
     psButtonFlags.BUTTON_POS_1 * psButtonFlags.BUTTON_TITLE_CANCEL;
-    
+
   promptOptions.button0Title = nightly.getString("nightly.copyButton.message");
 
   var buttonPressed = nightly.showConfirmEx(promptOptions);
@@ -351,7 +350,7 @@ insensitiveSort: function(a, b) {
 
 getExtensionList: function(callback) {
   try {
-    Components.utils.import("resource://gre/modules/AddonManager.jsm");  
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
     AddonManager.getAddonsByTypes(['extension'], function(addons) {
       if (!addons.length)
@@ -557,7 +556,7 @@ toggleCompatibility: function() {
 }
 
 try { // import ctypes for determining wether to show crashme menu item
-  Components.utils.import("resource://gre/modules/ctypes.jsm"); 
+  Components.utils.import("resource://gre/modules/ctypes.jsm");
 }
 catch(e) {}
 
