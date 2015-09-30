@@ -1,3 +1,8 @@
+Next version
+==================
+
+  * Extension: Removed the unused CSS files
+
 3.7 / 2013-10-29
 ==================
 
