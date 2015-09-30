@@ -14,7 +14,7 @@
   <stringbundleset id="stringbundleset">
     <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
   </stringbundleset>
-
+  
   <script type="text/javascript" src="nightly.js" />
   <script type="text/javascript" src="browser.js" />
   <script type="text/javascript" src="crashme.js" />
@@ -33,7 +33,7 @@
             oncommand="nightly.insertTemplate('buildid');"/>
   </toolbarpalette>
 
-
+  
   <menupopup id="menu_ToolsPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
       <menupopup onpopupshowing="nightly.menuPopup(event,this);">
@@ -74,7 +74,7 @@
       </menupopup>
     </menu>
   </menupopup>
-
+  
   <vbox id="appmenuSecondaryPane">
     <menu id="nightly-appmenu" label="Nightly Tester Tools" insertafter="appmenu_addons">
       <menupopup onpopupshowing="nightly.menuPopup(event,this);">
@@ -115,5 +115,5 @@
       </menupopup>
     </menu>
   </vbox>
-
+  
 </overlay>

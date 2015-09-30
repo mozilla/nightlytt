@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
+ 
 var Ci = Components.interfaces;
 var Cc = Components.classes;
 var Cr = Components.results;
@@ -74,16 +74,16 @@ getPostData: function()
 {
   if (this.postdata)
     return this.postdata;
-
+  
   var data = "";
-
+  
   for (var name in this.controls)
   {
     data+="\r\n--"+this.boundary+"\r\n";
     data+="Content-Disposition: form-data; name=\""+name+"\"\r\n\r\n";
     data+=this.controls[name];
   }
-
+  
   for (var name in this.files)
   {
     var filedata = this.files[name];
@@ -93,16 +93,16 @@ getPostData: function()
     if (filedata.source)
     {
       data+="Content-Transfer-Encoding: base64\r\n\r\n";
-
+      
       var fis = Cc["@mozilla.org/network/file-input-stream;1"]
                   .createInstance(Ci.nsIFileInputStream);
       fis.init(filedata.source, 1, 384, Ci.nsIFileInputStream.CLOSE_ON_EOF);
-
+      
       var bis = Cc["@mozilla.org/binaryinputstream;1"]
                   .createInstance(Ci.nsIBinaryInputStream);
       bis.setInputStream(fis);
-
-      // TODO this isnt needed as yet
+      
+      //TODO this isnt needed as yet
     }
     else
     {
@@ -121,43 +121,43 @@ getPostData: function()
 
   this.length = data.length-2;
   this.postdata = data;
-
+  
   return data;
 },
-
+  
 getPostDataStream: function()
 {
   return NTT_MakeStream(this.getPostData());
 },
-
+  
 getHeaders: function()
 {
   if (!this.length)
     this.getPostData();
-
+  
   var headers = "";
   headers+="Content-Type: "+this.getContentType()+"\r\n";
   headers+="Content-Length: "+this.length+"\r\n";
   return headers;
 },
-
+  
 getHeaderStream: function()
 {
   return NTT_MakeStream(this.getHeaders());
 },
-
+  
 getContentType: function()
 {
   return "multipart/form-data; boundary=\""+this.boundary+"\"";
 },
-
+  
 addControl: function(name, value)
 {
   this.controls[name]=value;
   this.postdata = null;
   this.length = null;
 },
-
+  
 addFile: function(name, contenttype, file)
 {
   throw Components.results.NS_NOT_IMPLEMENTED;
@@ -170,7 +170,7 @@ addFile: function(name, contenttype, file)
   this.postdata = null;
   this.length = null;
 },
-
+  
 addFileData: function(name, filename, contenttype, encoding, data)
 {
   var filedata = {

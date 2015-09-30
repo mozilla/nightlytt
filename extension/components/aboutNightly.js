@@ -13,11 +13,11 @@ AboutNightly.prototype = {
     contractID: "@mozilla.org/network/protocol/about;1?what=nightly",
     classID: Components.ID("{4cec494a-d33a-4ee7-83d6-461925b5d84b}"),
     QueryInterface: XPCOMUtils.generateQI([Ci.nsIAboutModule]),
-
+  
     getURIFlags: function(aURI) {
         return Ci.nsIAboutModule.ALLOW_SCRIPT;
     },
-
+  
     newChannel: function(aURI) {
         let ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
         let channel = ios.newChannel("chrome://nightly/content/aboutNightly/aboutNightly.xhtml",

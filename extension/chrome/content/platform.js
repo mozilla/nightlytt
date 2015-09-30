@@ -5,3 +5,4 @@
 var nightlyplatform = {
   eol: "\n"
 }
+ 

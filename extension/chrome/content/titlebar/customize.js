@@ -22,7 +22,7 @@ arrayBasedTreeView.prototype = {
   },
 
   isContainer: function (aRow) {
-    return false;
+    return false; 
   },
 
   isSeparator: function (aRow) {
@@ -34,7 +34,7 @@ arrayBasedTreeView.prototype = {
   },
 
   getLevel: function (aRow) {
-    return 0;
+    return 0; 
   },
 
   getImageSrc: function (aRow, aCol) {
@@ -68,7 +68,7 @@ init: function(aEvent)
   aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
 
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
-              .getService(Components.interfaces.nsIWindowMediator);
+              .getService(Components.interfaces.nsIWindowMediator);      
   var window = mediator.getMostRecentWindow("navigator:browser");
   if (!window)
     window=mediator.getMostRecentWindow("mail:3pane");
@@ -82,7 +82,7 @@ init: function(aEvent)
   paneTitle.toggled();
 
   paneTitle.bundle=document.getElementById("variablesBundle");
-
+  
   paneTitle.addVariable("AppBuildID");
   paneTitle.addVariable("AppID");
   paneTitle.addVariable("BrandName");
