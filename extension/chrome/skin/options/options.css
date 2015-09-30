@@ -1,0 +1,40 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.content-box {
+  -moz-box-flex: 1;
+}
+
+.prefgroup {
+  padding-top: 8px;
+}
+
+.button-link {
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  color: -moz-nativehyperlinktext; 
+  cursor: pointer;
+  min-width: 0;
+  margin: 0px;
+}
+
+#restart-box {
+  margin-left: 8px;
+  padding: 6px;
+  border: 1px solid limegreen;
+  -moz-border-radius: 4px;
+}
+
+subpane {
+  -moz-binding: url('chrome://nightly/content/options/subpane.xml#subpane');
+  padding-left: 2em;
+}
+
+#NightlyTesterOptions {
+  padding: 0;
+  width: 40em;
+  height: 35em;
+}
