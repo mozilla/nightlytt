@@ -10,9 +10,9 @@ init: function()
 {
   // var brandbundle = document.getElementById("bundle_brand");
   var bundleSvc = Components.classes["@mozilla.org/intl/stringbundle;1"]
-                    .getService(Components.interfaces.nsIStringBundleService);
+  					.getService(Components.interfaces.nsIStringBundleService);
   var brandbundle = bundleSvc.
-                    createBundle("chrome://branding/locale/brand.properties");
+  					createBundle("chrome://branding/locale/brand.properties");
 
   if (nightly.variables.name==null)
   {
