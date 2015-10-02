@@ -35,4 +35,3 @@
 <!ENTITY nightly.crashme.purevirt.label "Pure virtual call!">
 <!ENTITY nightly.crashme.iph.label "Invalid parameter to CRT method!">
 <!ENTITY nightly.crashme.objc.label "ObjC Exception!">
-

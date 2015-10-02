@@ -32,7 +32,7 @@ init: function()
   }
   nightly.variables.defaulttitle=brandbundle.getString("brandShortName");
   nightly.variables.brandname=brandbundle.getString("brandFullName");
-  
+
   var tabmail = document.getElementById("tabmail");
   if (tabmail && typeof(tabmail.setDocumentTitle) === "function")
   {
