@@ -47,37 +47,13 @@ var ImageShack = {
 
   getReferer: function()
   {
-    return "http://www.imageshack.us/";
+    return "http://imageshack.us/";
   },
 
   getSubmissionURL: function()
   {
-    return "http://www.imageshack.us/";
-  }
-}
-
-var AllYouCanUpload = {
-  addFormFields: function(formdata)
-  {
-    formdata.addControl("images[0].submittedPhotoSize", "100%");
-    formdata.addControl("imagesCount", "1");
-  },
-  
-  getFileFormField: function()
-  {
-    return "images[0].fileName";
-  },
-  
-  getReferer: function()
-  {
-    return "http://allyoucanupload.webshots.com/";
-  },
-  
-  getSubmissionURL: function()
-  {
-    return "http://allyoucanupload.webshots.com/uploadcomplete";
+    return "http://imageshack.us/";
   }
 }
 
 Providers.addProvider(ImageShack);
-//Providers.addProvider(AllYouCanUpload);
