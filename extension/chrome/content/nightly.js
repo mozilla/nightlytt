@@ -16,7 +16,7 @@ variables: {
   },
 
   get appid() this.appInfo.ID,
-  get vendor() this.appInfo.vendor,
+  get vendor() { return nightly.verifyVendor(this.appInfo.vendor); },
   get name() this.appInfo.name,
   get version() this.appInfo.version,
   get appbuildid() this.appInfo.appBuildID,
@@ -266,6 +266,11 @@ parseHTML: function(url, callback) {
     }, 800);
   }, true);
   frame.contentDocument.location.href = url;
+},
+
+verifyVendor: function(vendor) {
+  if (vendor == '') { vendor = 'Mozilla'; } // Mozilla Thunderbird
+  return vendor;
 },
 
 pastebinAboutSupport: function() {
