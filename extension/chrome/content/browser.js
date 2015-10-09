@@ -13,6 +13,10 @@ get defaultTitle() {
   return tabbrowser.getWindowTitleForBrowser(tabbrowser.mCurrentBrowser);
 },
 
+get tabsCount() {
+  var tabbrowser = document.getElementById("content");
+  return tabbrowser.visibleTabs ? tabbrowser.visibleTabs.length : tabbrowser.browsers.length;
+},
 get tabTitle() {
   var tabbrowser = document.getElementById("content");
   return tabbrowser.mCurrentBrowser.contentTitle;

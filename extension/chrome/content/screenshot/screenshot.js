@@ -19,15 +19,15 @@ function init(event)
   canvas = document.getElementById("canvas");
   drawScreenshot();
   //canvas.parentNode.addEventListener("mousedown", startAreaSelect, true);
-  
+
   buildWinPopup()
-    
+
   var winlist = document.getElementById("winlist");
   winlist.addEventListener("ValueChange", winChange, false);
-  
+
   var winpopup = document.getElementById("winpopup");
   winpopup.addEventListener("popupshowing", buildWinPopup, false);
-  
+
   bundle = document.getElementById("bundle");
 
   try
@@ -81,23 +81,23 @@ function captureTimer()
 function submitScreenshot()
 {
   var fileService = ImageShack;
-  
+
   var data = canvas.toDataURL("image/png");
   var pos = data.indexOf(";",5);
   var contenttype = data.substring(5,pos);
   var npos = data.indexOf(",",pos+1);
   var encoding = data.substring(pos+1,npos);
   data = data.substring(npos+1);
-  
+
   var fd = new MultipartFormData();
   fileService.addFormFields(fd);
   fd.addFileData(fileService.getFileFormField(), "screenshot.png", contenttype, encoding, data);
-  
+
   var ioService = Cc["@mozilla.org/network/io-service;1"]
                     .getService(Ci.nsIIOService);
-  
+
   var referer = ioService.newURI(fileService.getReferer(), "UTF8", null);
-  
+
   var win = getTopWin();
   win.gBrowser.selectedTab = win.gBrowser.addTab("about:blank");
   var webnav = win.content.QueryInterface(Ci.nsIInterfaceRequestor)
@@ -114,7 +114,8 @@ function saveScreenshot()
   fp.appendFilter(bundle.getString("screenshot.filepicker.filterPNG"), "*.png");
   fp.appendFilter(bundle.getString("screenshot.filepicker.filterJPG"), "*.jpg");
   fp.filterIndex = 0;
-  fp.defaultString="screenshot";
+  fp.defaultExtension="png";
+  fp.defaultString="screenshot." + fp.defaultExtension;
 
   var fpCallback = {
     done: function fpCallback_done(aResult) {
@@ -184,7 +185,7 @@ function buildWinPopup(event)
 {
   var winlist = document.getElementById("winlist");
   var winpopup = document.getElementById("winpopup");
-  
+
   windows = [];
   while (winpopup.firstChild)
     winpopup.removeChild(winpopup.firstChild);
@@ -206,10 +207,10 @@ function buildWinPopup(event)
         item.setAttribute("label", win.document.location.href);
       item.setAttribute("value", pos);
       winpopup.appendChild(item);
-      
+
       if (!event && win==shotWindow)
         winlist.value=pos;
-        
+
       pos++;
     }
   }
@@ -236,7 +237,7 @@ function drawScreenshot()
   canvas.style.maxHeight = height + "px";
 
   var ctx = canvas.getContext("2d");
-  
+
   var winbo = shotWindow.document.getBoxObjectFor(shotWindow.document.documentElement);
   var winx = winbo.screenX;
   var winy = winbo.screenY;
@@ -264,15 +265,15 @@ function drawScreenshot()
     {
       if (shell == docshell)
         continue;
-  
+
       shell.QueryInterface(Ci.nsIBaseWindow);
       if (!shell.visibility)
         continue;
-  
+
       var shellwin = shell.QueryInterface(Ci.nsIInterfaceRequestor)
                           .getInterface(Ci.nsIDOMWindow);
       var shellbo = shellwin.document.getBoxObjectFor(shellwin.document.documentElement);
-      
+
       ctx.save();
       try
       {

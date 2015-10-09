@@ -1,0 +1,38 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!-- Menu item labels and tooltips -->
+<!ENTITY nightly.openabout.label              "Открыть about:nightly">
+<!ENTITY nightly.openprofile.label            "Открыть папку профиля">
+
+<!ENTITY nightly.id.copy.label                "Копировать Build ID в буфер обмена">
+<!ENTITY nightly.id.insert.label              "Вставить Build ID в текстовое поле">
+<!ENTITY nightly.id.insert.tooltip            "Вставить идентификатор билда в текстовое поле.">
+
+<!ENTITY nightly.extensions.copy.label        "Копировать список расширений в буфер обмена">
+<!ENTITY nightly.extensions.insert.label      "Вставить список расширений в текстовое поле">
+
+<!ENTITY nightly.extensions.aboutsup.label    "Копировать about:support на Pastebin">
+
+<!ENTITY nightly.pushlog.lasttocurrent.label  "Открыть Pushlog между последним и этим билдами">
+<!ENTITY nightly.pushlog.currenttotip.label   "Открыть Pushlog после этого билда">
+
+<!-- LOCALIZATION NOTE: The same English string as the following is also used
+                        for a dialog title, defined as a different entity, see ./customize.dtd -->
+<!ENTITY nightly.customize.label              "Настроить заголовок">
+
+<!ENTITY nightly.compatibility.label          "Принудительная совместимость дополнений">
+
+<!ENTITY nightly.screenshot.full.label        "Снять скриншот">
+
+<!-- Miscellaneous Crash-Me strings -->
+<!ENTITY nightly.crashme.label "Вылететь!">
+<!ENTITY nightly.crashme.nullptr.label "Разыменовывание нулевого указателя!">
+<!ENTITY nightly.crashme.nullfncall.label "Вызов нулевой функции!">
+<!ENTITY nightly.crashme.divzero.label "Деление на ноль!">
+<!ENTITY nightly.crashme.stack.label "Переполнение стека!">
+<!ENTITY nightly.crashme.purevirt.label "Вызов чистой виртуальной функции!">
+<!ENTITY nightly.crashme.iph.label "Неверный параметр в CRT методе!">
+<!ENTITY nightly.crashme.objc.label "Исключение ObjC!">
+

@@ -14,6 +14,10 @@ get defaultTitle() {
   return nightlyApp.getWindowTitleForMessenger(tabmail.currentTabInfo);
 },
 
+get tabsCount() {
+  var tabmail = document.getElementById("tabmail");
+  return tabmail.tabInfo.length;
+},
 get tabTitle() {
   var tabmail = document.getElementById("tabmail");
   return tabmail.currentTabInfo.title;
@@ -28,7 +32,7 @@ init: function()
   }
   nightly.variables.defaulttitle=brandbundle.getString("brandShortName");
   nightly.variables.brandname=brandbundle.getString("brandFullName");
-  
+
   var tabmail = document.getElementById("tabmail");
   if (tabmail && typeof(tabmail.setDocumentTitle) === "function")
   {

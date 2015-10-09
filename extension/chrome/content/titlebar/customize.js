@@ -22,7 +22,7 @@ arrayBasedTreeView.prototype = {
   },
 
   isContainer: function (aRow) {
-    return false; 
+    return false;
   },
 
   isSeparator: function (aRow) {
@@ -34,7 +34,7 @@ arrayBasedTreeView.prototype = {
   },
 
   getLevel: function (aRow) {
-    return 0; 
+    return 0;
   },
 
   getImageSrc: function (aRow, aCol) {
@@ -68,7 +68,7 @@ init: function(aEvent)
   aEvent.originalTarget.defaultView.removeEventListener("load", paneTitle.init, false);
 
   var mediator = Components.classes['@mozilla.org/appshell/window-mediator;1']
-              .getService(Components.interfaces.nsIWindowMediator);      
+              .getService(Components.interfaces.nsIWindowMediator);
   var window = mediator.getMostRecentWindow("navigator:browser");
   if (!window)
     window=mediator.getMostRecentWindow("mail:3pane");
@@ -82,28 +82,28 @@ init: function(aEvent)
   paneTitle.toggled();
 
   paneTitle.bundle=document.getElementById("variablesBundle");
-  
-  paneTitle.addVariable("DefaultTitle");
-  paneTitle.addVariable("TabTitle");
-  paneTitle.addVariable("AppID");
-  paneTitle.addVariable("Vendor");
-  paneTitle.addVariable("Name");
-  paneTitle.addVariable("Version");
-  paneTitle.addVariable("AppBuildID");
-  paneTitle.addVariable("Changeset");
-  paneTitle.addVariable("PlatformBuildID");
-  paneTitle.addVariable("PlatformVersion");
-  paneTitle.addVariable("GeckoVersion");
-  paneTitle.addVariable("PlatformChangeset");
-  paneTitle.addVariable("BrandName");
-  paneTitle.addVariable("UserAgent");
-  paneTitle.addVariable("Locale");
-  paneTitle.addVariable("OS");
-  paneTitle.addVariable("Processor");
-  paneTitle.addVariable("Compiler");
-  paneTitle.addVariable("Toolkit");
-  paneTitle.addVariable("Profile");
 
+  paneTitle.addVariable("AppBuildID");
+  paneTitle.addVariable("AppID");
+  paneTitle.addVariable("BrandName");
+  paneTitle.addVariable("Changeset");
+  paneTitle.addVariable("Compiler");
+  paneTitle.addVariable("DefaultTitle");
+  paneTitle.addVariable("GeckoVersion");
+  paneTitle.addVariable("Locale");
+  paneTitle.addVariable("Name");
+  paneTitle.addVariable("OS");
+  paneTitle.addVariable("PlatformBuildID");
+  paneTitle.addVariable("PlatformChangeset");
+  paneTitle.addVariable("PlatformVersion");
+  paneTitle.addVariable("Processor");
+  paneTitle.addVariable("Profile");
+  paneTitle.addVariable("TabsCount");
+  paneTitle.addVariable("TabTitle");
+  paneTitle.addVariable("Toolkit");
+  paneTitle.addVariable("UserAgent");
+  paneTitle.addVariable("Vendor");
+  paneTitle.addVariable("Version");
   paneTitle.setupTree();
 },
 

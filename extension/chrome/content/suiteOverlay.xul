@@ -24,6 +24,13 @@
     <key key="s" modifiers="accel,shift" oncommand="nightly.getScreenshot();"/>
   </keyset>
 
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="nightly-tester-enter"
+            class="toolbarbutton-1"
+            label="&nightly.id.insert.label;"
+            tooltiptext="&nightly.id.insert.tooltip;"
+            oncommand="nightly.insertTemplate('buildid');"/>
+  </toolbarpalette>
 
   <menupopup id="taskPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
@@ -40,11 +47,12 @@
       <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+      <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
       <menuseparator/>
       <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
                 type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
     </menupopup>
     </menu>
   </menupopup>
-  
+
 </overlay>

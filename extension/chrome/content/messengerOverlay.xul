@@ -28,45 +28,89 @@
             oncommand="nightly.insertTemplate('buildid');"/>
   </toolbarpalette>
 
-  
+
   <menupopup id="taskPopup">
     <menu id="nightly-menu" label="Nightly Tester Tools" insertafter="devToolsSeparator">
-    <menupopup onpopupshowing="nightly.menuPopup(event,this);">
-      <menuitem label="&nightly.openabout.label;" oncommand="nightlyApp.openAboutNightly();"/>
-      <menuseparator/>
-      <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
-      <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
-      <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
-      <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
-      <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
-      <menuitem id="nightly-pushlog-lasttocurrent" label="&nightly.pushlog.lasttocurrent.label;" oncommand="nightly.openPushlogToCurrentBuild();"/>
-      <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
-      <menuseparator/>
-      <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
-      <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
-      <menu id="nightly-crashme" label="&nightly.crashme.label;">
-        <menupopup id="nightly-crashme-popup">
-        <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_DEREF);"/>
-        <menuitem id="nightly.crashme-nullfncall" label="&nightly.crashme.nullfncall.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_FNCALL);"/>
-        <menuitem id="nightly.crashme-divzero" label="&nightly.crashme.divzero.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_DIVIDE_BY_ZERO);"/>
-        <menuitem id="nightly.crashme-stack" label="&nightly.crashme.stack.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_STACK_OVERFLOW);"/>
-        <menuitem id="nightly.crashme-purevirt" label="&nightly.crashme.purevirt.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_PURE_VIRTUAL_CALL);"/>
-        <menuitem id="nightly.crashme-iph" label="&nightly.crashme.iph.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_INVALID_CRT_PARAM);"/>
-        <menuitem id="nightly.crashme-objc" label="&nightly.crashme.objc.label;"
-                  oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_OBJC_EXCEPTION);"/>
-        </menupopup>
-      </menu>
-      <menuseparator/>
-      <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
-                type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
-    </menupopup>
+      <menupopup onpopupshowing="nightly.menuPopup(event,this);">
+        <menuitem label="&nightly.openabout.label;" oncommand="nightlyApp.openAboutNightly();"/>
+        <menuseparator/>
+        <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
+        <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
+        <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
+        <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem id="nightly-aboutsupport" label="&nightly.extensions.aboutsup.label;" oncommand="nightly.pastebinAboutSupport();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuitem id="nightly-pushlog-lasttocurrent" label="&nightly.pushlog.lasttocurrent.label;" oncommand="nightly.openPushlogToCurrentBuild();"/>
+        <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+        <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
+        <menu id="nightly-crashme" label="&nightly.crashme.label;">
+          <menupopup id="nightly-crashme-popup">
+            <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_DEREF);"/>
+            <menuitem id="nightly.crashme-nullfncall" label="&nightly.crashme.nullfncall.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_FNCALL);"/>
+            <menuitem id="nightly.crashme-divzero" label="&nightly.crashme.divzero.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_DIVIDE_BY_ZERO);"/>
+            <menuitem id="nightly.crashme-stack" label="&nightly.crashme.stack.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_STACK_OVERFLOW);"/>
+            <menuitem id="nightly.crashme-purevirt" label="&nightly.crashme.purevirt.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_PURE_VIRTUAL_CALL);"/>
+            <menuitem id="nightly.crashme-iph" label="&nightly.crashme.iph.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_INVALID_CRT_PARAM);"/>
+            <menuitem id="nightly.crashme-objc" label="&nightly.crashme.objc.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_OBJC_EXCEPTION);"/>
+          </menupopup>
+        </menu>
+        <menuseparator/>
+        <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
+                  type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
+      </menupopup>
     </menu>
   </menupopup>
-  
+
+  <vbox id="appmenuSecondaryPane">
+    <menu id="nightly-appmenu" label="Nightly Tester Tools" insertafter="appmenu_customize">
+      <menupopup onpopupshowing="nightly.menuPopup(event,this);">
+        <menuitem label="&nightly.openabout.label;" oncommand="nightlyApp.openAboutNightly();"/>
+        <menuseparator/>
+        <menuitem id="nightly-build-copy" label="&nightly.id.copy.label;" oncommand="nightly.copyTemplate('buildid');"/>
+        <menuitem id="nightly-build-insert" label="&nightly.id.insert.label;" oncommand="nightly.insertTemplate('buildid');"/>
+        <menuitem id="nightly-list-copy" label="&nightly.extensions.copy.label;" oncommand="nightly.copyExtensions();"/>
+        <menuitem id="nightly-list-insert" label="&nightly.extensions.insert.label;" oncommand="nightly.insertExtensions();"/>
+        <menuitem id="nightly-aboutsupport" label="&nightly.extensions.aboutsup.label;" oncommand="nightly.pastebinAboutSupport();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.openprofile.label;" oncommand="nightly.openProfileDir();"/>
+        <menuitem id="nightly-pushlog-lasttocurrent" label="&nightly.pushlog.lasttocurrent.label;" oncommand="nightly.openPushlogToCurrentBuild();"/>
+        <menuitem id="nightly-pushlog-currenttotip" label="&nightly.pushlog.currenttotip.label;" oncommand="nightly.openPushlogSinceCurrentBuild();"/>
+        <menuseparator/>
+        <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
+        <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
+        <menu id="nightly-crashme" label="&nightly.crashme.label;">
+          <menupopup id="nightly-crashme-popup">
+            <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_DEREF);"/>
+            <menuitem id="nightly.crashme-nullfncall" label="&nightly.crashme.nullfncall.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_FNCALL);"/>
+            <menuitem id="nightly.crashme-divzero" label="&nightly.crashme.divzero.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_DIVIDE_BY_ZERO);"/>
+            <menuitem id="nightly.crashme-stack" label="&nightly.crashme.stack.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_STACK_OVERFLOW);"/>
+            <menuitem id="nightly.crashme-purevirt" label="&nightly.crashme.purevirt.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_PURE_VIRTUAL_CALL);"/>
+            <menuitem id="nightly.crashme-iph" label="&nightly.crashme.iph.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_INVALID_CRT_PARAM);"/>
+            <menuitem id="nightly.crashme-objc" label="&nightly.crashme.objc.label;"
+                      oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_OBJC_EXCEPTION);"/>
+          </menupopup>
+        </menu>
+        <menuseparator/>
+        <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
+                  type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>
+      </menupopup>
+    </menu>
+  </vbox>
+
 </overlay>
