@@ -66,7 +66,8 @@ isTrunk: function() {
 
   return isNightlyRepo
     && (nightly.variables.platformversion.indexOf("pre") != -1 ||
-        nightly.variables.platformversion.indexOf(".0a") != -1);
+        nightly.variables.platformversion.indexOf(".0a") != -1 || 
+        nightly.variables.platformversion.indexOf(".0") != -1);
 },
 
 /**
