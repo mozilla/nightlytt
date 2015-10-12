@@ -11,9 +11,9 @@
 ==================
 
   * Extension: Include zh-CN locales from BabelZilla. (#143)
-  * Extension: Make dtd entities for Customize Titlebar more localization friendly. (#140)
+  * Extension: Make dtd entities for Customize Title bar more localization friendly. (#140)
   * Extension: Set file extension in filepicker to avoid silent overwrites. (#124)
-  * Extension: Add basic Seamonkey support to titlebar customization. (#31)
+  * Extension: Add basic Seamonkey support to title bar customization. (#31)
   * Extension: Fix for illegal characters in MPL 2.0 headers. (#133)
 
 3.5 / 2013-04-25
@@ -31,16 +31,16 @@
   * Extension: Use GreD instead CurProcD to reference GRE specific files. (#115)
   * Extension: Update checkCompatibility preferences for compatibility. (#103)
   * Extension: Add privacy context to saveScreenshot() due to Bug 795065. (#99)
-  * Extension: Make columns of 'Customize Titlebar' dialog's tree resizable. (#25)
+  * Extension: Make columns of 'Customize Title bar' dialog's tree resizable. (#25)
   * Extension: Re-license under MPL2. (#39, #98)
   * Extension: Update 'Contributors' section automatically in about:nightly. (#58)
   * Extension: Don't register aboutNightly component for 'profile-after-change' notification. (#57)
   * Extension: Don't call callback function when iterating over Extension Manager's extensions list. (#88)
   * Extension: Include about:nightly in Nightly Tester Tools' menupopup for Thunderbird. (#56)
   * Extension: Let nightlyApp.openNotification() fallback to notificationBox in legacy Fx. (#81)
-  * Extension: Open customize.xul (Customize Titlebar) as a resizable window. (#55)
+  * Extension: Open customize.xul (Customize Title bar) as a resizable window. (#55)
   * Extension: Add pushlog-to-tip menuitem. (#61)
-  * Extension: Include changeset info in the Insert/Copy Build ID menuitem and in 'Customize Titlebar'. (#65)
+  * Extension: Include changeset info in the Insert/Copy Build ID menuitem and in 'Customize Title bar'. (#65)
 
 3.3 / 2012-05-02
 ==================
@@ -59,5 +59,5 @@
   * Extension: Update list of contributors (#38)
   * Extension: Update maxVersions for applications (#37)
   * Extension: Allow title bar customization in Thunderbird (#24)
-  * Extension: Version 3.1 loses ability to customize titlebar with just window title (#18)
+  * Extension: Version 3.1 loses ability to customize title bar with just window title (#18)
   * Extension: Enhance pushlog feature to support Aurora channel (#13)
