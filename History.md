@@ -58,6 +58,6 @@
   * Repository: Reorganize repository and documentation (#28)
   * Extension: Update list of contributors (#38)
   * Extension: Update maxVersions for applications (#37)
-  * Extension: Allow title bar customization in Thunderbird (#24)
+  * Extension: Allow titlebar customization in Thunderbird (#24)
   * Extension: Version 3.1 loses ability to customize titlebar with just window title (#18)
   * Extension: Enhance pushlog feature to support Aurora channel (#13)
