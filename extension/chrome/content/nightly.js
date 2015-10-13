@@ -64,10 +64,7 @@ isTrunk: function() {
     isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
   }
 
-  return isNightlyRepo
-    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
-        nightly.variables.platformversion.indexOf(".0a") != -1 || 
-        nightly.variables.platformversion.indexOf(".0") != -1);
+  return isNightlyRepo;
 },
 
 /**
@@ -132,7 +129,7 @@ init: function() {
 
   var changeset = nightly.getChangeset();
   var currChangeset = nightly.preferences.getCharPref("currChangeset");
-  if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
+  if (!currChangeset || changeset != currChangeset) {
     // keep track of previous nightly's changeset for pushlog
     nightly.preferences.setCharPref("prevChangeset", currChangeset);
     nightly.preferences.setCharPref("currChangeset", changeset);
