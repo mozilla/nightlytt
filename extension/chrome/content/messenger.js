@@ -4,8 +4,6 @@
 
 var nightlyApp = {
 
-repository: ['comm-central','comm-aurora','comm-beta','comm-release','comm-esr38'],
-
 savedTabmailSetDocumentTitle: null,
 tabmailSetDocumentTitle: null,
 
