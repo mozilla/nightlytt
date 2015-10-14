@@ -64,7 +64,9 @@ isTrunk: function() {
     isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
   }
 
-  return isNightlyRepo;
+  return isNightlyRepo
+    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
+        nightly.variables.platformversion.indexOf(".0a") != -1);
 },
 
 /**
@@ -290,10 +292,8 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
-      if (node.id == 'nightly-pushlog-lasttocurrent') {
-        node.hidden = !nightly.isTrunk();
+      if (node.id == 'nightly-pushlog-lasttocurrent')
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
-      }
       if (node.id == 'nightly-crashme')
         node.hidden = !ctypes.libraryName;
       if (node.id == 'nightly-compatibility')
