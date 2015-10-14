@@ -57,18 +57,6 @@ getString: function(name, format) {
 
 preferences: null,
 
-isTrunk: function() {
-  let isNightlyRepo = false;
-
-  for each (var repo in nightlyApp.repository) {
-    isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
-  }
-
-  return isNightlyRepo
-    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
-        nightly.variables.platformversion.indexOf(".0a") != -1);
-},
-
 /**
  *  A helper function for nsIPromptService.confirmEx().
  *  Popping up an alert("Hello!") is as simple as nightly.showConfirmEx({text: "Hello!"});
@@ -131,7 +119,7 @@ init: function() {
 
   var changeset = nightly.getChangeset();
   var currChangeset = nightly.preferences.getCharPref("currChangeset");
-  if (nightly.isTrunk() && (!currChangeset || changeset != currChangeset)) {
+  if (!currChangeset || changeset != currChangeset) {
     // keep track of previous nightly's changeset for pushlog
     nightly.preferences.setCharPref("prevChangeset", currChangeset);
     nightly.preferences.setCharPref("currChangeset", changeset);
@@ -292,10 +280,8 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
-      if (node.id == 'nightly-pushlog-lasttocurrent') {
-        node.hidden = !nightly.isTrunk();
+      if (node.id == 'nightly-pushlog-lasttocurrent')
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
-      }
       if (node.id == 'nightly-crashme')
         node.hidden = !ctypes.libraryName;
       if (node.id == 'nightly-compatibility')
