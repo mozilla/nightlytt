@@ -39,6 +39,7 @@
       <em:locale>ru-RU</em:locale>
       <em:description>Полезные инструменты для nightly-тестера.</em:description>
     </em:localized>
+    <em:translator>Kosuke Kaizuka (ja-JP)</em:translator>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
     <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>
