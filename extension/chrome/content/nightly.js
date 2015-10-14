@@ -57,18 +57,6 @@ getString: function(name, format) {
 
 preferences: null,
 
-isTrunk: function() {
-  let isNightlyRepo = false;
-
-  for each (var repo in nightlyApp.repository) {
-    isNightlyRepo = isNightlyRepo || nightly.getRepo().indexOf(repo) != -1;
-  }
-
-  return isNightlyRepo
-    && (nightly.variables.platformversion.indexOf("pre") != -1 ||
-        nightly.variables.platformversion.indexOf(".0a") != -1);
-},
-
 /**
  *  A helper function for nsIPromptService.confirmEx().
  *  Popping up an alert("Hello!") is as simple as nightly.showConfirmEx({text: "Hello!"});
