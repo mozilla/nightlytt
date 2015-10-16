@@ -269,7 +269,8 @@ parseHTML: function(url, callback) {
 },
 
 verifyVendor: function(name, vendor) {
-  if ((name == 'Thunderbird') && (vendor == '')) { vendor = 'Mozilla'; } // Fix for vendor not being set in Mozilla Thunderbird
+  // Fix for vendor not being set in Mozilla Thunderbird
+  if ((name == 'Thunderbird') && (vendor == '')) { vendor = 'Mozilla'; }
   return vendor;
 },
 
