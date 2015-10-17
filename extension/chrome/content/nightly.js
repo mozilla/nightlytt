@@ -16,7 +16,10 @@ variables: {
   },
 
   get appid() this.appInfo.ID,
-  get vendor() this.appInfo.vendor,
+  get vendor() {
+    // Fix for vendor not being set in Mozilla Thunderbird
+    return this.appInfo.name == "Thunderbird" && this.appInfo.vendor == "" ? "Mozilla" : this.appInfo.vendor;
+  },
   get name() this.appInfo.name,
   get version() this.appInfo.version,
   get appbuildid() this.appInfo.appBuildID,
