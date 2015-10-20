@@ -10,7 +10,7 @@ debugQATitleModifierWorkaround: null,
 get oldUpdateTitlebar() {
   if (!nightlyApp._oldUpdateTitlebar) {
     var { WARN, LOG, ERROR } = Components.utils.import("resource://nightly/Logging.jsm", {});
-    WARN("No suitable titlebar function was found! Titlebar customization is incomplete! Please file a bug!");
+    WARN("No suitable title bar function was found! Title bar customization is incomplete! Please file a bug!");
   }
   return nightlyApp._oldUpdateTitlebar;
 },

@@ -20,7 +20,7 @@
 
 <!-- LOCALIZATION NOTE: The same English string as the following is also used
                         for a dialog title, defined as a different entity, see ./customize.dtd -->
-<!ENTITY nightly.customize.label              "Customize Titlebar">
+<!ENTITY nightly.customize.label              "Customize Title bar">
 
 <!ENTITY nightly.compatibility.label          "Force Addon Compatibility">
 

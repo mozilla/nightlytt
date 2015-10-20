@@ -3,11 +3,11 @@ Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla
 
 * Copy Build ID to Clipboard
 * Copy List of Extensions to Clipboard
-* Copy about:support to Clipboard
+* Copy about:support to Pastebin
 * Open Profile Folder
 * Open Pushlog
 * Screenshots utility
-* Titlebar customization
+* Title bar customization
 * Crash options
 * Extension compatibility fixing
 

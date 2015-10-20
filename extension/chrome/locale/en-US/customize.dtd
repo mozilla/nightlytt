@@ -7,10 +7,10 @@
 <!-- LOCALIZATION NOTE: The same English string as the following is also defined
                         as a different entity for use in the menu,
                         see ./nightly.dtd -->
-<!ENTITY nightly.customize.title              "Customize Titlebar">
+<!ENTITY nightly.customize.title              "Customize Title bar">
 
-<!ENTITY nightly.paneTitlebar.title           "Titlebar">
-<!ENTITY nightly.paneTitlebar.description     "Titlebar Customization">
+<!ENTITY nightly.paneTitlebar.title           "Title bar">
+<!ENTITY nightly.paneTitlebar.description     "Title bar Customization">
 
 <!ENTITY nightly.customtitle.label            "Use custom title">
 <!ENTITY nightly.customtemplate.label         "Custom title template:">
