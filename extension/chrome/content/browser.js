@@ -4,8 +4,6 @@
 
 var nightlyApp = {
 
-repository: ['mozilla-central','mozilla-aurora'],
-
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
 get defaultTitle() {

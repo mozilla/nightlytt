@@ -4,8 +4,6 @@
 
 var nightlyApp = {
 
-repository: ['comm-central','comm-aurora'],
-
 _oldUpdateTitlebar: null,
 debugQATitleModifierWorkaround: null,
 
