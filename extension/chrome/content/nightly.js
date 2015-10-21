@@ -361,7 +361,7 @@ getExtensionList: function(callback) {
           + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
       });
       strings.sort(nightly.insensitiveSort);
-      callback(strings.join(" \n"));
+      callback(strings.join(", "));
     });
   } catch(e) {
     // old extension manager API - take out after Firefox 3.6 support dropped
@@ -395,7 +395,7 @@ getExtensionList: function(callback) {
       catch (e) { }
     }
     text.sort(nightly.insensitiveSort);
-    callback(text.join(" \n"));
+    callback(text.join(", "));
   }
 },
 
