@@ -12,7 +12,7 @@ Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla
 * Extension compatibility fixing
 
 # Install
-You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/6543/). To install for development, clone the repo:
+You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/nightly-tester-tools/). To install for development, clone the repo:
 
     git clone git://github.com/mozilla/nightlytt.git
 
