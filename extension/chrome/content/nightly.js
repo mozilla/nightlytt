@@ -533,7 +533,7 @@ toggleCompatibility: function() {
             nightly.getString("nightly.restart.message"),
             nightly.getString("nightly.restart.label"),
             nightly.getString("nightly.restart.accesskey"),
-            function() { Application.restart(); });
+            function() { nightlyApp.restart(); });
         }
       }
     };
