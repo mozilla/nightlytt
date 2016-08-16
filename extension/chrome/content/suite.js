@@ -97,7 +97,10 @@ getWindowTitleForNavigator: function () {
   var sep = docElement.getAttribute("titlemenuseparator");
   var modifier = "";
 
-  if (!Application.platformIsMac) {
+  Cu.import("resource://gre/modules/AppConstants.jsm");
+  var platformIsMac = AppConstants.platform == "macosx";
+
+  if (!platformIsMac) {
     modifier = nightlyApp.debugQATitleModifierWorkaround ||
                docElement.getAttribute("titlemodifier");
   }
@@ -173,10 +176,6 @@ openNotification: function(id, message, label, accessKey, callback) {
       "chrome://nightly/content/brand/icon.png",
       nb.PRIORITY_INFO_HIGH, [ action ]);
   }
-},
-
-restart: function () {
-  Application.restart();
 },
 
 }

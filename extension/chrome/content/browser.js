@@ -76,11 +76,4 @@ setStandardTitle: function()
   nightlyApp.oldUpdateTitlebar.call(tabbrowser);
 },
 
-restart: function()
-{
-  var nightlyComponent = Components.classes["@mozilla.com/nightly/addoncompatibility;1"]
-                         .getService().wrappedJSObject;
-  nightlyComponent.restart();
-},
-
 }

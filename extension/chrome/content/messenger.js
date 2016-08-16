@@ -84,13 +84,9 @@ setStandardTitle: function()
 getWindowTitleForMessenger: function(aTab)
 {
   let docTitle = aTab.title;
-  let platformIsMac;
-  try {
-    Cu.import("resource://gre/modules/AppConstants.jsm");
-    platformIsMac = AppConstants.platform == "macosx";
-  } catch (e) {
-    platformIsMac = Application.platformIsMac;
-  }
+
+  Cu.import("resource://gre/modules/AppConstants.jsm");
+  let platformIsMac = AppConstants.platform == "macosx";
 
   if (docTitle && !platformIsMac)
     docTitle += document.documentElement
