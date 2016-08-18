@@ -74,6 +74,6 @@ setStandardTitle: function()
 {
   var tabbrowser = document.getElementById("content");
   nightlyApp.oldUpdateTitlebar.call(tabbrowser);
-}
+},
 
 }

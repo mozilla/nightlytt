@@ -533,13 +533,20 @@ toggleCompatibility: function() {
             nightly.getString("nightly.restart.message"),
             nightly.getString("nightly.restart.label"),
             nightly.getString("nightly.restart.accesskey"),
-            function() { Application.restart(); });
+            function() { nightly.restart(); });
         }
       }
     };
     obs.addObserver(restartObserver, "_nttACS", false);
   }
   nightly.preferences.setBoolPref("disableCheckCompatibility", !forceCompat);
+},
+
+restart: function()
+{
+  var acs = Components.classes["@mozilla.com/nightly/addoncompatibility;1"]
+            .getService().wrappedJSObject;
+  acs.restart();
 },
 
 }
