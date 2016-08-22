@@ -361,7 +361,7 @@ getExtensionList: function(callback) {
           + (addon.userDisabled || addon.appDisabled ? " [DISABLED]" : "");
       });
       strings.sort(nightly.insensitiveSort);
-      callback(strings.join(", "));
+      callback(strings);
     });
   } catch(e) {
     // old extension manager API - take out after Firefox 3.6 support dropped
@@ -395,7 +395,7 @@ getExtensionList: function(callback) {
       catch (e) { }
     }
     text.sort(nightly.insensitiveSort);
-    callback(text.join(", "));
+    callback(text);
   }
 },
 
@@ -407,7 +407,7 @@ insertExtensions: function() {
       nightly.getExtensionList(function(text) {
         var newpos = element.selectionStart + text.length;
         var value = element.value;
-        element.value = value.substring(0, element.selectionStart) + text +
+        element.value = value.substring(0, element.selectionStart) + text.join(", ") +
                         value.substring(element.selectionEnd);
         element.selectionStart = newpos;
         element.selectionEnd = newpos;
@@ -421,7 +421,7 @@ insertExtensions: function() {
 copyExtensions: function() {
   nightly.getExtensionList(function(text) {
     if (text)
-      nightly.copyText(text);
+      nightly.copyText(text.join(", "));
   });
 },
 
