@@ -1,0 +1,13 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY screenshot.window.title "Skärmbildsfångaren">
+
+<!ENTITY screenshot.save.label "Spara som …">
+<!ENTITY screenshot.submit.label "Skicka in till ImageShack …">
+<!ENTITY screenshot.copy.label "Kopiera till Urklipp">
+<!ENTITY screenshot.redraw.label "Rita om">
+<!ENTITY screenshot.zoom.label "Zooma:">
+<!ENTITY screenshot.window.label "Fönster:">
+<!ENTITY screenshot.timer.label "Fånga in om: 5">

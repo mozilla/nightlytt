@@ -1,7 +1,16 @@
-<!ENTITY nightly.customize.title              "Customize Titlebar">
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<!ENTITY nightly.paneTitlebar.title           "Titlebar">
-<!ENTITY nightly.paneTitlebar.description     "Titlebar Customization">
+<!-- Strings for Title Customization dialog. -->
+
+<!-- LOCALIZATION NOTE: The same English string as the following is also defined
+                        as a different entity for use in the menu,
+                        see ./nightly.dtd -->
+<!ENTITY nightly.customize.title              "Customize Title bar">
+
+<!ENTITY nightly.paneTitlebar.title           "Title bar">
+<!ENTITY nightly.paneTitlebar.description     "Title bar Customization">
 
 <!ENTITY nightly.customtitle.label            "Use custom title">
 <!ENTITY nightly.customtemplate.label         "Custom title template:">

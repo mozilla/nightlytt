@@ -2,6 +2,9 @@ content      nightly                                                  chrome/con
 skin         nightly          classic/1.0                             chrome/skin/
 
 locale       nightly          en-US                                   chrome/locale/en-US/
+locale       nightly          ru-RU                                   chrome/locale/ru-RU/
+locale       nightly          sv-SE                                   chrome/locale/sv-SE/
+locale       nightly          zh-CN                                   chrome/locale/zh-CN/
 
 resource     nightly          modules/
 
@@ -12,7 +15,6 @@ contract @mozilla.org/network/protocol/about;1?what=nightly {4cec494a-d33a-4ee7-
 # addon compatiblity component
 component {126c18c5-386c-4c13-b59f-dc909e78aea0} components/nttAddonCompatibilityService.js
 contract @mozilla.com/nightly/addoncompatibility;1 {126c18c5-386c-4c13-b59f-dc909e78aea0}
-category profile-after-change nttAddonCompatibilityService @mozilla.com/nightly/addoncompatibility;1
 
 # Shared chrome
 override     chrome://nightly/content/platform.js                     chrome://nightly/content/winPlatform.js                  os=winnt
@@ -34,4 +36,4 @@ overlay      chrome://navigator/content/navigator.xul                 chrome://n
 
 # Songbird chrome
 overlay      chrome://songbird/content/xul/layoutBaseOverlay.xul      chrome://nightly/content/songbirdOverlay.xul             application=songbird@songbirdnest.com
-
+override     chrome://nightly/skin/aboutNightly/aboutNightly.css      chrome://nightly/skin/aboutNightly/aboutNightly-sb.css   application=songbird@songbirdnest.com

@@ -1,15 +1,18 @@
 # Nightly Tester Tools
 Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla apps like Firefox and Thunderbird. Some features are:
 
-* Extension compatibility fixing
-* Titlebar customization
-* Build ID retrieval
-* Copy extension list to clipboard
-* Screenshots
+* Copy Build ID to Clipboard
+* Copy List of Extensions to Clipboard
+* Copy about:support to Pastebin
 * Open Profile Folder
+* Open Pushlog
+* Screenshots utility
+* Title bar customization
+* Crash options
+* Extension compatibility fixing
 
 # Install
-You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/6543/). To install for development, clone the repo:
+You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/nightly-tester-tools/). To install for development, clone the repo:
 
     git clone git://github.com/mozilla/nightlytt.git
 
@@ -34,6 +37,8 @@ To build for release (no build number in filename):
 # Development
 All bugs are reported to the Nightly Tester Tools component at bugzilla.mozilla.org. [bug list](https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&component=Nightly%20Tester%20Tools&product=Other%20Applications), [file a bug](https://bugzilla.mozilla.org/enter_bug.cgi?product=Other%20Applications&component=Nightly%20Tester%20Tools). Check out [the wiki](https://wiki.mozilla.org/Auto-tools/Projects/NightlyTesterTools) for a list of current and proposed features and feel free to file bugs and submit patches.
 
+This project uses [.editorconfig](http://editorconfig.org/#overview), which sets defaults for the formatting of the code. So enjoy the use of [compatible editor](http://editorconfig.org/#download). Just download and install the corresponding plugin.
+
 # Related Add-ons:
-* [Screengrab](https://addons.mozilla.org/en-US/firefox/addon/1146/)
-* [Add-on Compatibility Reporter](https://addons.mozilla.org/en-US/firefox/addon/15003/)
+* [Add-on Compatibility Reporter](https://addons.mozilla.org/en-US/firefox/addon/add-on-compatibility-reporter/)
+* [Screengrab (fix version)](https://addons.mozilla.org/en-US/firefox/addon/screengrab-fix-version/)
