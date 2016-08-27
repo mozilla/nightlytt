@@ -221,9 +221,13 @@ copyTemplate: function(template) {
 },
 
 pastebin: function (content, onLoadCallback, onErrorCallback) {
+  if (content === null || content === "" || content === undefined) {
+    onError();
+    return;
+  }
   var postdata;
   var request = new XMLHttpRequest();
-  request.open("POST", "http://pastebin.mozilla.org/", true);
+  request.open("POST", "https://pastebin.mozilla.org/", true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
