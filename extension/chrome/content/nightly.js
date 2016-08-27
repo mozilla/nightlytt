@@ -222,16 +222,15 @@ copyTemplate: function(template) {
 
 pastebin: function (content, onLoadCallback, onErrorCallback) {
   var postdata;
-  const pastebinURL = "http://pastebin.mozilla.org/";
   var request = new XMLHttpRequest();
-  request.open("POST", pastebinURL, true);
+  request.open("POST", "http://pastebin.mozilla.org/", true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
       if (request.status === 200) {
         nightlyApp.openURL(request.channel.URI.spec);
       }
-      if (typeof onLoadCallback == "function") {
+      if (typeof onLoadCallback === "function") {
         onLoadCallback();
       }
     }
@@ -246,45 +245,15 @@ pastebin: function (content, onLoadCallback, onErrorCallback) {
   request.onabort = onError;
   request.onerror = onError;
 
-  if (typeof FormData === "function") {
-    postdata = new FormData();
-    postdata.append("code2", content);
-    postdata.append("expiry", "d");
-    postdata.append("format", "text");
-    postdata.append("parent_pid", "");
-    postdata.append("paste", "Send");
-    postdata.append("poster", "anonymous");
+  postdata = new FormData();
+  postdata.append("code2", content);
+  postdata.append("expiry", "m");
+  postdata.append("format", "text");
+  postdata.append("parent_pid", "");
+  postdata.append("paste", "Send");
+  postdata.append("poster", "anonymous");
 
-    request.send(postdata);
-  } else {
-    var targetObj = {}
-    try {
-      Components.utils.import("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
-    } catch (e) {
-      /**
-       * Prior to Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1), 
-       * JavaScript code modules could only be loaded using file: or resource: URLs. 
-       * Gecko 2.0 adds support for loading modules from chrome: URLs,
-       * even those inside JAR archives.
-       */
-      var scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-                         .getService(Components.interfaces.mozIJSSubScriptLoader);
-      scriptLoader.loadSubScript("chrome://nightly/content/screenshot/multipartFormData.js", targetObj);
-    }
-    var { MultipartFormData } = targetObj;
-    postdata = new MultipartFormData();
-    postdata.addControl("code2", content);
-    postdata.addControl("expiry", "d");
-    postdata.addControl("format", "text");
-    postdata.addControl("parent_pid", "");
-    postdata.addControl("paste", "Send");
-    postdata.addControl("poster", "anonymous");
-
-    request.setRequestHeader("Content-type", postdata.getContentType());
-    request.setRequestHeader("Content-length", postdata.length);
-
-    request.send(postdata.getPostData());
-  }
+  request.send(postdata);
 },
 
 parseHTML: function(url, callback) {
