@@ -7,7 +7,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{8620c15f-30dc-4dba-a131-7c5d20cf4a29}</em:id>
-    <em:version>3.8</em:version>
+    <em:version>3.9pre</em:version>
     <em:type>2</em:type>
 
     <!-- Need unpacking for crashme binary components -->
