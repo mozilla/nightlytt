@@ -239,19 +239,43 @@ copyTemplate: function(template) {
   nightly.copyText(nightly.generateText(nightly.getTemplate(template)));
 },
 
-pastebin: function (content) {
-  var postdata = "paste_code=" + encodeURIComponent(content);
+pastebin: function (content, onLoadCallback, onErrorCallback) {
+  if (content === null || content === "" || content === undefined) {
+    onError();
+    return;
+  }
+  var postdata;
   var request = new XMLHttpRequest();
-  request.open("POST","http://pastebin.com/api_public.php", true);
-  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  request.setRequestHeader("Content-length", postdata.length);
+  request.open("POST", "https://pastebin.mozilla.org/", true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
-      if (request.status==200)
-        nightlyApp.openURL(request.responseText);
+      if (request.status === 200) {
+        nightlyApp.openURL(request.channel.URI.spec);
+      }
+      if (typeof onLoadCallback === "function") {
+        onLoadCallback();
+      }
     }
   };
+
+  function onError() {
+    if (typeof onErrorCallback === "function") {
+      onErrorCallback();
+    }
+  }
+
+  request.onabort = onError;
+  request.onerror = onError;
+
+  postdata = new FormData();
+  postdata.append("code2", content);
+  postdata.append("expiry", "m");
+  postdata.append("format", "text");
+  postdata.append("parent_pid", "");
+  postdata.append("paste", "Send");
+  postdata.append("poster", "anonymous");
+
   request.send(postdata);
 },
 
@@ -264,7 +288,7 @@ parseHTML: function(url, callback) {
   frame.setAttribute("name", "sample-frame");
   frame.setAttribute("type", "content");
   frame.setAttribute("collapsed", "true");
-  document.getElementById("main-window").appendChild(frame);
+  document.lastChild.appendChild(frame);
 
   frame.addEventListener("load", function (event) {
     var doc = event.originalTarget;
@@ -273,16 +297,25 @@ parseHTML: function(url, callback) {
 
     setTimeout(function () { // give enough time for js to populate page
       callback(doc);
+      frame.parentNode.removeChild(frame);
     }, 800);
   }, true);
   frame.contentDocument.location.href = url;
 },
 
-pastebinAboutSupport: function() {
+pastebinAboutSupport: function (aEvent) {
+  var node = aEvent.originalTarget;
+  node.setAttribute("loading", "true");
+  node.disabled = true;
+
   nightly.parseHTML("about:support", function(doc) {
     var contents = doc.getElementById("contents");
     var text = nightlyPPrint.createTextForElement(contents);
-    nightly.pastebin(text);
+    function enableMenuItem() {
+      node.removeAttribute("loading");
+      node.disabled = false;
+    }
+    nightly.pastebin(text, enableMenuItem, enableMenuItem);
   });
 },
 
@@ -302,6 +335,8 @@ menuPopup: function(event, menupopup) {
         node.hidden = !attext;
       if (node.id.indexOf("-copy") != -1)
         node.hidden = attext;
+      if (node.id == 'nightly-aboutsupport')
+        node.hidden = !("@mozilla.org/network/protocol/about;1?what=support" in Components.classes);
       if (node.id == 'nightly-pushlog-lasttocurrent')
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
       if (node.id == 'nightly-crashme')
