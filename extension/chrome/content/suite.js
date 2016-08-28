@@ -97,7 +97,6 @@ getWindowTitleForNavigator: function () {
   var sep = docElement.getAttribute("titlemenuseparator");
   var modifier = "";
 
-  Cu.import("resource://gre/modules/AppConstants.jsm");
   var platformIsMac = AppConstants.platform == "macosx";
 
   if (!platformIsMac) {
