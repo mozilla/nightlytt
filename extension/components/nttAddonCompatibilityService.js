@@ -28,6 +28,8 @@ function nttAddonCompatibilityService() {
   if (this.prefService.getBoolPref(PREF_FORCE_COMPAT)) {
     this.setCompatPrefs();
   }
+
+  this.wrappedJSObject = this;
 }
 
 nttAddonCompatibilityService.prototype = {
@@ -107,7 +109,23 @@ nttAddonCompatibilityService.prototype = {
     for (var i = 0; i < prefs.length; i++) {
       this.prefService.setBoolPref(prefs[i], enable);
     }
-  }
+  },
+
+  restart : function () {
+    let canceled = Cc["@mozilla.org/supports-PRBool;1"]
+                   .createInstance(Ci.nsISupportsPRBool);
+    this.obs.notifyObservers(canceled, "quit-application-requested", "restart");
+
+    if (canceled.data) {
+      return false; // somebody canceled our quit request
+    }
+
+    // restart
+    Cc['@mozilla.org/toolkit/app-startup;1'].getService(Ci.nsIAppStartup)
+        .quit(Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart);
+
+    return true;
+  },
 };
 
 var components = [nttAddonCompatibilityService];

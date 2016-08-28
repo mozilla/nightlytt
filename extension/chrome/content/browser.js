@@ -4,8 +4,6 @@
 
 var nightlyApp = {
 
-repository: ['mozilla-central','mozilla-aurora'],
-
 storedTitle: document.documentElement.getAttribute("titlemodifier"),
 
 get defaultTitle() {
@@ -76,6 +74,6 @@ setStandardTitle: function()
 {
   var tabbrowser = document.getElementById("content");
   nightlyApp.oldUpdateTitlebar.call(tabbrowser);
-}
+},
 
 }
