@@ -222,7 +222,7 @@ copyTemplate: function(template) {
 
 pastebin: function (content, onLoadCallback, onErrorCallback) {
   if (content === null || content === "" || content === undefined) {
-    onError();
+    onError("Not posting empty content!");
     return;
   }
   var postdata;
@@ -240,10 +240,17 @@ pastebin: function (content, onLoadCallback, onErrorCallback) {
     }
   };
 
-  function onError() {
+  function onError(message) {
     if (typeof onErrorCallback === "function") {
       onErrorCallback();
     }
+    if (message === null || message === "" || message === undefined) {
+      return;
+    }
+    if (typeof message !== "string") {
+      message = "An error occured while sending the request!";
+    }
+    Services.prompt.alert(null, "Nightly Tester Tools", message);
   }
 
   request.onabort = onError;
