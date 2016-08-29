@@ -85,7 +85,6 @@ getWindowTitleForMessenger: function(aTab)
 {
   let docTitle = aTab.title;
 
-  Cu.import("resource://gre/modules/AppConstants.jsm");
   let platformIsMac = AppConstants.platform == "macosx";
 
   if (docTitle && !platformIsMac)
