@@ -221,13 +221,14 @@ copyTemplate: function(template) {
 },
 
 pastebin: function (content, onLoadCallback, onErrorCallback) {
+  const PASTEBIN_URL = "https://pastebin.mozilla.orfg/";
+
   if (content === null || content === "" || content === undefined) {
-    onError("Not posting empty content!");
+    onError("No contents to post to " + PASTEBIN_URL);
     return;
   }
-  var postdata;
   var request = new XMLHttpRequest();
-  request.open("POST", "https://pastebin.mozilla.org/", true);
+  request.open("POST", PASTEBIN_URL, true);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4 ) {
@@ -237,6 +238,7 @@ pastebin: function (content, onLoadCallback, onErrorCallback) {
       if (typeof onLoadCallback === "function") {
         onLoadCallback();
       }
+      console.log("pastebin done!");
     }
   };
 
@@ -248,15 +250,18 @@ pastebin: function (content, onLoadCallback, onErrorCallback) {
       return;
     }
     if (typeof message !== "string") {
-      message = "An error occured while sending the request!";
+      console.log("onerror! this is a ProgressEvent! Now what?", message);
+      message = "Failed to submit data to " + PASTEBIN_URL + " !";
     }
-    Services.prompt.alert(null, "Nightly Tester Tools", message);
+    if (nightlyApp.openNotification) {
+      nightlyApp.openNotification("nightly-pastebin-error", message, null, null, null, /* boxPlease */ true);
+    }
   }
 
   request.onabort = onError;
   request.onerror = onError;
 
-  postdata = new FormData();
+  var postdata = new FormData();
   postdata.append("code2", content);
   postdata.append("expiry", "m");
   postdata.append("format", "text");

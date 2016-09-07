@@ -155,26 +155,35 @@ getWindowTitleForNavigator: function () {
   return newTitle;
 },
 
-openNotification: function(id, message, label, accessKey, callback) {
-  var action = {
-    label: label,
-    callback: callback,
-    accessKey: accessKey
+openNotification: function(id, message, label, accessKey, callback, boxPlease) {
+  const TIMEOUT = 10000;
+  var action;
+  if (label && accessKey && callback) {
+    action = {
+      label: label,
+      callback: callback,
+      accessKey: accessKey
+    }
   };
-  if (typeof PopupNotifications != "undefined") {
+
+  if (typeof PopupNotifications != "undefined" && !!!boxPlease) {
     var options = {
-      timeout: Date.now() + 10000
+      timeout: Date.now() + TIMEOUT,
+      removeOnDismissal: true
     };
 
-    PopupNotifications.show(gBrowser.selectedBrowser, id,
+    var notification = PopupNotifications.show(gBrowser.selectedBrowser, id,
       message, "urlbar", action, null, options);
+
+    setTimeout(function(){ notification.remove(); }, TIMEOUT);
   } else {
     let nb = gBrowser.getNotificationBox();
 
-    nb.appendNotification(
+    var notification = nb.appendNotification(
       message, id,
       "chrome://nightly/content/brand/icon.png",
-      nb.PRIORITY_INFO_HIGH, [ action ]);
+      nb.PRIORITY_INFO_HIGH, action ? [ action ] : []);
+    setTimeout(function(){ nb.removeNotification(notification) }, TIMEOUT);
   }
 },
 
