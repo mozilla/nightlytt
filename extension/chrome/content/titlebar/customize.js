@@ -95,7 +95,7 @@ init: function(aEvent)
   paneTitle.addVariable("DisplayVersion");
   paneTitle.addVariable("Channel");
   paneTitle.addVariable("ChannelPretty");
-  paneTitle.addVariable("BetaRevision");
+  paneTitle.addVariable("BetaVersion");
   paneTitle.addVariable("VersionChannel");
   paneTitle.addVariable("PlatformVersion");
   paneTitle.addVariable("PlatformBuildID");

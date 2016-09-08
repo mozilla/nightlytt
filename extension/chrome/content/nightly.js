@@ -39,7 +39,7 @@ variables: {
   },
   get channel() { return nightly.updateChannel(); },
   get channelpretty() { return nightly.updateChannelPretty(); },
-  get betarevision() { return nightly.betaRevision(this.version, this.displayversion); },
+  get betaversion() { return nightly.betaVersion(this.version, this.displayversion); },
   get versionchannel() { return nightly.versionAndChannel(this.version, this.displayversion); },
   get platformversion() this.appInfo.platformVersion,
   get platformbuildid() this.appInfo.platformBuildID,
@@ -280,8 +280,7 @@ makeVersionPretty: function(ver) {
   return ver;
 },
 updateChannel: function() {
-  return Components.classes["@mozilla.org/preferences-service;1"]
-                   .getService(Components.interfaces.nsIPrefService).getBranch("app.update.").getCharPref("channel");
+  return Services.prefs.getCharPref("app.update.channel");
 },
 updateChannelPretty: function() {
   var channel = nightly.updateChannel();
@@ -294,14 +293,14 @@ updateChannelPretty: function() {
   else channel = '';
   return channel;
 },
-betaRevision: function(ver, displayversion) {
+betaVersion: function(ver, displayversion) {
   var beta = displayversion.replace(ver + 'b','');
   if (beta == displayversion) { beta = ''; };
   return beta;
 },
 versionAndChannel: function(ver, displayversion) {
   var channel = nightly.updateChannelPretty();
-  var beta = nightly.betaRevision(ver, displayversion);
+  var beta = nightly.betaVersion(ver, displayversion);
   if (channel == 'Release' || channel == 'Default') { channel = ''; }
   if (channel == 'beta' && beta != '') { channel += ' ' + beta; }
   ver = nightly.makeVersionPretty(ver);
