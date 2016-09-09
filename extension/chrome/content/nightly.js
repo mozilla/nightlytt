@@ -285,8 +285,6 @@ menuPopup: function(event, menupopup) {
         node.hidden = attext;
       if (node.id == 'nightly-pushlog-lasttocurrent')
         node.disabled = !nightly.preferences.getCharPref("prevChangeset");
-      if (node.id == 'nightly-crashme')
-        node.hidden = !ctypes.libraryName;
       if (node.id == 'nightly-compatibility')
         node.setAttribute("checked", nightly.preferences.getBoolPref("disableCheckCompatibility"));
       node=node.nextSibling;
@@ -550,11 +548,6 @@ restart: function()
 },
 
 }
-
-try { // import ctypes for determining wether to show crashme menu item
-  Components.utils.import("resource://gre/modules/ctypes.jsm");
-}
-catch(e) {}
 
 
 // register addon pref listeners

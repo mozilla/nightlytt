@@ -29,4 +29,4 @@
 <!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "Krascha mig!">
 <!ENTITY nightly.crashme.chrome.label "Browser">
-<!ENTITY nightly.crashme.content.label "Current Tab">
+<!ENTITY nightly.crashme.content.label "Current Tab (e10s)">

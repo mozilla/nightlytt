@@ -28,4 +28,4 @@
 <!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "崩溃浏览器！">
 <!ENTITY nightly.crashme.chrome.label "Browser">
-<!ENTITY nightly.crashme.content.label "Current Tab">
+<!ENTITY nightly.crashme.content.label "Current Tab (e10s)">

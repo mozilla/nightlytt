@@ -7,25 +7,6 @@
 
 Components.utils.import("resource://gre/modules/ctypes.jsm");
 
-function crash() {
-  // ctypes checks for NULL pointer derefs, so just go near-NULL.
-  var zero = new ctypes.intptr_t(8);
-  var badptr = ctypes.cast(zero, ctypes.PointerType(ctypes.int32_t));
-  var crash = badptr.contents;
-}
-
-function crash_content() {
-  let wm = Cc["@mozilla.org/appshell/window-mediator;1"].
-           getService(Ci.nsIWindowMediator);
-  let win = wm.getMostRecentWindow("navigator:browser");
-  let browser = win.gBrowser.selectedBrowser;
-  if (browser.isRemoteBrowser) {
-    browser.messageManager.loadFrameScript("chrome://nightly/content/crashmeContent.js", true);
-  } else {
-    // Could try harder and force-load an e10s window or something.
-  }
-}
-
 
 var crashme = {
   CHROME: 'chrome',
@@ -34,10 +15,29 @@ var crashme = {
   onMenuItemCommand: function(event, how=this.CHROME) {
     switch(how) {
       case(this.CHROME):
-        crash();
+        this.crash();
         break;
       case(this.CONTENT):
-        crash_content()
+        this.crash_content()
     }
-  }
+  },
+
+  crash: function() {
+    // ctypes checks for NULL pointer derefs, so just go near-NULL.
+    var zero = new ctypes.intptr_t(8);
+    var badptr = ctypes.cast(zero, ctypes.PointerType(ctypes.int32_t));
+    var crash = badptr.contents;
+  },
+
+  crash_content: function() {
+    let wm = Cc["@mozilla.org/appshell/window-mediator;1"].
+             getService(Ci.nsIWindowMediator);
+    let win = wm.getMostRecentWindow("navigator:browser");
+    let browser = win.gBrowser.selectedBrowser;
+    if (browser.isRemoteBrowser) {
+      browser.messageManager.loadFrameScript("chrome://nightly/content/crashmeContent.js", true);
+    } else {
+      // Could try harder and force-load an e10s window or something.
+    }
+  },
 };
