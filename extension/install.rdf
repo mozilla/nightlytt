@@ -36,6 +36,11 @@
       <em:locale>ru-RU</em:locale>
       <em:description>Полезные инструменты для nightly-тестера.</em:description>
     </em:localized>
+    <em:translator>Stefan Plewako, zespół Aviary.pl (pl)</em:translator>
+    <em:localized>
+      <em:locale>pl</em:locale>
+      <em:description>Użyteczne narzędzia dla testerów wersji Nightly.</em:description>
+    </em:localized>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
     <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>

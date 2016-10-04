@@ -1,0 +1,13 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY screenshot.window.title "Zrzuty ekranu">
+
+<!ENTITY screenshot.save.label "Zapisz jako…">
+<!ENTITY screenshot.submit.label "Prześlij do ImageShack…">
+<!ENTITY screenshot.copy.label "Kopiuj do schowka">
+<!ENTITY screenshot.redraw.label "Odśwież">
+<!ENTITY screenshot.zoom.label "Powiększenie:">
+<!ENTITY screenshot.window.label "Okno:">
+<!ENTITY screenshot.timer.label "Zrzut za: 5">
