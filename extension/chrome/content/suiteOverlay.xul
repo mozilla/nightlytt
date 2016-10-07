@@ -15,6 +15,7 @@
     <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
   </stringbundleset>
 
+  <script type="application/x-javascript" src="crashme.js" />
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="suite.js" />
   <script type="application/x-javascript" src="pprint.js" />
