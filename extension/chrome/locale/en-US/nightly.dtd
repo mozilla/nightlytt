@@ -28,10 +28,5 @@
 
 <!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "Crash me!">
-<!ENTITY nightly.crashme.nullptr.label "Null pointer deref!">
-<!ENTITY nightly.crashme.nullfncall.label "Null function call!">
-<!ENTITY nightly.crashme.divzero.label "Divide by zero!">
-<!ENTITY nightly.crashme.stack.label "Stack overflow!">
-<!ENTITY nightly.crashme.purevirt.label "Pure virtual call!">
-<!ENTITY nightly.crashme.iph.label "Invalid parameter to CRT method!">
-<!ENTITY nightly.crashme.objc.label "ObjC Exception!">
+<!ENTITY nightly.crashme.chrome.label "Browser">
+<!ENTITY nightly.crashme.content.label "Current Tab (e10s)">

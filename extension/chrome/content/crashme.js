@@ -1,25 +1,43 @@
-/*
- * Copyright (c) 2008 Ted Mielczarek
- *
- * Permission to use, copy, modify, and distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
- * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- * */
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* Code borrowed from crash me now (simple) extension:
+ *   https://addons.mozilla.org/addon/crash-me-now-simple/ */
+
+Components.utils.import("resource://gre/modules/ctypes.jsm");
+
 
 var crashme = {
-  onMenuItemCommand: function(e, how) {
-    if (how == undefined || how == null)
-      how = Crasher.CRASH_NULL_POINTER_DEREF;
-    // You asked for it...
-    Crasher.crash(how);
-  }
+  CHROME: 'chrome',
+  CONTENT: 'content',
+
+  onMenuItemCommand: function(event, how=this.CHROME) {
+    switch(how) {
+      case(this.CHROME):
+        this.crash();
+        break;
+      case(this.CONTENT):
+        this.crash_content()
+    }
+  },
+
+  crash: function() {
+    // ctypes checks for NULL pointer derefs, so just go near-NULL.
+    var zero = new ctypes.intptr_t(8);
+    var badptr = ctypes.cast(zero, ctypes.PointerType(ctypes.int32_t));
+    var crash = badptr.contents;
+  },
+
+  crash_content: function() {
+    let wm = Cc["@mozilla.org/appshell/window-mediator;1"].
+             getService(Ci.nsIWindowMediator);
+    let win = wm.getMostRecentWindow("navigator:browser");
+    let browser = win.gBrowser.selectedBrowser;
+    if (browser.isRemoteBrowser) {
+      browser.messageManager.loadFrameScript("chrome://nightly/content/crashmeContent.js", true);
+    } else {
+      // Could try harder and force-load an e10s window or something.
+    }
+  },
 };
-Components.utils.import("resource://nightly/Crasher.jsm");

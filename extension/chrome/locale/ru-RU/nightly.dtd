@@ -28,11 +28,5 @@
 
 <!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "Вылететь!">
-<!ENTITY nightly.crashme.nullptr.label "Разыменовывание нулевого указателя!">
-<!ENTITY nightly.crashme.nullfncall.label "Вызов нулевой функции!">
-<!ENTITY nightly.crashme.divzero.label "Деление на ноль!">
-<!ENTITY nightly.crashme.stack.label "Переполнение стека!">
-<!ENTITY nightly.crashme.purevirt.label "Вызов чистой виртуальной функции!">
-<!ENTITY nightly.crashme.iph.label "Неверный параметр в CRT методе!">
-<!ENTITY nightly.crashme.objc.label "Исключение ObjC!">
-
+<!ENTITY nightly.crashme.chrome.label "Browser">
+<!ENTITY nightly.crashme.content.label "Current Tab (e10s)">

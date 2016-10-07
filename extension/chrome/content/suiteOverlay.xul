@@ -15,6 +15,7 @@
     <stringbundle id="nightlyBundle" src="chrome://nightly/locale/nightly.properties"/>
   </stringbundleset>
 
+  <script type="application/x-javascript" src="crashme.js" />
   <script type="application/x-javascript" src="nightly.js" />
   <script type="application/x-javascript" src="suite.js" />
   <script type="application/x-javascript" src="pprint.js" />
@@ -48,6 +49,14 @@
       <menuseparator/>
       <menuitem label="&nightly.screenshot.full.label;" oncommand="nightly.getScreenshot();"/>
       <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
+      <menu id="nightly-crashme" label="&nightly.crashme.label;">
+        <menupopup id="nightly-crashme-popup">
+          <menuitem id="nightly.crashme-chrome" label="&nightly.crashme.chrome.label;"
+                    oncommand="crashme.onMenuItemCommand(event, crashme.CHROME);"/>
+          <menuitem id="nightly.crashme-content" label="&nightly.crashme.content.label;"
+                    oncommand="crashme.onMenuItemCommand(event, crashme.CONTENT);"/>
+        </menupopup>
+      </menu>
       <menuseparator/>
       <menuitem id="nightly-compatibility" label="&nightly.compatibility.label;"
                 type="checkbox" oncommand="nightly.toggleCompatibility();" autocheck="false"/>

@@ -28,10 +28,5 @@
 
 <!-- Miscellaneous Crash-Me strings -->
 <!ENTITY nightly.crashme.label "Krascha mig!">
-<!ENTITY nightly.crashme.nullptr.label "Nullvärde för pekaravreferering!">
-<!ENTITY nightly.crashme.nullfncall.label "Nullvärde för funktionsanrop!">
-<!ENTITY nightly.crashme.divzero.label "Division med noll!">
-<!ENTITY nightly.crashme.stack.label "Dataspill!">
-<!ENTITY nightly.crashme.purevirt.label "Rent virtuellt anrop!">
-<!ENTITY nightly.crashme.iph.label "Ogiltig parameter för CRT-metod!">
-<!ENTITY nightly.crashme.objc.label "ObjC-undantag!">
+<!ENTITY nightly.crashme.chrome.label "Browser">
+<!ENTITY nightly.crashme.content.label "Current Tab (e10s)">

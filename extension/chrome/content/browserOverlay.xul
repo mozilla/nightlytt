@@ -52,20 +52,10 @@
         <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
         <menu id="nightly-crashme" label="&nightly.crashme.label;">
           <menupopup id="nightly-crashme-popup">
-          <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_DEREF);"/>
-          <menuitem id="nightly.crashme-nullfncall" label="&nightly.crashme.nullfncall.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_FNCALL);"/>
-          <menuitem id="nightly.crashme-divzero" label="&nightly.crashme.divzero.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_DIVIDE_BY_ZERO);"/>
-          <menuitem id="nightly.crashme-stack" label="&nightly.crashme.stack.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_STACK_OVERFLOW);"/>
-          <menuitem id="nightly.crashme-purevirt" label="&nightly.crashme.purevirt.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_PURE_VIRTUAL_CALL);"/>
-          <menuitem id="nightly.crashme-iph" label="&nightly.crashme.iph.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_INVALID_CRT_PARAM);"/>
-          <menuitem id="nightly.crashme-objc" label="&nightly.crashme.objc.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_OBJC_EXCEPTION);"/>
+            <menuitem id="nightly.crashme-chrome" label="&nightly.crashme.chrome.label;"
+                      oncommand="crashme.onMenuItemCommand(event, crashme.CHROME);"/>
+            <menuitem id="nightly.crashme-content" label="&nightly.crashme.content.label;"
+                      oncommand="crashme.onMenuItemCommand(event, crashme.CONTENT);"/>
           </menupopup>
         </menu>
         <menuseparator/>
@@ -93,20 +83,10 @@
         <menuitem label="&nightly.customize.label;" oncommand="nightly.openCustomize();"/>
         <menu id="nightly-crashme" label="&nightly.crashme.label;">
           <menupopup id="nightly-crashme-popup">
-          <menuitem id="nightly.crashme-nullptr" label="&nightly.crashme.nullptr.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_DEREF);"/>
-          <menuitem id="nightly.crashme-nullfncall" label="&nightly.crashme.nullfncall.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_NULL_POINTER_FNCALL);"/>
-          <menuitem id="nightly.crashme-divzero" label="&nightly.crashme.divzero.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_DIVIDE_BY_ZERO);"/>
-          <menuitem id="nightly.crashme-stack" label="&nightly.crashme.stack.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_STACK_OVERFLOW);"/>
-          <menuitem id="nightly.crashme-purevirt" label="&nightly.crashme.purevirt.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_PURE_VIRTUAL_CALL);"/>
-          <menuitem id="nightly.crashme-iph" label="&nightly.crashme.iph.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_INVALID_CRT_PARAM);"/>
-          <menuitem id="nightly.crashme-objc" label="&nightly.crashme.objc.label;"
-                    oncommand="crashme.onMenuItemCommand(event, Crasher.CRASH_OBJC_EXCEPTION);"/>
+            <menuitem id="nightly.crashme-chrome" label="&nightly.crashme.chrome.label;"
+                      oncommand="crashme.onMenuItemCommand(event, crashme.CHROME);"/>
+            <menuitem id="nightly.crashme-content" label="&nightly.crashme.content.label;"
+                      oncommand="crashme.onMenuItemCommand(event, crashme.CONTENT);"/>
           </menupopup>
         </menu>
         <menuseparator/>
