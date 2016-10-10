@@ -24,10 +24,5 @@
 <!ENTITY nightly.screenshot.full.label "Zrób zrzut ekranu">
 
 <!ENTITY nightly.crashme.label "Spowoduj awarię!">
-<!ENTITY nightly.crashme.nullptr.label "Null pointer deref!">
-<!ENTITY nightly.crashme.nullfncall.label "Null function call!">
-<!ENTITY nightly.crashme.divzero.label "Dzielenie przez zero!">
-<!ENTITY nightly.crashme.stack.label "Przepełnienie stosu!">
-<!ENTITY nightly.crashme.purevirt.label "Pure virtual call!">
-<!ENTITY nightly.crashme.iph.label "Nieprawidłowy parametr metody CRT!">
-<!ENTITY nightly.crashme.objc.label "Wyjątek ObjC!">
+<!ENTITY nightly.crashme.chrome.label "Przeglądarka">
+<!ENTITY nightly.crashme.content.label "Bieżąca karta (e10s)">
