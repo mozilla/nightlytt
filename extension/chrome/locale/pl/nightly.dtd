@@ -1,0 +1,28 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY nightly.openabout.label "Otwórz about:nightly">
+<!ENTITY nightly.openprofile.label "Otwórz folder profilu">
+
+<!ENTITY nightly.id.copy.label "Kopiuj identyfikator kompilacji do schowka">
+<!ENTITY nightly.id.insert.label "Wstaw identyfikator kompilacji do pola tekstowego">
+<!ENTITY nightly.id.insert.tooltip "Wstawia identyfikator kompilacji do zaznaczonego pola tekstowego">
+
+<!ENTITY nightly.extensions.copy.label "Kopiuj listę rozszerzeń do schowka">
+<!ENTITY nightly.extensions.insert.label "Wstaw listę rozszerzeń do pola tekstowego">
+
+<!ENTITY nightly.extensions.aboutsup.label "Kopiuj about:support do Pastebin">
+
+<!ENTITY nightly.pushlog.lasttocurrent.label "Otwórz pushlog między poprzednią a bieżącą kompilacją">
+<!ENTITY nightly.pushlog.currenttotip.label "Otwórz pushlog po bieżącej kompilacji">
+
+<!ENTITY nightly.customize.label "Dostosuj pasek tytułu">
+
+<!ENTITY nightly.compatibility.label "Wymuś zgodność dodatków">
+
+<!ENTITY nightly.screenshot.full.label "Zrób zrzut ekranu">
+
+<!ENTITY nightly.crashme.label "Spowoduj awarię!">
+<!ENTITY nightly.crashme.chrome.label "Przeglądarka">
+<!ENTITY nightly.crashme.content.label "Bieżąca karta (e10s)">

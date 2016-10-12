@@ -1,0 +1,15 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY nightly.customize.title "Dostosowywanie paska tytułu">
+
+<!ENTITY nightly.paneTitlebar.title "Pasek tytułu">
+<!ENTITY nightly.paneTitlebar.description "Dostosowywanie paska tytułu">
+
+<!ENTITY nightly.customtitle.label "Własny tytuł">
+<!ENTITY nightly.customtemplate.label "Szablon tytułu:">
+<!ENTITY nightly.variables.description "Następujące zmienne mogą być użyte w tytule (wielkość liter nie ma znaczenia).">
+<!ENTITY nightly.variable.label "Zmienna">
+<!ENTITY nightly.variabledesc.label "Opis">
+<!ENTITY nightly.variablevalue.label "Wartość">
