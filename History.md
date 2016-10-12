@@ -6,7 +6,6 @@
   * Make use of crashme-simple (#210)
   * Don't use undefined Cu shortcut (#216)
   * Updated development section of readme and about:nightly (#181)
-  * Bump version to 3.9pre (#214)
   * Use comma between entries when copying the list of extensions (#195)
 
 3.8 / 2016-08-18
