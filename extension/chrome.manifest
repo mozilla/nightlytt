@@ -3,6 +3,7 @@ skin         nightly          classic/1.0                             chrome/ski
 
 locale       nightly          en-US                                   chrome/locale/en-US/
 locale       nightly          ja-JP                                   chrome/locale/ja-JP/
+locale       nightly          pl                                      chrome/locale/pl/
 locale       nightly          ru-RU                                   chrome/locale/ru-RU/
 locale       nightly          sv-SE                                   chrome/locale/sv-SE/
 locale       nightly          zh-CN                                   chrome/locale/zh-CN/
