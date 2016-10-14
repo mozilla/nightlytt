@@ -9,5 +9,5 @@
 <!ENTITY screenshot.copy.label          "クリップボードにコピー">
 <!ENTITY screenshot.redraw.label        "再描画">
 <!ENTITY screenshot.zoom.label          "ズーム:">
-<!ENTITY screenshot.window.label        "ウインドウ:">
+<!ENTITY screenshot.window.label        "ウィンドウ:">
 <!ENTITY screenshot.timer.label         "5 秒後に撮影">

@@ -1,0 +1,32 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!-- Menu item labels and tooltips -->
+<!ENTITY nightly.openabout.label              "about:nightly を開く">
+<!ENTITY nightly.openprofile.label            "プロファイルフォルダを開く">
+
+<!ENTITY nightly.id.copy.label                "ビルド ID をクリップボードにコピー">
+<!ENTITY nightly.id.insert.label              "ビルド ID をテキストボックスに挿入">
+<!ENTITY nightly.id.insert.tooltip            "ビルド ID を現在のテキストボックスに挿入します">
+
+<!ENTITY nightly.extensions.copy.label        "アドオンの一覧をクリップボードにコピー">
+<!ENTITY nightly.extensions.insert.label      "アドオンの一覧をテキストボックスに挿入">
+
+<!ENTITY nightly.extensions.aboutsup.label    "トラブルシューティング情報を Pastebin にコピー">
+
+<!ENTITY nightly.pushlog.lasttocurrent.label  "一つ前と現在のビルドの間のプッシュログを開く">
+<!ENTITY nightly.pushlog.currenttotip.label   "現在のビルド以降のプッシュログを開く">
+
+<!-- LOCALIZATION NOTE: The same English string as the following is also used
+                        for a dialog title, defined as a different entity, see ./customize.dtd -->
+<!ENTITY nightly.customize.label              "タイトルバーのカスタマイズ">
+
+<!ENTITY nightly.compatibility.label          "アドオンの互換性確認を無効化">
+
+<!ENTITY nightly.screenshot.full.label        "スクリーンショットを撮影">
+
+<!-- Miscellaneous Crash-Me strings -->
+<!ENTITY nightly.crashme.label "クラッシュさせる！">
+<!ENTITY nightly.crashme.chrome.label "ブラウザ全体">
+<!ENTITY nightly.crashme.content.label "現在のタブ (e10s)">

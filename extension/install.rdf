@@ -41,9 +41,13 @@
       <em:locale>pl</em:locale>
       <em:description>Użyteczne narzędzia dla testerów wersji Nightly.</em:description>
     </em:localized>
-    <em:translator>Kosuke Kaizuka (ja-JP)</em:translator>
+    <em:translator>Kosuke Kaizuka (ja, ja-JP-mac)</em:translator>
     <em:localized>
-      <em:locale>ja-JP</em:locale>
+      <em:locale>ja</em:locale>
+      <em:description>開発版のテスト利用者のための有用なツールを提供します</em:description>
+    </em:localized>
+    <em:localized>
+      <em:locale>ja-JP-mac</em:locale>
       <em:description>開発版のテスト利用者のための有用なツールを提供します</em:description>
     </em:localized>
 

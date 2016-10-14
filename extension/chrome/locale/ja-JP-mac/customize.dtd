@@ -10,11 +10,11 @@
 <!ENTITY nightly.customize.title              "タイトルバーのカスタマイズ">
 
 <!ENTITY nightly.paneTitlebar.title           "タイトルバー">
-<!ENTITY nightly.paneTitlebar.description     "タイトルバーのカスタマイズ">
+<!ENTITY nightly.paneTitlebar.description     "タイトルのテンプレート:">
 
-<!ENTITY nightly.customtitle.label            "カスタマイズしたタイトルバーを使用する">
+<!ENTITY nightly.customtitle.label            "カスタマイズしたタイトルを使用する">
 <!ENTITY nightly.customtemplate.label         "書式">
-<!ENTITY nightly.variables.description        "以下の変数を使用することができます (大文字小文字は区別されません)">
+<!ENTITY nightly.variables.description        "タイトルには以下の変数が使用できます (大文字小文字は区別しません)">
 <!ENTITY nightly.variable.label               "変数">
 <!ENTITY nightly.variabledesc.label           "説明">
 <!ENTITY nightly.variablevalue.label          "現在の値">

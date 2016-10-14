@@ -1,0 +1,13 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!ENTITY screenshot.window.title        "スクリーンショットの撮影">
+
+<!ENTITY screenshot.save.label          "別名で保存...">
+<!ENTITY screenshot.submit.label        "ImageShack に投稿...">
+<!ENTITY screenshot.copy.label          "クリップボードにコピー">
+<!ENTITY screenshot.redraw.label        "再描画">
+<!ENTITY screenshot.zoom.label          "ズーム:">
+<!ENTITY screenshot.window.label        "ウインドウ:">
+<!ENTITY screenshot.timer.label         "5 秒後に撮影">
