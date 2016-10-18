@@ -41,6 +41,11 @@
       <em:locale>pl</em:locale>
       <em:description>Użyteczne narzędzia dla testerów wersji Nightly.</em:description>
     </em:localized>
+    <em:translator>Kosuke Kaizuka (ja, ja-JP-mac)</em:translator>
+    <em:localized>
+      <em:locale>ja</em:locale>
+      <em:description>開発版のテスト利用者のための有用なツールを提供します</em:description>
+    </em:localized>
 
     <em:iconURL>chrome://nightly/content/brand/icon.png</em:iconURL>
     <em:homepageURL>https://wiki.mozilla.org/Auto-tools/Automation_Development/Projects/Addons/NightlyTesterTools</em:homepageURL>
