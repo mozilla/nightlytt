@@ -1,5 +1,6 @@
 3.9 / 2016-10-12
 ==================
+  * Add Japanese (ja) locale (#226)
   * Re-add import of AppConstants.jsm for SeaMonkey because it's not available by default (#224)
   * Add Polish (pl) locale (#221)
   * Updated maxVersions for applications (#220)
