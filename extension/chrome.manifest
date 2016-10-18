@@ -2,6 +2,8 @@ content      nightly                                                  chrome/con
 skin         nightly          classic/1.0                             chrome/skin/
 
 locale       nightly          en-US                                   chrome/locale/en-US/
+locale       nightly          ja                                      chrome/locale/ja/
+locale       nightly          ja-JP-mac                               chrome/locale/ja-JP-mac/
 locale       nightly          pl                                      chrome/locale/pl/
 locale       nightly          ru-RU                                   chrome/locale/ru-RU/
 locale       nightly          sv-SE                                   chrome/locale/sv-SE/
