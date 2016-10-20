@@ -1,3 +1,14 @@
+3.9 / 2016-10-12
+==================
+  * Add Japanese (ja) locale (#226)
+  * Re-add import of AppConstants.jsm for SeaMonkey because it's not available by default (#224)
+  * Add Polish (pl) locale (#221)
+  * Updated maxVersions for applications (#220)
+  * Make use of crashme-simple (#210)
+  * Don't use undefined Cu shortcut (#216)
+  * Updated development section of readme and about:nightly (#181)
+  * Use comma between entries when copying the list of extensions (#195)
+
 3.8 / 2016-08-18
 ==================
 
