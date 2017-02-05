@@ -4,7 +4,7 @@
 
 <!-- Menu item labels and tooltips -->
 <!ENTITY nightly.openabout.label              "about:nightly を開く">
-<!ENTITY nightly.openprofile.label            "プロファイルフォルダを開く">
+<!ENTITY nightly.openprofile.label            "プロファイルフォルダーを開く">
 
 <!ENTITY nightly.id.copy.label                "ビルド ID をクリップボードにコピー">
 <!ENTITY nightly.id.insert.label              "ビルド ID をテキストボックスに挿入">
