@@ -394,7 +394,7 @@ insertExtensions: function() {
       nightly.getExtensionList(function(text) {
         var newpos = element.selectionStart + text.length;
         var value = element.value;
-        element.value = value.substring(0, element.selectionStart) + text.join(", ") +
+        element.value = value.substring(0, element.selectionStart) + text.join("\n") +
                         value.substring(element.selectionEnd);
         element.selectionStart = newpos;
         element.selectionEnd = newpos;
@@ -408,7 +408,7 @@ insertExtensions: function() {
 copyExtensions: function() {
   nightly.getExtensionList(function(text) {
     if (text)
-      nightly.copyText(text.join(", "));
+      nightly.copyText(text.join("\n"));
   });
 },
 
