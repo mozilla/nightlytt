@@ -1,0 +1,21 @@
+{
+  "extensionName": {
+    "message": "Nightly Tester Tools",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Useful tools for the nightly tester.",
+    "description": "Description of the extension."
+  },
+
+  "copyBuildInfo": {
+    "message": "Copy Build Info to Clipboard",
+    "description": ""
+  },
+
+  "insertBuildInfo": {
+    "message": "Insert Build Info into textbox",
+    "description": ""
+  }
+}

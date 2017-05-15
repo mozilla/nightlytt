@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "4.0",
+  "default_locale": "en",
+
+  "applications": { "gecko": { "id": "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}" } },
+
+  "icons": {
+    "64": "icon.png"
+  },
+
+  "background": {
+      "scripts": ["background.js"]
+  },
+
+  "permissions": [
+      "contextMenus",
+      "activeTab"
+  ]
+}
