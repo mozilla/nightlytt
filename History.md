@@ -1,3 +1,10 @@
+3.10 / 2017-05-16
+==================
+  * Update maxVersions of applications in install.rdf (#238)
+  * Only use comma separator for extension list in text fields (#230)
+  * Mark extension as multi-process compatible (#228)
+  * Update ja and ja-JP-mac translation (#233)
+
 3.9 / 2016-10-12
 ==================
   * Add Japanese (ja) locale (#226)
