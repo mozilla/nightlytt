@@ -15,20 +15,36 @@ variables: {
     return this._appInfo;
   },
 
+  get titleversion() { return this.tabtitle + ' - ' + this.vendor + ' ' + this.name + ' ' + this.versionchannel + ' (' + this.appbuildid + ')'; },
+  get defaulttitle() { return nightlyApp.defaultTitle; },
+  get tabtitle() { return nightlyApp.tabTitle; },
   get appid() this.appInfo.ID,
+  brandname: null,
   get vendor() {
     // Fix for vendor not being set in Mozilla Thunderbird
     return this.appInfo.name == "Thunderbird" && this.appInfo.vendor == "" ? "Mozilla" : this.appInfo.vendor;
   },
   get name() this.appInfo.name,
   get version() this.appInfo.version,
-  get appbuildid() this.appInfo.appBuildID,
-  get platformbuildid() this.appInfo.platformBuildID,
+  get versionpretty() { return nightly.makeVersionPretty(this.version); },
+  get displayversion() {
+    var ver = this.version;
+    try {
+      // The import is only required in Mozilla Thunderbird
+      Components.utils.import("resource://gre/modules/AppConstants.jsm");
+      if (AppConstants.MOZ_APP_VERSION_DISPLAY) { ver = AppConstants.MOZ_APP_VERSION_DISPLAY; }
+    }
+    catch (e) {}
+    return ver;
+  },
+  get channel() { return nightly.updateChannel(); },
+  get channelpretty() { return nightly.updateChannelPretty(); },
+  get betaversion() { return nightly.betaVersion(this.version, this.displayversion); },
+  get versionchannel() { return nightly.versionAndChannel(this.version, this.displayversion); },
   get platformversion() this.appInfo.platformVersion,
-  get geckobuildid() this.appInfo.platformBuildID,
-  get geckoversion() this.appInfo.platformVersion,
+  get platformbuildid() this.appInfo.platformBuildID,
+  get appbuildid() this.appInfo.appBuildID,
   get changeset() { return nightly.getChangeset(); },
-  brandname: null,
   get useragent() navigator.userAgent,
   get locale() {
     var registry = Components.classes["@mozilla.org/chrome/chrome-registry;1"]
@@ -38,11 +54,9 @@ variables: {
   get os() this.appInfo.OS,
   get processor() this.appInfo.XPCOMABI.split("-")[0],
   get compiler() this.appInfo.XPCOMABI.split(/-(.*)$/)[1],
-  get defaulttitle() { return nightlyApp.defaultTitle; },
-  get tabscount() { return nightlyApp.tabsCount; },
-  get tabtitle() { return nightlyApp.tabTitle; },
-  profile: null,
   toolkit: "cairo",
+  profile: null,
+  get tabscount() { return nightlyApp.tabsCount; },
   flags: ""
 },
 
@@ -257,6 +271,41 @@ parseHTML: function(url, callback) {
     }, 800);
   }, true);
   frame.contentDocument.location.href = url;
+},
+
+makeVersionPretty: function(ver) {
+  ver = ver.replace('0a2','0.0.0');
+  ver = ver.replace('0a1','0.0.0');
+  while (ver.match(new RegExp('\\.','g')).length < 3) { ver += '.0'; }
+  return ver;
+},
+updateChannel: function() {
+  return Services.prefs.getCharPref("app.update.channel");
+},
+updateChannelPretty: function() {
+  var channel = nightly.updateChannel();
+  if (channel == 'release') { channel = 'Release' }
+  else if (channel == 'esr') { channel = 'ESR' }
+  else if (channel == 'beta') { channel = 'beta' }
+  else if (channel == 'aurora') { channel = 'Aurora' }
+  else if (channel == 'nightly') { channel = 'Nighty' }
+  else if (channel == 'default') { channel = 'Default' }
+  else channel = '';
+  return channel;
+},
+betaVersion: function(ver, displayversion) {
+  var beta = displayversion.replace(ver + 'b','');
+  if (beta == displayversion) { beta = ''; };
+  return beta;
+},
+versionAndChannel: function(ver, displayversion) {
+  var channel = nightly.updateChannelPretty();
+  var beta = nightly.betaVersion(ver, displayversion);
+  if (channel == 'Release' || channel == 'Default') { channel = ''; }
+  if (channel == 'beta' && beta != '') { channel += ' ' + beta; }
+  ver = nightly.makeVersionPretty(ver);
+  if (channel != '') { ver += ' ' + channel; }
+  return ver;
 },
 
 pastebinAboutSupport: function() {
