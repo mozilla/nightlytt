@@ -94,6 +94,7 @@ init: function(aEvent)
   paneTitle.addVariable("Name");
   paneTitle.addVariable("OS");
   paneTitle.addVariable("PlatformBuildID");
+  paneTitle.addVariable("PlatformChangeset");
   paneTitle.addVariable("PlatformVersion");
   paneTitle.addVariable("Processor");
   paneTitle.addVariable("Profile");
