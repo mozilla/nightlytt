@@ -10,6 +10,11 @@ toolbar[iconsize="small"] #nightly-tester-enter {
   list-style-image: url("chrome://nightly/skin/idsmall.png");
 }
 
-.popup-notification-icon[popupid="nightly-compatibility-restart"] {
+.popup-notification-icon[popupid="nightly-compatibility-restart"],
+.popup-notification-icon[popupid="nightly-pastebin-error"] {
   list-style-image: url("chrome://nightly/content/brand/logo.png");
+}
+
+#nightly-aboutsupport[loading="true"] {
+  list-style-image: url("chrome://global/skin/icons/loading.png") !important;
 }
