@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "nightly 测试者的实用工具集。"
+  },
+  "copy_build_info": {
+    "message": "复制 Build ID 到剪贴板"
+  },
+  "insert_build_info": {
+    "message": "插入 Build ID 到文本框"
+  },
+  "insert_build_info_context": {
+    "message": "插入 Build ID"
+  },
+  "copy_extension_list": {
+    "message": "复制扩展列表到剪贴板"
+  },
+  "insert_extension_list": {
+    "message": "插入扩展列表到文本框"
+  },
+  "insert_extension_list_context": {
+    "message": "插入扩展列表"
+  },
+  "open_options_page": {
+    "message": "选项…"
+  },
+  "customize_title": {
+    "message": "定制标题栏"
+  },
+  "enable_custom_title": {
+    "message": "使用自定义标题"
+  },
+  "custom_template": {
+    "message": "自定义标题模板："
+  },
+  "variable_table_caption": {
+    "message": "下列变量可以用在标题中(大小写敏感)。"
+  },
+  "variable_key": {
+    "message": "变量"
+  },
+  "variable_desc": {
+    "message": "描述"
+  },
+  "variable_value": {
+    "message": "值"
+  },
+  "variable_AppID": {
+    "message": "应用程序标识符"
+  },
+  "variable_Vendor": {
+    "message": "应用程序供应商"
+  },
+  "variable_Name": {
+    "message": "应用程序名称"
+  },
+  "variable_Version": {
+    "message": "应用程序版本"
+  },
+  "variable_AppBuildID": {
+    "message": "应用程序构建标识符"
+  },
+  "variable_Changeset": {
+    "message": "由此变更集构建"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Gecko 平台构建标识符"
+  },
+  "variable_PlatformVersion": {
+    "message": "Gecko 平台版本"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Gecko 构建标识符"
+  },
+  "variable_GeckoVersion": {
+    "message": "Gecko 版本"
+  },
+  "variable_BrandName": {
+    "message": "应用程序商标名称"
+  },
+  "variable_UserAgent": {
+    "message": "用户代理字符串"
+  },
+  "variable_Locale": {
+    "message": "当前语言区域"
+  },
+  "variable_OS": {
+    "message": "编译操作系统"
+  },
+  "variable_Processor": {
+    "message": "编译处理器"
+  },
+  "variable_Compiler": {
+    "message": "编译器"
+  },
+  "variable_DefaultTitle": {
+    "message": "默认应用程序标题"
+  },
+  "variable_TabTitle": {
+    "message": "当前标签标题"
+  },
+  "variable_Profile": {
+    "message": "当前配置文件"
+  },
+  "variable_Toolkit": {
+    "message": "图形工具包"
+  },
+  "variable_TabsCount": {
+    "message": "Count of visible tabs"
+  }
+}

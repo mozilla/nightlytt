@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "Użyteczne narzędzia dla testerów wersji Nightly."
+  },
+  "copy_build_info": {
+    "message": "Kopiuj identyfikator kompilacji do schowka"
+  },
+  "insert_build_info": {
+    "message": "Wstaw identyfikator kompilacji do pola tekstowego"
+  },
+  "insert_build_info_context": {
+    "message": "Wstaw identyfikator kompilacji"
+  },
+  "copy_extension_list": {
+    "message": "Kopiuj listę rozszerzeń do schowka"
+  },
+  "insert_extension_list": {
+    "message": "Wstaw listę rozszerzeń do pola tekstowego"
+  },
+  "insert_extension_list_context": {
+    "message": "Wstaw listę rozszerzeń"
+  },
+  "open_options_page": {
+    "message": "Opcje…"
+  },
+  "customize_title": {
+    "message": "Dostosuj pasek tytułu"
+  },
+  "enable_custom_title": {
+    "message": "Własny tytuł"
+  },
+  "custom_template": {
+    "message": "Szablon tytułu:"
+  },
+  "variable_table_caption": {
+    "message": "Następujące zmienne mogą być użyte w tytule (wielkość liter nie ma znaczenia)."
+  },
+  "variable_key": {
+    "message": "Zmienna"
+  },
+  "variable_desc": {
+    "message": "Opis"
+  },
+  "variable_value": {
+    "message": "Wartość"
+  },
+  "variable_AppID": {
+    "message": "Identyfikator aplikacji"
+  },
+  "variable_Vendor": {
+    "message": "Organizacja"
+  },
+  "variable_Name": {
+    "message": "Nazwa"
+  },
+  "variable_Version": {
+    "message": "Wersja"
+  },
+  "variable_AppBuildID": {
+    "message": "Identyfikator kompilacji"
+  },
+  "variable_Changeset": {
+    "message": "Rewizja kompilacji"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Identyfikator kompilacji platformy Gecko"
+  },
+  "variable_PlatformVersion": {
+    "message": "Wersja platformy Gecko"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Identyfikator kompilacji Gecko"
+  },
+  "variable_GeckoVersion": {
+    "message": "Wersja Gecko"
+  },
+  "variable_BrandName": {
+    "message": "Nazwa wersji"
+  },
+  "variable_UserAgent": {
+    "message": "Identyfikator programu"
+  },
+  "variable_Locale": {
+    "message": "Wersja językowa"
+  },
+  "variable_OS": {
+    "message": "System kompilacji"
+  },
+  "variable_Processor": {
+    "message": "Procesor kompilacji"
+  },
+  "variable_Compiler": {
+    "message": "Kompilator"
+  },
+  "variable_DefaultTitle": {
+    "message": "Domyślny tytuł"
+  },
+  "variable_TabTitle": {
+    "message": "Tytuł karty"
+  },
+  "variable_Profile": {
+    "message": "Profil"
+  },
+  "variable_Toolkit": {
+    "message": "Grafika"
+  },
+  "variable_TabsCount": {
+    "message": "Liczba widocznych kart"
+  }
+}

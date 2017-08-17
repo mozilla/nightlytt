@@ -1,44 +1,70 @@
 # Nightly Tester Tools
-Nightly Tester Tools is an addon for aiding testers of nightly builds of Mozilla apps like Firefox and Thunderbird. Some features are:
 
-* Copy Build ID to Clipboard
-* Copy List of Extensions to Clipboard
-* Copy about:support to Pastebin
-* Open Profile Folder
-* Open Pushlog
-* Screenshots utility
-* Title bar customization
+Nightly Tester Tools (NTT) is an add-on for aiding testers of Nightly builds of Mozilla apps including Firefox.
+
+<img src="screenshot.png" alt="Screenshot" width="400" height="300">
+
+## Features
+
+* Copy the build ID or list of extensions to the clipboard using the toolbar button
+* Insert the build ID or list of extensions into a textbox using the context menu
+* Option to customize the Title Bar
+
+## Limitations
+
+There are a couple of known issues due to the limited [WebExtensions APIs](https://developer.mozilla.org/Add-ons/WebExtensions/API):
+
+* The changeset cannot be retrieved
+* The extension list does not include system add-ons
+* Some variables are not available for the custom title template
+
+The following features found in the original XUL-based extension are not yet implemented, and some of them may not be implemented again:
+
+* Copy `about:support` to Pastebin
+* Open the profile folder (Use `about:support` or `about:profile` page instead to open it)
+* Open the pushlog
+* Screenshot utility (Use [Firefox Screenshots](https://support.mozilla.org/kb/firefox-screenshots) instead)
 * Crash options
-* Extension compatibility fixing
+* Extension compatibility fixer
+* Menu items under Tools
 
-# Install
-You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/nightly-tester-tools/). To install for development, clone the repo:
+## Compatibility
 
-    git clone git://github.com/mozilla/nightlytt.git
+The current WebExtension version is only compatible with Firefox. Use legacy [version 3.10](https://addons.mozilla.org/firefox/addon/nightly-tester-tools/versions/3.10) for Thunderbird and SeaMonkey.
 
-then add a file titled '{8620c15f-30dc-4dba-a131-7c5d20cf4a29}' to the "extensions" directory in your [profile folder](http://kb.mozillazine.org/Profile_folder) with the text:
+## Install
 
-    ~/nightlytt/
+You can install the latest stable NTT from [addons.mozilla.org](https://addons.mozilla.org/firefox/addon/nightly-tester-tools/).
 
-or whatever the path to your nightlytt folder is.
+To install for development, clone the repo:
 
-To package the extension into an xpi for distribution simply `ant` and the default dev script/target will be invoked:
+```
+git clone git://github.com/mozilla/nightlytt.git
+```
 
-    ant
+Install the [`web-ext` command line tool](https://developer.mozilla.org/Add-ons/WebExtensions/Getting_started_with_web-ext):
 
-You can override the build number used in the filename:
+```
+npm install --global web-ext
+```
 
-    ant -Dbuild.number=1
+To test with Firefox:
 
-To build for release (no build number in filename):
+```
+web-ext run -s extension
+```
 
-    ant release
+To build for release:
+```
+web-ext build -s extension
+```
 
-# Development
+You can also [temporarily install the extension](https://developer.mozilla.org/Add-ons/WebExtensions/Temporary_Installation_in_Firefox) in your Firefox without having to use `web-ext`.
+
+## Development
+
 All bugs and feature requests are filed in the Nightly Tester Tools project at GitHub. You can [view the list of open issues](https://github.com/mozilla/nightlytt/issues), or you can [file a new issue](https://github.com/mozilla/nightlytt/issues/new). Check out [the wiki](https://wiki.mozilla.org/Auto-tools/Projects/NightlyTesterTools) for a list of current and proposed features and feel free to file bugs and submit patches.
 
-This project uses [.editorconfig](http://editorconfig.org/#overview), which sets defaults for the formatting of the code. So enjoy the use of [compatible editor](http://editorconfig.org/#download). Just download and install the corresponding plugin.
+This project uses [`.editorconfig`](http://editorconfig.org/#overview), which sets defaults for the formatting of the code. So enjoy the use of [compatible editor](http://editorconfig.org/#download). Just download and install the corresponding plugin.
 
-# Related Add-ons
-* [Add-on Compatibility Reporter](https://addons.mozilla.org/en-US/firefox/addon/add-on-compatibility-reporter/)
-* [Screengrab (fix version)](https://addons.mozilla.org/en-US/firefox/addon/screengrab-fix-version/)
+Also, it's encouraged to use the `web-ext lint` command to [check the code](https://developer.mozilla.org/Add-ons/WebExtensions/Getting_started_with_web-ext#Checking_for_code_lint).
