@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "Användbara verktyg för Nightly-testaren."
+  },
+  "copy_build_info": {
+    "message": "Kopiera byggets ID till Urklipp"
+  },
+  "insert_build_info": {
+    "message": "Infoga byggets ID i textruta"
+  },
+  "insert_build_info_context": {
+    "message": "Infoga byggets ID"
+  },
+  "copy_extension_list": {
+    "message": "Kopiera lista över tillägg till Urklipp"
+  },
+  "insert_extension_list": {
+    "message": "Infoga lista över tillägg i textruta"
+  },
+  "insert_extension_list_context": {
+    "message": "Infoga lista över tillägg"
+  },
+  "open_options_page": {
+    "message": "Alternativ…"
+  },
+  "customize_title": {
+    "message": "Anpassa namnlisten"
+  },
+  "enable_custom_title": {
+    "message": "Använd egen rubrik"
+  },
+  "custom_template": {
+    "message": "Mall för egen rubrik:"
+  },
+  "variable_table_caption": {
+    "message": "Följande variabler kan användas i rubriken (ej skiftlägeskänsligt)."
+  },
+  "variable_key": {
+    "message": "Variabel"
+  },
+  "variable_desc": {
+    "message": "Beskrivning"
+  },
+  "variable_value": {
+    "message": "Värde"
+  },
+  "variable_AppID": {
+    "message": "Programmets identifierare"
+  },
+  "variable_Vendor": {
+    "message": "Programmets leverantör"
+  },
+  "variable_Name": {
+    "message": "Programmets namn"
+  },
+  "variable_Version": {
+    "message": "Programversion"
+  },
+  "variable_AppBuildID": {
+    "message": "Programbyggets identifierare"
+  },
+  "variable_Changeset": {
+    "message": "Byggt utifrån den här ändringsuppsättningen"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Gecko-plattformsbyggets identifierare"
+  },
+  "variable_PlatformVersion": {
+    "message": "Gecko-plattformens version"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Geckobyggets identifierare"
+  },
+  "variable_GeckoVersion": {
+    "message": "Geckoversion"
+  },
+  "variable_BrandName": {
+    "message": "Programmets märkesnamn"
+  },
+  "variable_UserAgent": {
+    "message": "Sträng för användaragenten"
+  },
+  "variable_Locale": {
+    "message": "Aktuell språkkonvention"
+  },
+  "variable_OS": {
+    "message": "Kompileringens operativsystem"
+  },
+  "variable_Processor": {
+    "message": "Kompileringsprocessor"
+  },
+  "variable_Compiler": {
+    "message": "Kompilerare"
+  },
+  "variable_DefaultTitle": {
+    "message": "Standardprogramrubrik"
+  },
+  "variable_TabTitle": {
+    "message": "Rubrik för aktuell flik"
+  },
+  "variable_Profile": {
+    "message": "Aktuell profil"
+  },
+  "variable_Toolkit": {
+    "message": "Grafikverktyg"
+  },
+  "variable_TabsCount": {
+    "message": "Count of visible tabs"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "開発版のテスト利用者のための有用なツールを提供します"
+  },
+  "copy_build_info": {
+    "message": "ビルド ID をクリップボードにコピー"
+  },
+  "insert_build_info": {
+    "message": "ビルド ID をテキストボックスに挿入"
+  },
+  "insert_build_info_context": {
+    "message": "ビルド ID を挿入"
+  },
+  "copy_extension_list": {
+    "message": "アドオンの一覧をクリップボードにコピー"
+  },
+  "insert_extension_list": {
+    "message": "アドオンの一覧をテキストボックスに挿入"
+  },
+  "insert_extension_list_context": {
+    "message": "アドオンの一覧を挿入"
+  },
+  "open_options_page": {
+    "message": "オプション..."
+  },
+  "customize_title": {
+    "message": "タイトルバーのカスタマイズ"
+  },
+  "enable_custom_title": {
+    "message": "カスタマイズしたタイトルを使用する"
+  },
+  "custom_template": {
+    "message": "書式"
+  },
+  "variable_table_caption": {
+    "message": "タイトルには以下の変数が使用できます (大文字小文字は区別しません)"
+  },
+  "variable_key": {
+    "message": "変数"
+  },
+  "variable_desc": {
+    "message": "説明"
+  },
+  "variable_value": {
+    "message": "現在の値"
+  },
+  "variable_AppID": {
+    "message": "アプリケーション ID"
+  },
+  "variable_Vendor": {
+    "message": "アプリケーションのベンダー"
+  },
+  "variable_Name": {
+    "message": "アプリケーションの名称"
+  },
+  "variable_Version": {
+    "message": "アプリケーションのバージョン"
+  },
+  "variable_AppBuildID": {
+    "message": "アプリケーションのビルド ID"
+  },
+  "variable_Changeset": {
+    "message": "ビルド元のチェンジセット"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Gecko プラットフォームのビルド ID"
+  },
+  "variable_PlatformVersion": {
+    "message": "Gecko プラットフォームのバージョン"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Gecko のビルド ID"
+  },
+  "variable_GeckoVersion": {
+    "message": "Gecko のバージョン"
+  },
+  "variable_BrandName": {
+    "message": "アプリケーションのブランド名"
+  },
+  "variable_UserAgent": {
+    "message": "ユーザーエージェント文字列"
+  },
+  "variable_Locale": {
+    "message": "現在の言語"
+  },
+  "variable_OS": {
+    "message": "コンパイルの対象 OS"
+  },
+  "variable_Processor": {
+    "message": "コンパイルの対象プロセッサー"
+  },
+  "variable_Compiler": {
+    "message": "コンパイラー"
+  },
+  "variable_DefaultTitle": {
+    "message": "現在のアプリケーションのタイトル"
+  },
+  "variable_TabTitle": {
+    "message": "現在のタブのタイトル"
+  },
+  "variable_Profile": {
+    "message": "現在のプロファイル"
+  },
+  "variable_Toolkit": {
+    "message": "グラフィックツールキット"
+  },
+  "variable_TabsCount": {
+    "message": "表示されたタブの数"
+  }
+}

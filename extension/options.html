@@ -1,0 +1,45 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      div { padding: 8px; }
+      div:not(:first-of-type) { border-top: 1px solid #C1C1C1; }
+      table { border-collapse: collapse; table-layout: fixed; }
+      caption { margin-bottom: 8px; }
+      tbody tr:hover { background-color: #EBEBEB; }
+      th, td { border: 1px solid #C1C1C1; padding: 4px 8px; }
+    </style>
+  </head>
+  <body>
+    <form>
+      <h2 data-i18n="customize_title"></h2>
+      <div class="browser-style">
+        <input id="enable_custom_title" type="checkbox">
+        <label for="enable_custom_title" data-i18n="enable_custom_title"></label>
+      </div>
+      <div class="browser-style">
+        <label for="custom_template" data-i18n="custom_template"></label>
+        <input id="custom_template" type="text" size="50">
+      </div>
+      <div class="browser-style">
+        <table>
+          <caption data-i18n="variable_table_caption"></caption>
+          <thead>
+            <tr>
+              <th data-i18n="variable_key"></th>
+              <th data-i18n="variable_desc"></th>
+              <th data-i18n="variable_value"></th>
+            </tr>
+          </thead>
+          <tbody id="variable_tbody"></tbody>
+        </table>
+      </div>
+    </form>
+    <script src="shared.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

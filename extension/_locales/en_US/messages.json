@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "Useful tools for the nightly tester."
+  },
+  "copy_build_info": {
+    "message": "Copy Build ID to Clipboard"
+  },
+  "insert_build_info": {
+    "message": "Insert Build ID into Textbox"
+  },
+  "insert_build_info_context": {
+    "message": "Insert Build ID"
+  },
+  "copy_extension_list": {
+    "message": "Copy List of Extensions to Clipboard"
+  },
+  "insert_extension_list": {
+    "message": "Insert List of Extensions into Textbox"
+  },
+  "insert_extension_list_context": {
+    "message": "Insert List of Extensions"
+  },
+  "open_options_page": {
+    "message": "Options…"
+  },
+  "customize_title": {
+    "message": "Customize Title Bar"
+  },
+  "enable_custom_title": {
+    "message": "Use custom title"
+  },
+  "custom_template": {
+    "message": "Custom title template:"
+  },
+  "variable_table_caption": {
+    "message": "The following variables can be used in the title (case insensitive)."
+  },
+  "variable_key": {
+    "message": "Variable"
+  },
+  "variable_desc": {
+    "message": "Description"
+  },
+  "variable_value": {
+    "message": "Value"
+  },
+  "variable_AppID": {
+    "message": "Application Identifier"
+  },
+  "variable_Vendor": {
+    "message": "Application Vendor"
+  },
+  "variable_Name": {
+    "message": "Application Name"
+  },
+  "variable_Version": {
+    "message": "Application Version"
+  },
+  "variable_AppBuildID": {
+    "message": "Application Build Identifier"
+  },
+  "variable_Changeset": {
+    "message": "Built from that changeset"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Gecko Platform Build Identifier"
+  },
+  "variable_PlatformVersion": {
+    "message": "Gecko Platform Version"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Gecko Build Identifier"
+  },
+  "variable_GeckoVersion": {
+    "message": "Gecko Version"
+  },
+  "variable_BrandName": {
+    "message": "Application Brand Name"
+  },
+  "variable_UserAgent": {
+    "message": "User Agent String"
+  },
+  "variable_Locale": {
+    "message": "Current Locale"
+  },
+  "variable_OS": {
+    "message": "Compilation OS"
+  },
+  "variable_Processor": {
+    "message": "Compilation Processor"
+  },
+  "variable_Compiler": {
+    "message": "Compiler"
+  },
+  "variable_DefaultTitle": {
+    "message": "Default Application Title"
+  },
+  "variable_TabTitle": {
+    "message": "Current Tab's Title"
+  },
+  "variable_Profile": {
+    "message": "Current Profile"
+  },
+  "variable_Toolkit": {
+    "message": "Graphics Toolkit"
+  },
+  "variable_TabsCount": {
+    "message": "Count of visible tabs"
+  }
+}

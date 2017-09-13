@@ -1,3 +1,7 @@
+4.0 / TBD
+==================
+  * Rewrite extension to use the WebExtension API since the legacy XUL format is no longer supported (#235)
+
 3.10 / 2017-05-16
 ==================
   * Update maxVersions of applications in install.rdf (#238)

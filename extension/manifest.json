@@ -1,0 +1,51 @@
+{
+  "manifest_version": 2,
+  "applications": {
+      "gecko": {
+        "id": "{8620c15f-30dc-4dba-a131-7c5d20cf4a29}",
+        "strict_min_version": "56.0"
+      }
+  },
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__",
+  "version": "4.0pre20170912",
+  "author": "Automation Development, Kohei Yoshino",
+  "homepage_url": "https://wiki.mozilla.org/QA/Automation/Projects/Addons/NightlyTesterTools",
+  "default_locale": "en_US",
+  "permissions": [
+    "clipboardWrite",
+    "management",
+    "menus",
+    "storage",
+    "tabs"
+  ],
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    },
+    "default_title": "__MSG_extension_name__",
+    "default_popup": "menu.html"
+  },
+  "options_ui": {
+    "browser_style": true,
+    "page": "options.html"
+  },
+  "background": {
+    "scripts": [
+      "shared.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "Полезные инструменты nightly-тестера."
+  },
+  "copy_build_info": {
+    "message": "Копировать Build ID в буфер обмена"
+  },
+  "insert_build_info": {
+    "message": "Вставить Build ID в текстовое поле"
+  },
+  "insert_build_info_context": {
+    "message": "Вставить Build ID"
+  },
+  "copy_extension_list": {
+    "message": "Копировать список расширений в буфер обмена"
+  },
+  "insert_extension_list": {
+    "message": "Вставить список расширений в текстовое поле"
+  },
+  "insert_extension_list_context": {
+    "message": "Вставить список расширений"
+  },
+  "open_options_page": {
+    "message": "Настройки…"
+  },
+  "customize_title": {
+    "message": "Настроить заголовок"
+  },
+  "enable_custom_title": {
+    "message": "Использовать свой заголовок"
+  },
+  "custom_template": {
+    "message": "Шаблон заголовка:"
+  },
+  "variable_table_caption": {
+    "message": "Следующие переменные могут быть использованы в заголовке (регистронезависимо)."
+  },
+  "variable_key": {
+    "message": "Переменная"
+  },
+  "variable_desc": {
+    "message": "Описание"
+  },
+  "variable_value": {
+    "message": "Значение"
+  },
+  "variable_AppID": {
+    "message": "Идентификатор приложения"
+  },
+  "variable_Vendor": {
+    "message": "Поставщик приложения"
+  },
+  "variable_Name": {
+    "message": "Имя приложения"
+  },
+  "variable_Version": {
+    "message": "Версия приложения"
+  },
+  "variable_AppBuildID": {
+    "message": "Идентификатор сборки приложения"
+  },
+  "variable_Changeset": {
+    "message": "Собрано из этого changeset"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Идентификатор сборки платформы Gecko"
+  },
+  "variable_PlatformVersion": {
+    "message": "Версия платформы Gecko"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Идентификатор сборки Gecko"
+  },
+  "variable_GeckoVersion": {
+    "message": "Версия Gecko"
+  },
+  "variable_BrandName": {
+    "message": "Имя бренда приложения"
+  },
+  "variable_UserAgent": {
+    "message": "User Agent String"
+  },
+  "variable_Locale": {
+    "message": "Текущая локаль"
+  },
+  "variable_OS": {
+    "message": "Целевая ОСь"
+  },
+  "variable_Processor": {
+    "message": "Целевой процессор"
+  },
+  "variable_Compiler": {
+    "message": "Компилятор"
+  },
+  "variable_DefaultTitle": {
+    "message": "Заголовок по-умолчанию"
+  },
+  "variable_TabTitle": {
+    "message": "Заголовок текущей вкладки"
+  },
+  "variable_Profile": {
+    "message": "Текущий профиль"
+  },
+  "variable_Toolkit": {
+    "message": "Graphics Toolkit"
+  },
+  "variable_TabsCount": {
+    "message": "Количество видимых вкладок"
+  }
+}
