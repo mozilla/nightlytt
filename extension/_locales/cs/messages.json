@@ -1,0 +1,113 @@
+{
+  "extension_name": {
+    "message": "Nightly Tester Tools"
+  },
+  "extension_description": {
+    "message": "Šikovné nástroje pro testování nočních verzí."
+  },
+  "copy_build_info": {
+    "message": "Zkopírovat ID sestavení do schránky"
+  },
+  "insert_build_info": {
+    "message": "Vložit ID sestavení do textového pole"
+  },
+  "insert_build_info_context": {
+    "message": "Vložit ID sestavení"
+  },
+  "copy_extension_list": {
+    "message": "Zkopírovat seznamu rozšíření do schránky"
+  },
+  "insert_extension_list": {
+    "message": "Vložit seznam rozšíření do textového pole"
+  },
+  "insert_extension_list_context": {
+    "message": "Vložit seznam rozšíření"
+  },
+  "open_options_page": {
+    "message": "Možnosti…"
+  },
+  "customize_title": {
+    "message": "Přizpůsobit hlavičku okna"
+  },
+  "enable_custom_title": {
+    "message": "Použít vlastní nadpis"
+  },
+  "custom_template": {
+    "message": "Vlastní šablona nadpisu:"
+  },
+  "variable_table_caption": {
+    "message": "V nadpisu můžete použít následující (nerozlišuje se velikost písmen)."
+  },
+  "variable_key": {
+    "message": "Proměnná"
+  },
+  "variable_desc": {
+    "message": "Popis"
+  },
+  "variable_value": {
+    "message": "Hodnota"
+  },
+  "variable_AppID": {
+    "message": "Identifikátor aplikace"
+  },
+  "variable_Vendor": {
+    "message": "Autor aplikace"
+  },
+  "variable_Name": {
+    "message": "Název aplikace"
+  },
+  "variable_Version": {
+    "message": "Verze aplikace"
+  },
+  "variable_AppBuildID": {
+    "message": "Identifikátor sestavení aplikace"
+  },
+  "variable_Changeset": {
+    "message": "Sestaveno z tohoto changesetu"
+  },
+  "variable_PlatformBuildID": {
+    "message": "Identifikátor sestavení platformy Gecko"
+  },
+  "variable_PlatformVersion": {
+    "message": "Verze platformy Gecko"
+  },
+  "variable_GeckoBuildID": {
+    "message": "Identifikátor sestavení Gecka"
+  },
+  "variable_GeckoVersion": {
+    "message": "Verze Gecka"
+  },
+  "variable_BrandName": {
+    "message": "Název brandu aplikace"
+  },
+  "variable_UserAgent": {
+    "message": "User Agent"
+  },
+  "variable_Locale": {
+    "message": "Současný jazyk"
+  },
+  "variable_OS": {
+    "message": "OS kompilace"
+  },
+  "variable_Processor": {
+    "message": "Procesor kompilace"
+  },
+  "variable_Compiler": {
+    "message": "Kompilátor"
+  },
+  "variable_DefaultTitle": {
+    "message": "Výchozí nadpis aplikace"
+  },
+  "variable_TabTitle": {
+    "message": "Nadpis současného panelu"
+  },
+  "variable_Profile": {
+    "message": "Současný profil"
+  },
+  "variable_Toolkit": {
+    "message": "Sada grafických nástrojů"
+  },
+  "variable_TabsCount": {
+    "message": "Počet viditelných panelů"
+  }
+}
