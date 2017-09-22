@@ -27,7 +27,7 @@
     "message": "选项…"
   },
   "customize_title": {
-    "message": "定制标题栏"
+    "message": "自定义标题栏"
   },
   "enable_custom_title": {
     "message": "使用自定义标题"
@@ -36,7 +36,7 @@
     "message": "自定义标题模板："
   },
   "variable_table_caption": {
-    "message": "下列变量可以用在标题中(大小写敏感)。"
+    "message": "下列变量可以在标题中使用（大小写敏感）。"
   },
   "variable_key": {
     "message": "变量"
@@ -108,6 +108,6 @@
     "message": "图形工具包"
   },
   "variable_TabsCount": {
-    "message": "Count of visible tabs"
+    "message": "可见标签页数量"
   }
 }
