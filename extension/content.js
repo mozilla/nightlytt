@@ -8,10 +8,13 @@
  */
 const handle_command = message => {
   const $active = document.activeElement;
-  const is_textbox = 'placeholder' in $active && !$active.readOnly;
 
-  if (message.command === 'insert_to_textbox' && is_textbox) {
-    $active.value += ($active.value.length ? ' ' : '') + message.value;
+  if (message.command === 'insert_to_textbox') {
+    if ('placeholder' in $active && !$active.readOnly) {
+      $active.value += ($active.value.length ? ' ' : '') + message.value;
+    } else if ($active.isContentEditable) {
+      $active.textContent += ($active.textContent.length ? ' ' : '') + message.value;
+    }
   }
 };
 

@@ -16,6 +16,7 @@ There are a couple of known issues due to the limited [WebExtensions APIs](https
 
 * The changeset cannot be retrieved
 * The extension list does not include system add-ons
+* The textbox inserting options don't work on [some Mozilla sites](https://bugzilla.mozilla.org/show_bug.cgi?id=1310082) (including AMO due to a security restriction) as well as with a [textbox within an iframe](https://bugzilla.mozilla.org/show_bug.cgi?id=1405723) and certain rich text editors
 * Some variables are not available for the custom title template
 
 The following features found in the original XUL-based extension are not yet implemented, and some of them may not be implemented again:
