@@ -1,6 +1,8 @@
-4.0 / TBD
+4.0 / 2017-10-09
 ==================
   * Rewrite extension to use the WebExtension API since the legacy XUL format is no longer supported (#235)
+  * Add Czech (cs) locale (#242)
+  * Update Simplified Chinese (zh_CN) locale (#252)
 
 3.10 / 2017-05-16
 ==================
